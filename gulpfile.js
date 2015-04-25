@@ -97,7 +97,7 @@ gulp.task('copylibjs', ['clean'], function () {
     .on('error', gutil.log);
 });
 
-gulp.task('compilejs', ['jscs', 'clean'], function () {
+gulp.task('compilejs', ['jscs', 'jshint' ,'clean'], function () {
   var bundler = browserify({
     cache: {}, packageCache: {}, fullPaths: true,
     entries: [paths.entry],
@@ -113,8 +113,6 @@ gulp.task('compilejs', ['jscs', 'clean'], function () {
     return bundler
       .bundle()
       .pipe(source('js/main.min.js'))
-      .pipe(jshint('.jshintrc'))
-      .pipe(jshint.reporter('default'))
       .pipe(gulpif(!watching, streamify(uglify({outSourceMaps: false}))))
       .pipe(gulp.dest(paths.dist))
       .on('error', gutil.log);
@@ -128,14 +126,21 @@ gulp.task('compilejs', ['jscs', 'clean'], function () {
   return bundlee();
 });
 
+gulp.task('jshint', function() {
+  return gulp.src(paths.js)
+    .pipe(jshint('.jshintrc'))
+    .pipe(jshint.reporter('default'))
+    .on('error', gutil.log);
+});
+
 gulp.task('jscs', function() {
-  gulp.src(paths.js)
+  return gulp.src(paths.js)
     .pipe(jscs())
     .on('error', gutil.log);
 });
 
 gulp.task('compileless', ['clean'], function () {
-  gulp.src(paths.less)
+  return gulp.src(paths.less)
     .pipe(sourcemaps.init())
     .pipe(less())
     .pipe(concat('css/main.css'))
@@ -150,7 +155,7 @@ gulp.task('compileless', ['clean'], function () {
 });
 
 gulp.task('compilejade', ['clean'], function() {
-  gulp.src(paths.jade)
+  return gulp.src(paths.jade)
     .pipe(concat('index.html'))
     .pipe(jade({
       pretty: watching
@@ -161,7 +166,7 @@ gulp.task('compilejade', ['clean'], function() {
 });
 
 gulp.task('html', ['build'], function(){
-  gulp.src('dist/*.html')
+  return gulp.src('dist/*.html')
     .pipe(connect.reload())
     .on('error', gutil.log);
 });

@@ -32,7 +32,8 @@
     "vinyl-source-stream": "*",
     "watchify": "*",
     "gulp-open": "~0.3.2",
-    "gulp-jscs": "~1.5.1"
+    "gulp-jscs": "~1.5.1",
+    "jscs": "*"
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",

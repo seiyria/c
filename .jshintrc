@@ -22,8 +22,7 @@
   "strict": false,
   "debug": true,
   "globals": {
-    "Phaser": false,
-    "Chance": false,
+    "angular": false,
     "require": false,
     "module": false,
     "_": false
