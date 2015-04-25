@@ -1,0 +1,15 @@
+{
+  "disallowEmptyBlocks": true,
+  "disallowFunctionDeclarations": true,
+  "disallowKeywordsOnNewLine": ["else"],
+  "disallowMultipleVarDecl": true,
+  "disallowNewlineBeforeBlockStatements": true,
+  "disallowTrailingComma": true,
+  "requireDotNotation": true,
+  "requireSemicolons": true,
+  "requireSpaceBeforeObjectValues": true,
+  "requireSpaceBetweenArguments": true,
+  "requireSpacesInForStatement": true,
+  "validateQuoteMarks": "'",
+  "esnext": true
+}
