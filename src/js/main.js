@@ -5,6 +5,7 @@ var gameTimer = require('./gametimer');
 var gainCalculator = require('./gaincalculator');
 var functionBuilder = require('./functionbuilder');
 var animatedFlyTip = require('./animatedflytip');
+var favico = require('./favico');
 
 angular.module('c', ['ui.bootstrap'])
 
@@ -13,6 +14,8 @@ angular.module('c', ['ui.bootstrap'])
   .constant('Version', '0.0.1')
 
   .constant('DumpState', {'Basic Layout': 2,'Scoreboard': 1,'Function': 1,'Basic Timer': 2,'Basic Iteration': 3,'Basic Boost': 3,'Preformatting': 1,'Visual Countdown': 1,'Page Title': 1,'Better Page Title': 1,'Better Layout': 2,'Basic Style': 1,'Number Formatting': 1})
+
+  .service('favico', favico)
 
   .service('AnimatedFlyTip', animatedFlyTip)
 
@@ -25,8 +28,8 @@ angular.module('c', ['ui.bootstrap'])
   .service('FunctionBuilder', functionBuilder)
 
   .controller('Game', [
-    '$scope', '$window', '$interval', 'GameState', 'GameTimer', 'FunctionBuilder', 'Upgrades',
-    function($scope, $window, $interval, GameState, GameTimer, FunctionBuilder, UPGRADES) {
+    '$scope', '$window', '$interval', 'GameState', 'GameTimer', 'FunctionBuilder', 'Upgrades', 'favico',
+    function($scope, $window, $interval, GameState, GameTimer, FunctionBuilder, UPGRADES, favico) {
 
       $scope.hasUpgrade = function(key, level = 0) {
         return GameState.upgrade.has(key, level);
@@ -78,6 +81,15 @@ angular.module('c', ['ui.bootstrap'])
 
         if($scope.hasUpgrade('Alphabetized Upgrades')) {
           allRet = _.sortByOrder(allRet, ['name', 'level'], [true, true]);
+        }
+
+        if($scope.hasUpgrade('Best Favicon')) {
+          var buyableUpgrades = _.filter(allRet, item => item.cost < $scope._units).length;
+          if(buyableUpgrades > 0) {
+            favico.badge(buyableUpgrades);
+          } else {
+            favico.reset();
+          }
         }
 
         return allRet;

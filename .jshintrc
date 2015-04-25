@@ -25,6 +25,7 @@
     "angular": false,
     "require": false,
     "module": false,
+    "Favico": false,
     "_": false,
     "$": false
   }

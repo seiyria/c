@@ -13,8 +13,13 @@ script(type="text/ng-template", id="main")
     nav.navbar.navbar-default(ng-if="hasUpgrade('Better Layout', 1)")
         div.container
             div.navbar-header
-                a.navbar-brand(href, ng-if="!hasUpgrade('Page Title')") c
-                a.navbar-brand(href, ng-if="hasUpgrade('Page Title')") c(ode)
+                a.navbar-brand(href, ng-if="!hasUpgrade('Page Title')")
+                    img(alt="c",src="favicon.ico", ng-if="hasUpgrade('Favicon')")
+                    span(ng-if="!hasUpgrade('Favicon')") c
+                a.navbar-brand(href, ng-if="hasUpgrade('Page Title')")
+                    img(alt="c",src="favicon.ico", ng-if="hasUpgrade('Favicon')")
+                    span(ng-if="!hasUpgrade('Favicon')") c(ode)
+                    span(ng-if="hasUpgrade('Favicon')") (ode)
 
             div.navbar-inner
                 ul.nav.navbar-nav.navbar-left(ng-if="hasUpgrade('Scoreboard')")

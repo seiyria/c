@@ -5,7 +5,10 @@ html(lang="en", ng-app="c", ng-controller="Game")
 
         title(ng-if="!hasUpgrade('Page Title')") c
         title(ng-if="hasUpgrade('Page Title') && !hasUpgrade('Better Page Title')") c(ode)
-        title(ng-if="hasUpgrade('Better Page Title')") c(ode) | {{_units}}
+        title(ng-if="hasUpgrade('Better Page Title') && !hasUpgrade('Number Formatting')") c(ode) | {{_units}}
+        title(ng-if="hasUpgrade('Better Page Title') && hasUpgrade('Number Formatting')") c(ode) | {{_units | number:0}}
+
+        link(rel="shortcut icon",href="favicon.ico")
 
         link(href="css/bootstrap.css", rel="stylesheet")
         link(href="css/font-awesome.css", rel="stylesheet", ng-if="hasUpgrade('Iconography')")

@@ -30,6 +30,7 @@ paths = {
   libjs: [
     './bower_components/lodash/lodash.js',
     './bower_components/jquery/dist/jquery.js',
+    './bower_components/favico.js/favico.js',
     './bower_components/pnotify/pnotify.core.js',
     './bower_components/pnotify/!(pnotify.core).js',
 
@@ -50,6 +51,9 @@ paths = {
   fonts: [
     './bower_components/font-awesome/fonts/*'
   ],
+  favicon: [
+    'favicon.ico'
+  ],
   jade: ['src/jade/**/*.jade'],
   js: ['src/js/**/*.js'],
   entry: './src/js/main.js',
@@ -65,6 +69,12 @@ gulp.task('clean', function () {
 gulp.task('copyfonts', ['clean'], function () {
   return gulp.src(paths.fonts)
     .pipe(gulp.dest(paths.dist + '/fonts'))
+    .on('error', gutil.log);
+});
+
+gulp.task('copyfavicon', ['clean'], function () {
+  return gulp.src(paths.favicon)
+    .pipe(gulp.dest(paths.dist))
     .on('error', gutil.log);
 });
 
@@ -192,5 +202,5 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', ['build', 'connect', 'open', 'watch']);
-gulp.task('build', ['clean', 'copylibjs', 'copylibcss', 'buildlibcss', 'compile']);
+gulp.task('build', ['clean', 'copyfavicon', 'copylibjs', 'copylibcss', 'buildlibcss', 'compile']);
 gulp.task('compile', ['copyfonts', 'compilejs', 'compileless', 'compilejade']);

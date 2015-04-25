@@ -94,5 +94,14 @@ module.exports = {
     category: 'Cosmetic',
     requirements: {'Basic Style': 0, 'Basic Iteration': 0, 'Basic Color': 0},
     costs: [100000]
+  },
+  'Favicon': {
+    category: 'Cosmetic',
+    costs: [2000]
+  },
+  'Best Favicon': {
+    category: 'Cosmetic',
+    requirements: {'Better Page Title': 0, 'Favicon': 0},
+    costs: [100000]
   }
 };
