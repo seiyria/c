@@ -43,6 +43,10 @@ script(type="text/ng-template", id="main")
                 div.navbar-text.navbar-right(ng-if="hasUpgrade('Progress Bar')")
                     progressbar.progress-striped.active(value="100 - _timer/_timerMax*100", type="default") {{100 - (_timer/_timerMax*100).toFixed(0)}}%
 
+                button.navbar-btn.navbar-right(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3)")
+                    span.fa.fa-floppy-o &nbsp;
+                    | Save
+
     div.container(ng-if="hasUpgrade('Basic Layout')")
         div.row
             div(ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}")

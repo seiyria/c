@@ -1,9 +1,34 @@
-var gameState = function($q, UPGRADES, AnimatedFlyTip, DumpState) {
+var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip, DumpState) {
   var upgrades = DumpState || {};
   var units = 100000;
 
   var upgradeDefer = $q.defer();
   var unitDefer = $q.defer();
+
+  var save = function() {
+    var saveObject = {
+      units: units,
+      upgrades: upgrades
+    };
+
+    localStorage.set('game', saveObject);
+    
+    return saveObject;
+  };
+
+  var load = function() {
+    var state = localStorage.get('game');
+
+    if(!state) { return; }
+
+    if(state.units) {
+      units = state.units;
+    }
+
+    if(state.upgrades) {
+      upgrades = state.upgrades;
+    }
+  };
 
   var upgrade = {
     has: function(key, level = 0) { return upgrades[key] > level; },
@@ -23,6 +48,8 @@ var gameState = function($q, UPGRADES, AnimatedFlyTip, DumpState) {
     watch: function() { return upgradeDefer.promise; }
   };
 
+  var tick = 0;
+
   var unit = {
     has: function(amt) { return units > amt; },
     inc: function(amt) {
@@ -32,17 +59,28 @@ var gameState = function($q, UPGRADES, AnimatedFlyTip, DumpState) {
       if(upgrade.has('Basic Animation')) {
         AnimatedFlyTip.fly(amt, upgrade.has('Number Formatting'));
       }
+
+      if(upgrade.has('Save', 1)) {
+        if(tick++ % 10 === 0) {
+          tick = 0;
+          save();
+        }
+      }
+
     },
     get: function() { return units; },
     watch: function() { return unitDefer.promise; }
   };
 
+  load();
+
   return {
     upgrade: upgrade,
-    unit: unit
+    unit: unit,
+    save: save
   };
 };
 
-gameState.$inject = ['$q', 'Upgrades', 'AnimatedFlyTip', 'DumpState'];
+gameState.$inject = ['$q', 'Upgrades', 'localStorageService', 'AnimatedFlyTip', 'DumpState'];
 
 module.exports = gameState;

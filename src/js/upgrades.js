@@ -108,5 +108,9 @@ module.exports = {
     category: 'Cosmetic',
     requirements: {'Preformatting': 0},
     costs: [50000]
+  },
+  'Save': {
+    category: 'Tech',
+    costs: [300, 5000, 20000, 150000]
   }
 };

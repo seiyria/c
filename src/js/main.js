@@ -7,7 +7,7 @@ var functionBuilder = require('./functionbuilder');
 var animatedFlyTip = require('./animatedflytip');
 var favico = require('./favico');
 
-angular.module('c', ['ui.bootstrap', 'hljs'])
+angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule'])
 
   .constant('Upgrades', upgrades)
 
@@ -103,6 +103,10 @@ angular.module('c', ['ui.bootstrap', 'hljs'])
 
       $scope.gainUnits = function() {
         $window.increaseUnits();
+      };
+
+      $scope.save = function() {
+        GameState.save();
       };
 
       $scope.refresh = function() {

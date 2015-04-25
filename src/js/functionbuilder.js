@@ -28,15 +28,30 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
         unitText = 'totalUnitsGained';
       }
 
+      var saveHeader = ['', ''];
+      if(GameState.upgrade.has('Save', 1)) {
+        saveHeader = [`\nvar currentTick = 0;`, `
+  if(currentTick++ % 10 === 0) {
+    currentTick = 0;
+    save();
+  }`];
+      }
+
+      if(GameState.upgrade.has('Save', 3)) {
+        saveHeader = ['', `
+  save();`];
+      }
+
       // dump it on the page. it's an "exploit"
       $window.increaseUnits = function() { GameState.unit.inc(GainCalculator.all()); };
 
-      return `${timeout}
+      return `${timeout}${saveHeader[0]}
 ${functionHeader[0]}
   ${animationHeader[0]}
   ${iterationHeader[0]}
     ${unitText} += ${GainCalculator.boost()};
   ${iterationHeader[1]}
+  ${saveHeader[1]}
   ${animationHeader[1]}
 ${functionHeader[1]}
 `;
