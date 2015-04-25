@@ -4,7 +4,11 @@ var favico = function() {
     animation : 'fade'
   });
 
+  var currentNum = 0;
+
   var badge = function(num) {
+    if(num === currentNum) { return; }
+    currentNum = num;
     favico.badge(num);
   };
   var reset = function() {
