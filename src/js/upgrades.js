@@ -112,5 +112,10 @@ module.exports = {
   'Save': {
     category: 'Tech',
     costs: [300, 5000, 20000, 150000]
+  },
+  'Advanced Timer': {
+    category: 'Tech',
+    requirements: {'Basic Timer': 3},
+    costs: [200000, 750000, 1500000]
   }
 };

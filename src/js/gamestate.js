@@ -39,10 +39,10 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip, DumpState) 
       var nextLevel = upgrades[key] || 0;
       var cost = UPGRADES[key].costs[nextLevel];
       if(units < cost) { return; }
-      unit.inc(-cost);
 
       if(!upgrades[key]) { upgrades[key] = 0; }
       upgrades[key]++;
+      unit.inc(-cost);
       upgradeDefer.notify({key: key, level: upgrades[key], all: upgrades});
     },
     watch: function() { return upgradeDefer.promise; }
