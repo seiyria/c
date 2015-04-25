@@ -5,15 +5,15 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip, DumpState) 
   var upgradeDefer = $q.defer();
   var unitDefer = $q.defer();
 
-  var save = function() {
-    var saveObject = {
+  var buildSaveObject = function() {
+    return {
       units: units,
       upgrades: upgrades
     };
+  };
 
-    localStorage.set('game', saveObject);
-    
-    return saveObject;
+  var save = function() {
+    localStorage.set('game', buildSaveObject());
   };
 
   var load = function() {
@@ -77,7 +77,8 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip, DumpState) 
   return {
     upgrade: upgrade,
     unit: unit,
-    save: save
+    save: save,
+    buildSaveObject: buildSaveObject
   };
 };
 

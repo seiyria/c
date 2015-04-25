@@ -136,5 +136,9 @@ angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule'])
       $window.dumpState = function() {
         return GameState.upgrade.get();
       };
+
+      $window.dumpDebugInfo = function() {
+        return JSON.stringify(GameState.buildSaveObject(), null, 4);
+      };
     }
   ]);
