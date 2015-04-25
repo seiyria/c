@@ -7,7 +7,7 @@ var functionBuilder = require('./functionbuilder');
 var animatedFlyTip = require('./animatedflytip');
 var favico = require('./favico');
 
-angular.module('c', ['ui.bootstrap'])
+angular.module('c', ['ui.bootstrap', 'hljs'])
 
   .constant('Upgrades', upgrades)
 

@@ -103,5 +103,10 @@ module.exports = {
     category: 'Cosmetic',
     requirements: {'Better Page Title': 0, 'Favicon': 0},
     costs: [100000]
+  },
+  'Syntax Highlighting': {
+    category: 'Cosmetic',
+    requirements: {'Preformatting': 0},
+    costs: [50000]
   }
 };

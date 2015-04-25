@@ -89,4 +89,5 @@ script(type="text/ng-template", id="main")
 
                 h2(ng-if="hasUpgrade('Basic Layout', 1)") Output
 
-                div(ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}") {{_function}}
+                div(ng-if="!hasUpgrade('Syntax Highlighting')",ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}") {{_function}}
+                div.better-aligned-code(ng-if="hasUpgrade('Syntax Highlighting')",hljs,source="_function",language="javascript")

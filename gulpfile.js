@@ -33,16 +33,19 @@ paths = {
     './bower_components/favico.js/favico.js',
     './bower_components/pnotify/pnotify.core.js',
     './bower_components/pnotify/!(pnotify.core).js',
+    './bower_components/highlightjs/highlight.pack.js',
 
     './bower_components/angular/angular.js',
     './bower_components/angular-ui-router/release/angular-ui-router.js',
     './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
     './bower_components/angular-local-storage/dist/angular-local-storage.js',
-    './bower_components/angular-pnotify/src/angular-pnotify.js'
+    './bower_components/angular-pnotify/src/angular-pnotify.js',
+    './bower_components/angular-highlightjs/build/angular-highlightjs.js'
   ],
   libcss: [
     './bower_components/angular/angular-csp.css',
-    './bower_components/pnotify/*.css'
+    './bower_components/pnotify/*.css',
+    './bower_components/highlightjs/styles/github.css'
   ],
   copycss: [
     './bower_components/bootstrap/dist/css/bootstrap.css',

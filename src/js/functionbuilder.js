@@ -31,16 +31,15 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
       // dump it on the page. it's an "exploit"
       $window.increaseUnits = function() { GameState.unit.inc(GainCalculator.all()); };
 
-      return `
-        ${timeout}
-        ${functionHeader[0]}
-          ${animationHeader[0]}
-          ${iterationHeader[0]}
-            ${unitText} += ${GainCalculator.boost()};
-          ${iterationHeader[1]}
-          ${animationHeader[1]}
-        ${functionHeader[1]}
-      `;
+      return `${timeout}
+${functionHeader[0]}
+  ${animationHeader[0]}
+  ${iterationHeader[0]}
+    ${unitText} += ${GainCalculator.boost()};
+  ${iterationHeader[1]}
+  ${animationHeader[1]}
+${functionHeader[1]}
+`;
     }
   };
 };
