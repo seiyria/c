@@ -66,8 +66,28 @@ module.exports = {
     costs: [6500, 8500, 10500]
   },
   'Progress Bar': {
-    category: 'Cosmetic',
-    requirements: {'Better Layout': 1},
+    category: 'Visual',
+    requirements: {'Better Layout': 1, 'Basic Color': 0},
     costs: [5000]
+  },
+  'Basic Style': {
+    category: 'Visual',
+    requirements: {'Better Layout': 1},
+    costs: [10000]
+  },
+  'Basic Color': {
+    category: 'Visual',
+    requirements: {'Basic Style': 0},
+    costs: [12500]
+  },
+  Iconography: {
+    category: 'Visual',
+    requirements: {'Basic Style': 0},
+    costs: [25000]
+  },
+  'Number Formatting': {
+    category: 'Cosmetic',
+    requirements: {'Basic Style': 0},
+    costs: [20000]
   }
 };

@@ -2,12 +2,16 @@ doctype html
 html(lang="en", ng-app="c", ng-controller="Game")
     head
         meta(charset="utf-8")
+
         title(ng-if="!hasUpgrade('Page Title')") c
         title(ng-if="hasUpgrade('Page Title') && !hasUpgrade('Better Page Title')") c(ode)
         title(ng-if="hasUpgrade('Better Page Title')") c(ode) | {{_units}}
+
         link(href="css/bootstrap.css", rel="stylesheet")
+        link(href="css/font-awesome.css", rel="stylesheet", ng-if="hasUpgrade('Iconography')")
         link(href="css/main.min.css", rel="stylesheet")
         link(href="css/lib.css", rel="stylesheet")
+
     body(ng-class="{lowercase: !hasUpgrade('Grammar', 0)}")
         ng-include(src="'main'")
         script(src="js/lib.js")

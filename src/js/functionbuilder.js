@@ -17,6 +17,7 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
         timeout = `$interval(increaseUnits, ${GainCalculator.timer()});\n`;
       }
 
+      // dump it on the page. it's an "exploit"
       $window.increaseUnits = function() { GameState.unit.inc(GainCalculator.all()); };
 
       return `
