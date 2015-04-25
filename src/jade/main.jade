@@ -76,7 +76,7 @@ script(type="text/ng-template", id="main")
                         th(ng-class="{'text-right': hasUpgrade('Better Layout')}") Name
                         th Level
                         th Buy
-                    tr(ng-repeat="item in _visibleUpgrades")
+                    tr(ng-repeat="item in _visibleUpgrades", ng-class="{'danger': _units < item.cost}")
                         td(ng-class="{'text-right': hasUpgrade('Better Layout')}") {{item.name}}
                         td {{item.level}}
                         td

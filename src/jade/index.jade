@@ -15,7 +15,7 @@ html(lang="en", ng-app="c", ng-controller="Game")
         link(href="css/main.min.css", rel="stylesheet")
         link(href="css/lib.css", rel="stylesheet")
 
-    body(ng-class="{lowercase: !hasUpgrade('Capitalization', 0)}")
+    body(ng-class="{lowercase: !hasUpgrade('Capitalization', 0), 'no-border-radius': !hasUpgrade('Basic Style', 1)}")
         ng-include(src="'main'")
         script(src="js/lib.js")
         script(src="js/main.min.js")

@@ -57,7 +57,7 @@ module.exports = {
   },
   'Alphabetized Upgrades': {
     category: 'Cosmetic',
-    requirements: {'Grammar': 0, 'Better Layout': 0},
+    requirements: {'Capitalization': 0, 'Better Layout': 0},
     costs: [5000]
   },
   'Upgrade Visibility': {
@@ -73,7 +73,7 @@ module.exports = {
   'Basic Style': {
     category: 'Visual',
     requirements: {'Better Layout': 1},
-    costs: [10000]
+    costs: [10000, 20000]
   },
   'Basic Color': {
     category: 'Visual',
