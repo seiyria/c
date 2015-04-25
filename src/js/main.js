@@ -1,8 +1,10 @@
 
-angular.module('c', [])
+angular.module('c', ['ui.bootstrap'])
 
-  .service('GameState', ['$q', 'Upgrades', function($q, UPGRADES) {
-    var upgrades = {};
+  .constant('DumpState', {"Basic Layout":2,"Scoreboard":1,"Function":1,"Basic Timer":2,"Basic Iteration":3,"Basic Boost":3,"Preformatting":1,"Visual Countdown":1,"Page Title":1,"Better Page Title":1})
+
+  .service('GameState', ['$q', 'Upgrades', 'DumpState', function($q, UPGRADES, DumpState) {
+    var upgrades = DumpState || {};
     var units = 100000;
 
     var upgradeDefer = $q.defer();
@@ -39,8 +41,8 @@ angular.module('c', [])
   }])
 
   .service('GameTimer', [
-    '$q', '$interval', '$window', 'GameState', 'GainCalculator',
-    function($q, $interval, $window, GameState, GainCalculator) {
+    '$q', '$interval', '$timeout', '$window', 'GameState', 'GainCalculator',
+    function($q, $interval, $timeout, $window, GameState, GainCalculator) {
 
       var interval = null;
       var timerDefer = $q.defer();
@@ -63,7 +65,7 @@ angular.module('c', [])
       };
 
       if(GameState.upgrade.has('Basic Timer')) {
-        startTimer();
+        $timeout(startTimer, 0);
       }
 
       GameState.upgrade.watch().then(null, null, startTimer);
@@ -74,6 +76,8 @@ angular.module('c', [])
         }
       };
   }])
+
+  .constant('Version', '0.0.1')
 
   .constant('Upgrades', {
     Scoreboard: {
@@ -87,7 +91,7 @@ angular.module('c', [])
     'Better Layout': {
       category: 'Visual',
       requirements: {'Basic Layout': 1},
-      costs: [200]
+      costs: [200, 2000]
     },
     Function: {
       category: 'Tech',
@@ -130,6 +134,21 @@ angular.module('c', [])
       category: 'Cosmetic',
       requirements: {'Page Title': 0, 'Scoreboard': 0},
       costs: [2500]
+    },
+    'Alphabetized Upgrades': {
+      category: 'Cosmetic',
+      requirements: {'Grammar': 0, 'Better Layout': 0},
+      costs: [5000]
+    },
+    'Upgrade Visibility': {
+      category: 'Cosmetic',
+      requirements: {'Alphabetized Upgrades': 0},
+      costs: [6500, 8500, 10500]
+    },
+    'Progress Bar': {
+      category: 'Cosmetic',
+      requirements: {'Better Layout': 1},
+      costs: [5000]
     }
   })
 
@@ -146,7 +165,7 @@ angular.module('c', [])
     };
 
     var timer = function() {
-      return 30000 - (30000 * 0.25 * GameState.upgrade.getKey('Basic Timer'));
+      return 30000 - (30000 * 0.1 * GameState.upgrade.getKey('Basic Timer'));
     };
 
     return {
@@ -175,7 +194,7 @@ angular.module('c', [])
 
           var timeout = ``;
           if(GameState.upgrade.has('Basic Timer')) {
-            timeout = `$timeout(increaseUnits, ${GainCalculator.timer()});\n`;
+            timeout = `$interval(increaseUnits, ${GainCalculator.timer()});\n`;
           }
 
           $window.increaseUnits = function() { GameState.unit.inc(GainCalculator.all()); };
@@ -222,15 +241,19 @@ angular.module('c', [])
           if(!meetsAllReqs) return;
 
           _.each(item.costs, (cost, i) => {
-            //cost/2 -> more visibility
-            if($scope.hasUpgrade(itemName, i) || cost > current) return;
+            var visLevel = GameState.upgrade.getKey('Upgrade Visibility');
+            var visibilityBoost = 1 + (_.isUndefined(visLevel) ? 0 : 0.15*visLevel);
+
 
             var prevItem = ret[ret.length-1];
+            var totalCost = cost + (prevItem ? prevItem.cost : 0);
+
+            if($scope.hasUpgrade(itemName, i) || totalCost/visibilityBoost > current) return;
 
             ret.push({
               name: itemName,
               level: i,
-              cost: cost + (prevItem ? prevItem.cost : 0),
+              cost: totalCost,
               buyLevels: 1 + (prevItem ? prevItem.buyLevels : 0),
               category: item.category
             });
@@ -239,6 +262,10 @@ angular.module('c', [])
           allRet.push(...ret);
 
         });
+
+        if($scope.hasUpgrade('Alphabetized Upgrades')) {
+          allRet = _.sortByOrder(allRet, ['name', 'level'], [true, true]);
+        }
 
         return allRet;
       };
@@ -261,13 +288,14 @@ angular.module('c', [])
 
       $scope.refresh();
       $scope._timer = 0;
+      $scope._timermax = 0;
       var timerInterval;
 
       GameState.unit.watch().then(null, null, $scope.refresh);
       GameState.upgrade.watch().then(null, null, $scope.refresh);
 
       GameTimer.watch().then(null, null, function(newTimerValue) {
-        $scope._timer = newTimerValue;
+        $scope._timer = $scope._timerMax = newTimerValue;
         if(timerInterval) {
           $interval.cancel(timerInterval);
         }
@@ -275,5 +303,9 @@ angular.module('c', [])
           $scope._timer -= 100;
         }, 100);
       });
+
+      $window.dumpState = function() {
+        return GameState.upgrade.get();
+      };
     }
   ]);

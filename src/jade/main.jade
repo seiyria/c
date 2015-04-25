@@ -1,6 +1,6 @@
 script(type="text/ng-template", id="main")
 
-    div(ng-if="!hasUpgrade('Better Layout') && !hasUpgrade('Basic Layout')")
+    div(ng-if="!hasUpgrade('Basic Layout')")
         button(ng-click="gainUnits()") Gain Units
         span(ng-if="hasUpgrade('Scoreboard')") Units: {{_units}}
         div(ng-if="hasUpgrade('Visual Countdown')") {{_timer}} milliseconds
@@ -10,37 +10,56 @@ script(type="text/ng-template", id="main")
 
         div(ng-class="{formatted: hasUpgrade('Preformatting')}") {{_function}}
 
-    div.container(ng-if="!hasUpgrade('Better Layout') && hasUpgrade('Basic Layout', 0)")
-        div.row
-            div.col-xs-6
+    nav.navbar.navbar-default(ng-if="hasUpgrade('Better Layout', 1)")
+        div.container
+            div.navbar-header
+                a.navbar-brand(href, ng-if="!hasUpgrade('Page Title')") c
+                a.navbar-brand(href, ng-if="hasUpgrade('Page Title')") c(ode)
 
-                h2(ng-if="hasUpgrade('Basic Layout', 1)") Manage
+            div.navbar-inner
+                span.navbar-left(ng-if="hasUpgrade('Scoreboard')")
+                    button.navbar-btn(type="button") Get More
+                    p.navbar-text {{_units}} units
 
-                div.pull-left(ng-if="hasUpgrade('Scoreboard')")
-                    span {{_units}} units
-                    button(ng-click="gainUnits()") Get More
-
-                div.pull-left(ng-if="!hasUpgrade('Scoreboard')")
+                span.navbar-left(ng-if="!hasUpgrade('Scoreboard')")
                     button(ng-click="gainUnits()") Gain Units
 
-                div.pull-right(ng-if="hasUpgrade('Visual Countdown')") {{_timer}} milliseconds
-                div.clearfix
+                p.navbar-text.navbar-right(ng-if="hasUpgrade('Visual Countdown') && !hasUpgrade('Progress Bar')") {{_timer}} milliseconds
+                div.navbar-text.navbar-right(ng-if="hasUpgrade('Progress Bar')")
+                    progressbar.progress-striped.active(value="100 - _timer/_timerMax*100", type="info") {{100 - (_timer/_timerMax*100).toFixed(0)}}%
 
-                table(ng-class="{'col-xs-12 margin-top-15': hasUpgrade('Basic Layout', 1)}")
+    div.container(ng-if="hasUpgrade('Basic Layout')")
+        div.row
+            div(ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}")
+
+                div(ng-if="!hasUpgrade('Better Layout', 1)")
+                    h2 Acquire
+                    div.pull-left(ng-if="hasUpgrade('Scoreboard')")
+                        span {{_units}} units
+                        button(ng-click="gainUnits()") Get More
+
+                    div.pull-left(ng-if="!hasUpgrade('Scoreboard')")
+                        button(ng-click="gainUnits()") Gain Units
+
+                    div.pull-right(ng-if="hasUpgrade('Visual Countdown')") {{_timer}} milliseconds
+
+                    div.clearfix
+
+                h2(ng-if="hasUpgrade('Basic Layout', 1)") Upgrades
+
+                table(ng-class="{'col-xs-12 margin-top-15': hasUpgrade('Basic Layout', 1), 'table table-bordered': hasUpgrade('Better Layout')}")
                     tr
-                        th Name
+                        th(ng-class="{'text-right': hasUpgrade('Better Layout')}") Name
                         th Level
                         th Buy
                     tr(ng-repeat="item in _visibleUpgrades")
-                        td {{item.name}}
+                        td(ng-class="{'text-right': hasUpgrade('Better Layout')}") {{item.name}}
                         td {{item.level}}
                         td
                             button(ng-click="buyUpgrade(item.name, item.buyLevels)", ng-disabled="_units < item.cost") Buy for {{item.cost}} Units
 
-            div.col-xs-6
+            div(ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}")
 
                 h2(ng-if="hasUpgrade('Basic Layout', 1)") Output
 
-                div(ng-class="{formatted: hasUpgrade('Preformatting')}") {{_function}}
-
-    div(ng-if="hasUpgrade('Better Layout')") better layout!
+                div(ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}") {{_function}}
