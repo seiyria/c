@@ -23,7 +23,7 @@ script(type="text/ng-template", id="main")
                             span.fa.fa-plus &nbsp;
                             | Get More
                     li
-                        p.navbar-text
+                        p.navbar-text#navbar-unit
                             span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} units
                             span(ng-if="hasUpgrade('Number Formatting')") {{_units | number:0}} units
 
@@ -32,7 +32,9 @@ script(type="text/ng-template", id="main")
                         span.fa.fa-plus &nbsp;
                         | Gain Units
 
-                p.navbar-text.navbar-right(ng-if="hasUpgrade('Visual Countdown') && !hasUpgrade('Progress Bar')") {{_timer}} milliseconds
+                p.navbar-text.navbar-right(ng-if="hasUpgrade('Visual Countdown') && !hasUpgrade('Progress Bar')")
+                    span(ng-if="!hasUpgrade('Number Formatting')") {{_timer}} milliseconds
+                    span(ng-if="hasUpgrade('Number Formatting')") {{_timer | number:0}} milliseconds
                 div.navbar-text.navbar-right(ng-if="hasUpgrade('Progress Bar')")
                     progressbar.progress-striped.active(value="100 - _timer/_timerMax*100", type="default") {{100 - (_timer/_timerMax*100).toFixed(0)}}%
 
@@ -62,7 +64,9 @@ script(type="text/ng-template", id="main")
 
                 h2(ng-if="hasUpgrade('Basic Layout', 1)") Upgrades
 
-                table(ng-class="{'col-xs-12 margin-top-15': hasUpgrade('Basic Layout', 1), 'table table-bordered': hasUpgrade('Better Layout'), 'table-striped': hasUpgrade('Basic Style')}")
+                h4(ng-if="_visibleUpgrades.length === 0") No Available Upgrades
+
+                table(ng-if="_visibleUpgrades.length > 0", ng-class="{'col-xs-12 margin-top-15': hasUpgrade('Basic Layout', 1), 'table table-bordered': hasUpgrade('Better Layout'), 'table-striped': hasUpgrade('Basic Style')}")
                     tr
                         th(ng-class="{'text-right': hasUpgrade('Better Layout')}") Name
                         th Level

@@ -4,6 +4,7 @@ var gameState = require('./gamestate');
 var gameTimer = require('./gametimer');
 var gainCalculator = require('./gaincalculator');
 var functionBuilder = require('./functionbuilder');
+var animatedFlyTip = require('./animatedflytip');
 
 angular.module('c', ['ui.bootstrap'])
 
@@ -11,7 +12,9 @@ angular.module('c', ['ui.bootstrap'])
 
   .constant('Version', '0.0.1')
 
-  .constant('DumpState', {'Basic Layout': 2,'Scoreboard': 1,'Function': 1,'Basic Timer': 2,'Basic Iteration': 3,'Basic Boost': 3,'Preformatting': 1,'Visual Countdown': 1,'Page Title': 1,'Better Page Title': 1})
+  .constant('DumpState', {'Basic Layout': 2,'Scoreboard': 1,'Function': 1,'Basic Timer': 2,'Basic Iteration': 3,'Basic Boost': 3,'Preformatting': 1,'Visual Countdown': 1,'Page Title': 1,'Better Page Title': 1,'Better Layout': 2,'Basic Style': 1,'Number Formatting': 1})
+
+  .service('AnimatedFlyTip', animatedFlyTip)
 
   .service('GameState', gameState)
 

@@ -32,7 +32,7 @@ module.exports = {
     requirements: {Function: 0},
     costs: [10, 100, 2500, 10000]
   },
-  Grammar: {
+  Capitalization: {
     category: 'Visual',
     costs: [100]
   },
@@ -89,5 +89,10 @@ module.exports = {
     category: 'Cosmetic',
     requirements: {'Basic Style': 0},
     costs: [20000]
+  },
+  'Basic Animation': {
+    category: 'Cosmetic',
+    requirements: {'Basic Style': 0, 'Basic Iteration': 0, 'Basic Color': 0},
+    costs: [100000]
   }
 };

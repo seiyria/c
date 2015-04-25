@@ -25,6 +25,7 @@
     "angular": false,
     "require": false,
     "module": false,
-    "_": false
+    "_": false,
+    "$": false
   }
 }
