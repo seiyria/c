@@ -1,6 +1,6 @@
 var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip) {
   var upgrades = {};
-  var units = 100000;
+  var units = 0;
   var start = Date.now();
 
   var upgradeDefer = $q.defer();
