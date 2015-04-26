@@ -36,14 +36,18 @@ script(type="text/ng-template", id="main")
                         span.fa.fa-plus &nbsp;
                         | Gain Units
 
-                p.navbar-text.navbar-right(ng-if="hasUpgrade('Visual Countdown') && !hasUpgrade('Progress Bar')")
-                    ng-include(src="'formatting-timer'")
-                div.navbar-text.navbar-right(ng-if="hasUpgrade('Progress Bar')")
-                    progressbar.progress-striped.active(value="100 - _timer/_timerMax*100", type="default") {{100 - (_timer/_timerMax*100).toFixed(0)}}%
+                ul.nav.navbar-nav.navbar-right
+                    li
+                        p.navbar-text(ng-if="hasUpgrade('Visual Countdown') && !hasUpgrade('Progress Bar')")
+                            ng-include(src="'formatting-timer'")
+                        div.navbar-text(ng-if="hasUpgrade('Progress Bar')")
+                            progressbar.progress-striped.active(value="100 - _timer/_timerMax*100", type="default") {{100 - (_timer/_timerMax*100).toFixed(0)}}%
+                    li
+                        button.navbar-btn(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3)")
+                            span.fa.fa-floppy-o &nbsp;
+                            | Save
+                    li(ng-include, src="'dropdown'")
 
-                button.navbar-btn.navbar-right(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3)")
-                    span.fa.fa-floppy-o &nbsp;
-                    | Save
 
     div.container(ng-if="hasUpgrade('Basic Layout')")
         div.row
@@ -51,18 +55,15 @@ script(type="text/ng-template", id="main")
 
                 div(ng-if="!hasUpgrade('Better Layout', 1)")
                     h2 Acquire
-                    div.pull-left(ng-if="hasUpgrade('Scoreboard')")
-                        ng-include(src="'formatting-units'")
-                        button(ng-click="gainUnits()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}")
-                            span.fa.fa-plus &nbsp;
-                            | Get More
-                        ng-include(src="'early-style-save-button'")
 
-                    div.pull-left(ng-if="!hasUpgrade('Scoreboard')")
+                    div.pull-left
+                        ng-include(src="'formatting-units'", ng-if="hasUpgrade('Scoreboard')")
                         button(ng-click="gainUnits()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}")
                             span.fa.fa-plus &nbsp;
-                            | Gain Units
+                            span(ng-if="!hasUpgrade('Scoreboard')") Gain Units
+                            span(ng-if="hasUpgrade('Scoreboard')") Get More
                         ng-include(src="'early-style-save-button'")
+                        ng-include(src="'dropdown'")
 
                     div.pull-right(ng-if="hasUpgrade('Visual Countdown')")
                         ng-include(src="'formatting-timer'")
@@ -111,8 +112,8 @@ script(type="text/ng-template", id="main")
                 div.better-aligned-code(ng-if="hasUpgrade('Syntax Highlighting')",hljs,source="_function",language="javascript")
 
 script(type="text/ng-template", id="formatting-units")
-    span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} units
-    span(ng-if="hasUpgrade('Number Formatting')") {{_units | number:0}} units
+    span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} Units
+    span(ng-if="hasUpgrade('Number Formatting')") {{_units | number:0}} Units
 
 script(type="text/ng-template", id="formatting-timer")
     span(ng-if="!hasUpgrade('Number Formatting')") {{_timer}} milliseconds
@@ -122,3 +123,10 @@ script(type="text/ng-template", id="early-style-save-button")
     button(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3) && !hasUpgrade('Better Layout', 1)")
         span.fa.fa-floppy-o &nbsp;
         | Save
+
+script(type="text/ng-template", id="dropdown")
+    span.dropdown(dropdown, ng-if="hasUpgrade('Menu')")
+        button.dropdown-toggle(href, dropdown-toggle, ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color'), 'navbar-btn': hasUpgrade('Better Layout', 1)}") Menu
+        ul.dropdown-menu
+            li
+                a(href) Help

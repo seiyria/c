@@ -124,5 +124,10 @@ module.exports = {
     category: 'Tech',
     requirements: {'Basic Style': 1},
     costs: [250000]
+  },
+  Menu: {
+    category: 'Tech',
+    requirements: {'Basic Layout': 0},
+    costs: [2500]
   }
 };
