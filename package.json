@@ -1,9 +1,9 @@
 {
-  "name": "warriors",
-  "description": "",
-  "readme": "",
-  "repository": "",
-  "version": "0.0.0",
+  "name": "c",
+  "description": "A small game",
+  "readme": "README.md",
+  "repository": "https://github.com/seiyria/c",
+  "version": "0.0.1",
   "devDependencies": {
     "babelify": "^6.0.1",
     "bower": "*",
@@ -32,7 +32,7 @@
     "vinyl-source-stream": "*",
     "watchify": "*",
     "gulp-open": "~0.3.2",
-    "gulp-jscs": "~1.5.1",
+    "gulp-jscs": "~1.6.0",
     "jscs": "*",
     "gulp-gh-pages": "~0.5.1"
   },
@@ -42,7 +42,43 @@
     "build": "node ./node_modules/gulp/bin/gulp.js build",
     "test": "gulp build"
   },
-  "dependencies": {
-    "gulp-jscs": "~1.6.0"
+  "gulp": {
+    "less": "src/less/*.less",
+    "libjs": [
+      "./bower_components/lodash/lodash.js",
+      "./bower_components/jquery/dist/jquery.js",
+      "./bower_components/favico.js/favico.js",
+      "./bower_components/pnotify/pnotify.core.js",
+      "./bower_components/pnotify/!(pnotify.core).js",
+      "./bower_components/highlightjs/highlight.pack.js",
+
+      "./bower_components/angular/angular.js",
+      "./bower_components/angular-ui-router/release/angular-ui-router.js",
+      "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
+      "./bower_components/angular-local-storage/dist/angular-local-storage.js",
+      "./bower_components/angular-pnotify/src/angular-pnotify.js",
+      "./bower_components/angular-highlightjs/build/angular-highlightjs.js",
+      "./bower_components/ng-table/dist/ng-table.js"
+    ],
+    "libcss": [
+      "./bower_components/angular/angular-csp.css",
+      "./bower_components/pnotify/*.css",
+      "./bower_components/highlightjs/styles/github.css",
+      "./bower_components/ng-table/dist/ng-table.css"
+    ],
+    "copycss": [
+      "./bower_components/bootstrap/dist/css/bootstrap.css",
+      "./bower_components/font-awesome/css/font-awesome.css"
+    ],
+    "fonts": [
+      "./bower_components/font-awesome/fonts/*"
+    ],
+    "favicon": [
+      "favicon.ico"
+    ],
+    "jade": ["src/jade/**/*.jade"],
+    "js": ["src/js/**/*.js"],
+    "entry": "./src/js/main.js",
+    "dist": "./dist/"
   }
 }
