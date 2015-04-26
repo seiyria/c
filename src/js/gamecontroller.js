@@ -49,11 +49,11 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
 
       if(!meetsAllReqs) { return; }
 
-      _.each(item.costs, (cost, i) => {
+      _.each(item.levels, (level, i) => {
         var visLevel = GameState.upgrade.getKey('Upgrade Visibility');
         var visibilityBoost = 1 + (_.isUndefined(visLevel) ? 0 : 0.15*visLevel);
         var prevItem = ret[ret.length-1];
-        var totalCost = cost + (prevItem ? prevItem.cost : 0);
+        var totalCost = level.cost + (prevItem ? prevItem.cost : 0);
 
         if($scope.hasUpgrade(itemName, i) || totalCost/visibilityBoost > current) { return; }
 
@@ -61,6 +61,7 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
           name: itemName,
           level: i,
           cost: totalCost,
+          description: level.description,
           buyLevels: 1 + (prevItem ? prevItem.buyLevels : 0),
           category: item.category
         });

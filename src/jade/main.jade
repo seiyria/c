@@ -24,7 +24,11 @@ script(type="text/ng-template", id="main")
             div.navbar-inner
                 ul.nav.navbar-nav.navbar-left
                     li
-                        button.navbar-btn(type="button", ng-click="gainUnits()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}")
+                        button.navbar-btn(
+                            type="button",
+                            ng-click="gainUnits()",
+                            ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"
+                            )
                             span.fa.fa-plus &nbsp;
                             ng-include(src="'gain-unit-text'")
                     li(ng-if="hasUpgrade('Scoreboard')")
@@ -38,7 +42,12 @@ script(type="text/ng-template", id="main")
                         div.navbar-text(ng-if="hasUpgrade('Progress Bar')")
                             progressbar.progress-striped.active(value="100 - _timer/_timerMax*100", type="default") {{100 - (_timer/_timerMax*100).toFixed(0)}}%
                     li
-                        button.navbar-btn(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3) && !hasUpgrade('Menu')")
+                        button.navbar-btn(
+                            type="button",
+                            ng-click="save()",
+                            ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}",
+                            ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3) && !hasUpgrade('Menu')"
+                            )
                             span.fa.fa-floppy-o &nbsp;
                             | Save
                     li(ng-include, src="'dropdown'")
@@ -68,16 +77,26 @@ script(type="text/ng-template", id="main")
 
                 h4(ng-if="_visibleUpgrades.length === 0") No Available Upgrades
 
-                table(ng-if="_visibleUpgrades.length > 0 && !hasUpgrade('Best Table')", ng-class="{'col-xs-12 margin-top-15': hasUpgrade('Basic Layout', 1), 'table table-bordered': hasUpgrade('Better Layout'), 'table-striped': hasUpgrade('Basic Style')}")
+                table(
+                    ng-if="_visibleUpgrades.length > 0 && !hasUpgrade('Best Table')",
+                    ng-class="{'col-xs-12 margin-top-15': hasUpgrade('Basic Layout', 1), 'table table-bordered': hasUpgrade('Better Layout'), 'table-striped': hasUpgrade('Basic Style')}"
+                    )
                     tr
                         th(ng-class="{'text-right': hasUpgrade('Better Layout')}") Name
                         th Level
                         th Buy
-                    tr(ng-repeat="item in _visibleUpgrades", ng-class="{'danger': hasUpgrade('Basic Style', 1) && _units < item.cost, 'vertical-center': hasUpgrade('Basic Style', 1)}")
-                        td(ng-class="{'text-right': hasUpgrade('Better Layout')}") {{item.name}}
+                    tr(
+                        ng-repeat="item in _visibleUpgrades",
+                        ng-class="{'danger': hasUpgrade('Basic Style', 1) && _units < item.cost, 'vertical-center': hasUpgrade('Basic Style', 1)}"
+                        )
+                        td(ng-class="{'text-right': hasUpgrade('Better Layout')}",ng-include,src="'table-item-name'")
                         td {{item.level}}
                         td
-                            button(ng-click="buyUpgrade(item.name, item.buyLevels)", ng-disabled="_units < item.cost", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}")
+                            button(
+                                ng-click="buyUpgrade(item.name, item.buyLevels)",
+                                ng-disabled="_units < item.cost",
+                                ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}"
+                                )
                                 span.fa.fa-shopping-cart &nbsp;
                                 span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} Units
                                 span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} Units
@@ -87,13 +106,19 @@ script(type="text/ng-template", id="main")
                         tr.ng-table-group
                             td(colspan="{{$columns.length}}")
                                 a(href, ng-click="group.$hideRows = !group.$hideRows")
-                                    span.fa(ng-if="hasUpgrade('Iconography')", ng-class="{'fa-toggle-right': group.$hideRows, 'fa-toggle-down': !group.$hideRows}") &nbsp;
+                                    span.fa(
+                                        ng-if="hasUpgrade('Iconography')",
+                                        ng-class="{'fa-toggle-right': group.$hideRows, 'fa-toggle-down': !group.$hideRows}"
+                                        ) &nbsp;
                                     strong {{group.value}}
                         tr(ng-hide="group.$hideRows", ng-repeat="item in group.data")
-                            td(sortable="'name'", data-title="'Name'", filter="{name: 'text'}") {{item.name}}
+                            td(sortable="'name'", data-title="'Name'", filter="{name: 'text'}",ng-include,src="'table-item-name'")
                             td(sortable="'level'", data-title="'Level'", filter="{level: 'text'}") {{item.level}}
                             td(sortable="'cost'", data-title="'Cost'", filter="{cost: 'text'}")
-                                button(ng-click="buyUpgrade(item.name, item.buyLevels)", ng-disabled="_units < item.cost", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}")
+                                button(
+                                    ng-click="buyUpgrade(item.name, item.buyLevels)",
+                                    ng-disabled="_units < item.cost", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}"
+                                    )
                                     span.fa.fa-shopping-cart &nbsp;
                                     span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} Units
                                     span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} Units
@@ -117,15 +142,34 @@ script(type="text/ng-template", id="gain-unit-text")
     span(ng-if="!hasUpgrade('Scoreboard')") Gain Units
     span(ng-if="hasUpgrade('Scoreboard')") Get More
 
+script(type="text/ng-template", id="table-item-name")
+    span(tooltip="{{hasUpgrade('Tooltips') ? item.description : ''}}", tooltip-append-to-body="true") {{item.name}}
+
 script(type="text/ng-template", id="early-style-save-button")
-    button(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3) && !hasUpgrade('Better Layout', 1) && !hasUpgrade('Menu')")
+    button(
+        type="button",
+        ng-click="save()",
+        ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}",
+        ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3) && !hasUpgrade('Better Layout', 1) && !hasUpgrade('Menu')"
+        )
         span.fa.fa-floppy-o &nbsp;
         | Save
 
 script(type="text/ng-template", id="dropdown")
     span.dropdown(dropdown, ng-if="hasUpgrade('Menu')", ng-class="{'navbar-text': hasUpgrade('Better Layout', 1) && hasUpgrade('Iconography')}")
-        button.dropdown-toggle(href, dropdown-toggle, ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color'), 'navbar-btn': hasUpgrade('Better Layout', 1)}", ng-if="!hasUpgrade('Iconography')") Menu
-        a.dropdown-toggle.text-default(href, dropdown-toggle, ng-if="hasUpgrade('Iconography')", ng-mouseenter="hover = true", ng-mouseleave="hover = false")
+        button.dropdown-toggle(
+            href,
+            dropdown-toggle,
+            ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color'), 'navbar-btn': hasUpgrade('Better Layout', 1)}",
+            ng-if="!hasUpgrade('Iconography')"
+            ) Menu
+        a.dropdown-toggle.text-default(
+            href,
+            dropdown-toggle,
+            ng-if="hasUpgrade('Iconography')",
+            ng-mouseenter="hover = true",
+            ng-mouseleave="hover = false"
+            )
             span.fa.fa-gear(ng-class="{'fa-spin': hover && hasUpgrade('Basic Animation')}")
         ul.dropdown-menu
             li(ng-if="hasUpgrade('Help Menu')")

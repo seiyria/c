@@ -43,7 +43,7 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip) {
     inc: function(key) {
 
       var nextLevel = upgrades[key] || 0;
-      var cost = UPGRADES[key].costs[nextLevel];
+      var cost = UPGRADES[key].levels[nextLevel].cost;
       if(units < cost) { return; }
 
       if(!upgrades[key]) { upgrades[key] = 0; }
