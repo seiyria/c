@@ -132,6 +132,10 @@ script(type="text/ng-template", id="dropdown")
                 a(href, ng-click="save()")
                     span.fa.fa-floppy-o &nbsp;
                     | Save
+            li(ng-if="hasUpgrade('Save', 2)")
+                a(href, ng-click="openModal('debug')")
+                    span.fa.fa-bug &nbsp;
+                    | Debug Info
             li
                 a(href, ng-click="openModal('credits')")
                     span.fa.fa-birthday-cake &nbsp;

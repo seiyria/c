@@ -31,7 +31,7 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
       var saveHeader = ['', ''];
       if(GameState.upgrade.has('Save', 1)) {
         saveHeader = [`\nvar currentTick = 0;`, `
-  if(currentTick++ % 10 === 0) {
+  if(++currentTick % 10 === 0) {
     currentTick = 0;
     save();
   }`];

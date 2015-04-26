@@ -67,7 +67,7 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip) {
       }
 
       if(upgrade.has('Save', 1) && !upgrade.has('Save', 3)) {
-        if(tick++ % 10 === 0) {
+        if(++tick % 10 === 0) {
           tick = 0;
           save();
         }

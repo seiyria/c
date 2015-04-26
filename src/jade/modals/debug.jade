@@ -1,0 +1,15 @@
+script(type="text/ng-template", id="modal-debug")
+    div.modal-header
+        span.close(ng-click="$close()")
+            span.fa.fa-close
+        h4
+            span.fa.fa-bug &nbsp;
+            | Debug Info
+    div.modal-body
+        div Below is your savefile, if you have troubles please attach it, preferably with a screenshot too!
+
+        div(ng-if="!hasUpgrade('Syntax Highlighting')",ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}") {{debugInfo()}}
+        div.better-aligned-code(ng-if="hasUpgrade('Syntax Highlighting')",hljs,source="debugInfo()",language="json")
+
+    div.modal-footer
+        button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close

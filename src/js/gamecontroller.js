@@ -136,7 +136,7 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
     return GameState.upgrade.get();
   };
 
-  $window.dumpDebugInfo = function() {
+  $scope.debugInfo = $window.dumpDebugInfo = function() {
     return JSON.stringify(GameState.buildSaveObject(), null, 4);
   };
 
