@@ -130,14 +130,19 @@ module.exports = {
     requirements: {'Basic Layout': 0},
     costs: [2500]
   },
-  Help: {
+  'Help Menu': {
     category: 'Tech',
     requirements: {'Menu': 0},
     costs: [2]
   },
   Tooltips: {
     category: 'Tech',
-    requirements: {'Help': 0},
+    requirements: {'Help Menu': 0},
     costs: [17500]
+  },
+  'Options Menu': {
+    category: 'Tech',
+    requirements: {'Menu': 0},
+    costs: [5000]
   }
 };

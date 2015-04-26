@@ -1,0 +1,13 @@
+script(type="text/ng-template", id="modal-options")
+    div.modal-header
+        span.close(ng-click="$close()")
+            span.fa.fa-close
+        h4
+            span.fa.fa-book &nbsp;
+            | Options
+
+    div.modal-body
+        div Here are some options for the game. Over time more may show up here.
+
+    div.modal-footer
+        button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close
