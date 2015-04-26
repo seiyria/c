@@ -12,7 +12,7 @@
     <link href="css/main.min.css" rel="stylesheet">
     <link href="css/lib.css" rel="stylesheet">
   </head>
-  <body ng-class="{lowercase: !hasUpgrade('Capitalization', 0), 'no-border-radius': !hasUpgrade('Basic Style', 1)}">
+  <body ng-class="{lowercase: !hasUpgrade('Capitalization', 0), 'no-border-radius': !hasUpgrade('Basic Style', 1), 'no-color': !hasUpgrade('Basic color')}">
     <ng-include src="'main'"></ng-include>
     <script src="js/lib.js"></script>
     <script src="js/main.min.js"></script>
@@ -31,20 +31,32 @@
     <div class="container">
       <div class="navbar-header"><a href ng-if="!hasUpgrade('Page Title')" class="navbar-brand"><img alt="c" src="favicon.ico" ng-if="hasUpgrade('Favicon')"><span ng-if="!hasUpgrade('Favicon')">c</span></a><a href ng-if="hasUpgrade('Page Title')" class="navbar-brand"><img alt="c" src="favicon.ico" ng-if="hasUpgrade('Favicon')"><span ng-if="!hasUpgrade('Favicon')">c(ode)</span><span ng-if="hasUpgrade('Favicon')">(ode)</span></a></div>
       <div class="navbar-inner">
-        <ul ng-if="hasUpgrade('Scoreboard')" class="nav navbar-nav navbar-left">
+        <ul class="nav navbar-nav navbar-left">
           <li>
-            <button type="button" ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}" class="navbar-btn"><span class="fa fa-plus">&nbsp;</span>Get More</button>
+            <button type="button" ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}" class="navbar-btn"><span class="fa fa-plus">&nbsp;</span>
+              <ng-include src="'gain-unit-text'"></ng-include>
+            </button>
+          </li>
+          <li ng-if="hasUpgrade('Scoreboard')">
+            <p id="navbar-unit" class="navbar-text">
+              <ng-include src="'formatting-units'"></ng-include>
+            </p>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li>
+            <p ng-if="hasUpgrade('Visual Countdown') &amp;&amp; !hasUpgrade('Progress Bar')" class="navbar-text">
+              <ng-include src="'formatting-timer'"></ng-include>
+            </p>
+            <div ng-if="hasUpgrade('Progress Bar')" class="navbar-text">
+              <progressbar value="100 - _timer/_timerMax*100" type="default" class="progress-striped active">{{100 - (_timer/_timerMax*100).toFixed(0)}}%</progressbar>
+            </div>
           </li>
           <li>
-            <p id="navbar-unit" class="navbar-text"><span ng-if="!hasUpgrade('Number Formatting')">{{_units}} units</span><span ng-if="hasUpgrade('Number Formatting')">{{_units | number:0}} units</span></p>
+            <button type="button" ng-click="save()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3) &amp;&amp; !hasUpgrade('Menu')" class="navbar-btn"><span class="fa fa-floppy-o">&nbsp;</span>Save</button>
           </li>
-        </ul><span ng-if="!hasUpgrade('Scoreboard')" class="navbar-left">
-          <button ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"><span class="fa fa-plus">&nbsp;</span>Gain Units</button></span>
-        <p ng-if="hasUpgrade('Visual Countdown') &amp;&amp; !hasUpgrade('Progress Bar')" class="navbar-text navbar-right"><span ng-if="!hasUpgrade('Number Formatting')">{{_timer}} milliseconds</span><span ng-if="hasUpgrade('Number Formatting')">{{_timer | number:0}} milliseconds</span></p>
-        <div ng-if="hasUpgrade('Progress Bar')" class="navbar-text navbar-right">
-          <progressbar value="100 - _timer/_timerMax*100" type="default" class="progress-striped active">{{100 - (_timer/_timerMax*100).toFixed(0)}}%</progressbar>
-        </div>
-        <button type="button" ng-click="save()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3)" class="navbar-btn navbar-right"><span class="fa fa-floppy-o">&nbsp;</span>Save</button>
+          <li ng-include src="'dropdown'"></li>
+        </ul>
       </div>
     </div>
   </nav>
@@ -53,13 +65,17 @@
       <div ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}">
         <div ng-if="!hasUpgrade('Better Layout', 1)">
           <h2>Acquire</h2>
-          <div ng-if="hasUpgrade('Scoreboard')" class="pull-left"><span ng-if="!hasUpgrade('Number Formatting')">{{_units}} units</span><span ng-if="hasUpgrade('Number Formatting')">{{_units | number:0}} units</span>
-            <button ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"><span class="fa fa-plus">&nbsp;</span>Get More</button>
+          <div class="pull-left">
+            <ng-include src="'formatting-units'" ng-if="hasUpgrade('Scoreboard')"></ng-include>
+            <button ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"><span class="fa fa-plus">&nbsp;</span>
+              <ng-include src="'gain-unit-text'"></ng-include>
+            </button>
+            <ng-include src="'early-style-save-button'"></ng-include>
+            <ng-include src="'dropdown'"></ng-include>
           </div>
-          <div ng-if="!hasUpgrade('Scoreboard')" class="pull-left">
-            <button ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"><span class="fa fa-plus">&nbsp;</span>Gain Units</button>
+          <div ng-if="hasUpgrade('Visual Countdown')" class="pull-right">
+            <ng-include src="'formatting-timer'"></ng-include>
           </div>
-          <div ng-if="hasUpgrade('Visual Countdown')" class="pull-right"><span ng-if="!hasUpgrade('Number Formatting')">{{_timer}} milliseconds</span><span ng-if="hasUpgrade('Number Formatting')">{{_timer | number:0}} milliseconds</span></div>
           <div class="clearfix"></div>
         </div>
         <h2 ng-if="hasUpgrade('Basic Layout', 1)">Upgrades</h2>
@@ -99,5 +115,90 @@
         <div ng-if="hasUpgrade('Syntax Highlighting')" hljs source="_function" language="javascript" class="better-aligned-code"></div>
       </div>
     </div>
+  </div>
+</script>
+<script type="text/ng-template" id="formatting-units"><span ng-if="!hasUpgrade('Number Formatting')">{{_units}} Units</span><span ng-if="hasUpgrade('Number Formatting')">{{_units | number:0}} Units</span></script>
+<script type="text/ng-template" id="formatting-timer"><span ng-if="!hasUpgrade('Number Formatting')">{{_timer}} milliseconds</span><span ng-if="hasUpgrade('Number Formatting')">{{_timer | number:0}} milliseconds</span></script>
+<script type="text/ng-template" id="gain-unit-text"><span ng-if="!hasUpgrade('Scoreboard')">Gain Units</span><span ng-if="hasUpgrade('Scoreboard')">Get More</span></script>
+<script type="text/ng-template" id="early-style-save-button">
+  <button type="button" ng-click="save()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3) &amp;&amp; !hasUpgrade('Better Layout', 1) &amp;&amp; !hasUpgrade('Menu')"><span class="fa fa-floppy-o">&nbsp;</span>Save</button>
+</script>
+<script type="text/ng-template" id="dropdown"><span dropdown ng-if="hasUpgrade('Menu')" ng-class="{'navbar-text': hasUpgrade('Better Layout', 1) &amp;&amp; hasUpgrade('Iconography')}" class="dropdown">
+    <button href dropdown-toggle ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color'), 'navbar-btn': hasUpgrade('Better Layout', 1)}" ng-if="!hasUpgrade('Iconography')" class="dropdown-toggle">Menu</button><a href dropdown-toggle ng-if="hasUpgrade('Iconography')" ng-mouseenter="hover = true" ng-mouseleave="hover = false" class="dropdown-toggle text-default"><span ng-class="{'fa-spin': hover &amp;&amp; hasUpgrade('Basic Animation')}" class="fa fa-gear"></span></a>
+    <ul class="dropdown-menu">
+      <li ng-if="hasUpgrade('Help Menu')"><a href ng-click="openModal('help')"><span class="fa fa-question-circle">&nbsp;</span>Help</a></li>
+      <li ng-if="hasUpgrade('Options Menu')"><a href ng-click="openModal('options')"><span class="fa fa-book">&nbsp;</span>Options</a></li>
+      <li ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3)"><a href ng-click="save()"><span class="fa fa-floppy-o">&nbsp;</span>Save</a></li>
+      <li ng-if="hasUpgrade('Save', 2)"><a href ng-click="openModal('debug')"><span class="fa fa-bug">&nbsp;</span>Debug Info</a></li>
+      <li><a href ng-click="openModal('credits')"><span class="fa fa-birthday-cake">&nbsp;</span>Credits</a></li>
+    </ul></span></script>
+<script type="text/ng-template" id="modal-credits">
+  <div class="modal-header"><span ng-click="$close()" class="close"><span class="fa fa-close"></span></span>
+    <h4><span class="fa fa-birthday-cake">&nbsp;</span>Credits</h4>
+  </div>
+  <div class="modal-body">
+    <ul>
+      <li><a target="_blank" href="http://reddit.com/r/incremental_games"><span class="fa fa-reddit">&nbsp;</span>/r/incremental_games - introducing the genre</a></li>
+      <li><a target="_blank" href="http://www.reddit.com/user/Wrydryn"><span class="fa fa-reddit">&nbsp;</span>/u/Wrydryn - the original idea</a></li>
+    </ul>
+    <h4>Made With</h4>
+    <ul>
+      <li><a target="_blank" href="http://angularjs.org">AngularJS</a></li>
+      <li><a target="_blank" href="http://getbootstrap.com/">Bootstrap</a></li>
+      <li><a target="_blank" href="http://gulpjs.com/">Gulp</a></li>
+      <li><a target="_blank" href="http://jade-lang.com/">Jade</a></li>
+      <li><a target="_blank" href="http://lesscss.org/">LESS</a></li>
+    </ul>
+    <h4>Found On</h4>
+    <ul>
+      <li><a target="_blank" href="https://github.com/seiyria/c"><span class="fa fa-github">&nbsp;</span>GitHub</a></li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}" ng-click="$close()">Close</button>
+  </div>
+</script>
+<script type="text/ng-template" id="modal-debug">
+  <div class="modal-header"><span ng-click="$close()" class="close"><span class="fa fa-close"></span></span>
+    <h4><span class="fa fa-bug">&nbsp;</span>Debug Info</h4>
+  </div>
+  <div class="modal-body">
+    <div>Below is your savefile, if you have troubles please attach it, preferably with a screenshot too!</div>
+    <div ng-if="!hasUpgrade('Syntax Highlighting')" ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}">{{debugInfo()}}</div>
+    <div ng-if="hasUpgrade('Syntax Highlighting')" hljs source="debugInfo()" language="json" class="better-aligned-code"></div>
+  </div>
+  <div class="modal-footer">
+    <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}" ng-click="$close()">Close</button>
+  </div>
+</script>
+<script type="text/ng-template" id="modal-help">
+  <div class="modal-header"><span ng-click="$close()" class="close"><span class="fa fa-close"></span></span>
+    <h4><span class="fa fa-question-circle">&nbsp;</span>Help</h4>
+  </div>
+  <div class="modal-body">
+    <div>
+      This game is a game that, as you've probably noticed by now, builds itself.
+      In general, the upgrades should be self explanatory.
+      If not, there's another upgrade unlocked by buying this upgrade that you now have access to for further help!
+    </div>
+    <h4>Tips</h4>
+    <ul>
+      <li>This game was inspired in part by <a target="_blank" href="https://gist.github.com/seiyria/1bfd939a1d0566223228">this post</a>.</li>
+      <li>The most expensive upgrade costs over 1 million. If you haven't spent that much yet, you're not done.</li>
+    </ul>
+  </div>
+  <div class="modal-footer">
+    <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}" ng-click="$close()">Close</button>
+  </div>
+</script>
+<script type="text/ng-template" id="modal-options">
+  <div class="modal-header"><span ng-click="$close()" class="close"><span class="fa fa-close"></span></span>
+    <h4><span class="fa fa-book">&nbsp;</span>Options</h4>
+  </div>
+  <div class="modal-body">
+    <div>Here are some options for the game. Over time more may show up here.</div>
+  </div>
+  <div class="modal-footer"><span class="pull-left">You started <span am-time-ago="saveObject().start"></span>.</span>
+    <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}" ng-click="$close()">Close</button>
   </div>
 </script>
