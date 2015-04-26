@@ -8,7 +8,7 @@ var animatedFlyTip = require('./animatedflytip');
 var favico = require('./favico');
 var gameController = require('./gamecontroller');
 
-angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable'])
+angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'angularMoment'])
 
   .constant('Upgrades', upgrades)
 

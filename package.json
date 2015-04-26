@@ -51,6 +51,7 @@
       "./bower_components/pnotify/pnotify.core.js",
       "./bower_components/pnotify/!(pnotify.core).js",
       "./bower_components/highlightjs/highlight.pack.js",
+      "./bower_components/moment/moment.js",
 
       "./bower_components/angular/angular.js",
       "./bower_components/angular-ui-router/release/angular-ui-router.js",
@@ -58,6 +59,7 @@
       "./bower_components/angular-local-storage/dist/angular-local-storage.js",
       "./bower_components/angular-pnotify/src/angular-pnotify.js",
       "./bower_components/angular-highlightjs/build/angular-highlightjs.js",
+      "./bower_components/angular-moment/angular-moment.js",
       "./bower_components/ng-table/dist/ng-table.js"
     ],
     "libcss": [

@@ -132,12 +132,12 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
     }, 100);
   });
 
-  $window.dumpState = function() {
-    return GameState.upgrade.get();
+  $scope.saveObject = function() {
+    return GameState.buildSaveObject();
   };
 
   $scope.debugInfo = $window.dumpDebugInfo = function() {
-    return JSON.stringify(GameState.buildSaveObject(), null, 4);
+    return JSON.stringify($scope.saveObject(), null, 4);
   };
 
 };
