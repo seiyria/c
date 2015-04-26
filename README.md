@@ -6,7 +6,7 @@ A small game.
 
 Prerequisites:
 * npm
-* gulp (`npm install gulp`)
+* gulp (`npm install -g gulp`)
 
 ```
 npm install && bower install
