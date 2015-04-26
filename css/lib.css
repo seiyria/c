@@ -1,0 +1,384 @@
+/* Include this file in your html if you are using the CSP mode. */
+
+@charset "UTF-8";
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak],
+.ng-cloak, .x-ng-cloak,
+.ng-hide:not(.ng-hide-animate) {
+  display: none !important;
+}
+
+ng\:form {
+  display: block;
+}
+
+.ui-pnotify-closer, .ui-pnotify-sticker {
+float: right;
+margin-left: .2em;
+}
+
+/*
+Author  : Hunter Perrin
+Version : 2.0.1
+Link    : http://sciactive.com/pnotify/
+*/
+/* -- Notice */
+.ui-pnotify {
+top: 25px;
+right: 25px;
+position: absolute;
+height: auto;
+/* Ensures notices are above everything */
+z-index: 9999;
+}
+/* Hides position: fixed from IE6 */
+html > body > .ui-pnotify {
+position: fixed;
+}
+.ui-pnotify .ui-pnotify-shadow {
+-webkit-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+-moz-box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+box-shadow: 0px 2px 10px rgba(50, 50, 50, 0.5);
+}
+.ui-pnotify-container {
+background-position: 0 0;
+padding: .8em;
+height: 100%;
+margin: 0;
+}
+.ui-pnotify-sharp {
+-webkit-border-radius: 0;
+-moz-border-radius: 0;
+border-radius: 0;
+}
+.ui-pnotify-title {
+display: block;
+margin-bottom: .4em;
+margin-top: 0;
+}
+.ui-pnotify-text {
+display: block;
+}
+.ui-pnotify-icon, .ui-pnotify-icon span {
+display: block;
+float: left;
+margin-right: .2em;
+}
+/* Alternate stack initial positioning. */
+.ui-pnotify.stack-topleft, .ui-pnotify.stack-bottomleft {
+left: 25px;
+right: auto;
+}
+.ui-pnotify.stack-bottomright, .ui-pnotify.stack-bottomleft {
+bottom: 25px;
+top: auto;
+}
+
+/* -- Pulldown */
+.ui-pnotify-history-container {
+position: absolute;
+top: 0;
+right: 18px;
+width: 70px;
+border-top: none;
+padding: 0;
+-webkit-border-top-left-radius: 0;
+-moz-border-top-left-radius: 0;
+border-top-left-radius: 0;
+-webkit-border-top-right-radius: 0;
+-moz-border-top-right-radius: 0;
+border-top-right-radius: 0;
+/* Ensures history container is above notices. */
+z-index: 10000;
+}
+.ui-pnotify-history-container.ui-pnotify-history-fixed {
+position: fixed;
+}
+.ui-pnotify-history-container .ui-pnotify-history-header {
+padding: 2px;
+text-align: center;
+}
+.ui-pnotify-history-container button {
+cursor: pointer;
+display: block;
+width: 100%;
+}
+.ui-pnotify-history-container .ui-pnotify-history-pulldown {
+display: block;
+margin: 0 auto;
+}
+
+.ui-pnotify .picon {
+background-color: transparent;
+background-repeat: no-repeat;
+background-position: center center;
+width: 17px;
+height: 17px;
+}
+.ui-pnotify-title {
+line-height: 17px;
+min-height: 17px;
+}
+
+/*
+
+github.com style (c) Vasily Polovnyov <vast@whiteants.net>
+
+*/
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  padding: 0.5em;
+  color: #333;
+  background: #f8f8f8;
+  -webkit-text-size-adjust: none;
+}
+
+.hljs-comment,
+.diff .hljs-header,
+.hljs-javadoc {
+  color: #998;
+  font-style: italic;
+}
+
+.hljs-keyword,
+.css .rule .hljs-keyword,
+.hljs-winutils,
+.nginx .hljs-title,
+.hljs-subst,
+.hljs-request,
+.hljs-status {
+  color: #333;
+  font-weight: bold;
+}
+
+.hljs-number,
+.hljs-hexcolor,
+.ruby .hljs-constant {
+  color: #008080;
+}
+
+.hljs-string,
+.hljs-tag .hljs-value,
+.hljs-phpdoc,
+.hljs-dartdoc,
+.tex .hljs-formula {
+  color: #d14;
+}
+
+.hljs-title,
+.hljs-id,
+.scss .hljs-preprocessor {
+  color: #900;
+  font-weight: bold;
+}
+
+.hljs-list .hljs-keyword,
+.hljs-subst {
+  font-weight: normal;
+}
+
+.hljs-class .hljs-title,
+.hljs-type,
+.vhdl .hljs-literal,
+.tex .hljs-command {
+  color: #458;
+  font-weight: bold;
+}
+
+.hljs-tag,
+.hljs-tag .hljs-title,
+.hljs-rule .hljs-property,
+.django .hljs-tag .hljs-keyword {
+  color: #000080;
+  font-weight: normal;
+}
+
+.hljs-attribute,
+.hljs-variable,
+.lisp .hljs-body,
+.hljs-name {
+  color: #008080;
+}
+
+.hljs-regexp {
+  color: #009926;
+}
+
+.hljs-symbol,
+.ruby .hljs-symbol .hljs-string,
+.lisp .hljs-keyword,
+.clojure .hljs-keyword,
+.scheme .hljs-keyword,
+.tex .hljs-special,
+.hljs-prompt {
+  color: #990073;
+}
+
+.hljs-built_in {
+  color: #0086b3;
+}
+
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-pi,
+.hljs-doctype,
+.hljs-shebang,
+.hljs-cdata {
+  color: #999;
+  font-weight: bold;
+}
+
+.hljs-deletion {
+  background: #fdd;
+}
+
+.hljs-addition {
+  background: #dfd;
+}
+
+.diff .hljs-change {
+  background: #0086b3;
+}
+
+.hljs-chunk {
+  color: #aaa;
+}
+
+.ng-table th {
+  text-align: center;
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+.ng-table th.sortable {
+  cursor: pointer;
+}
+.ng-table th.sortable .sort-indicator {
+  padding-right: 18px;
+  position: relative;
+}
+.ng-table th.sortable .sort-indicator:after,
+.ng-table th.sortable .sort-indicator:before {
+  content: "";
+  border-width: 0 4px 4px;
+  border-style: solid;
+  border-color: #000 transparent;
+  visibility: visible;
+  right: 5px;
+  top: 50%;
+  position: absolute;
+  opacity: .3;
+  margin-top: -4px;
+}
+.ng-table th.sortable .sort-indicator:before {
+  margin-top: 2px;
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000;
+}
+.ng-table th.sortable .sort-indicator:hover:after,
+.ng-table th.sortable .sort-indicator:hover:before {
+  opacity: 1;
+  visibility: visible;
+}
+.ng-table th.sortable.sort-desc,
+.ng-table th.sortable.sort-asc {
+  background-color: rgba(141, 192, 219, 0.25);
+  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
+}
+.ng-table th.sortable.sort-desc .sort-indicator:after,
+.ng-table th.sortable.sort-asc .sort-indicator:after {
+  margin-top: -2px;
+}
+.ng-table th.sortable.sort-desc .sort-indicator:before,
+.ng-table th.sortable.sort-asc .sort-indicator:before {
+  visibility: hidden;
+}
+.ng-table th.sortable.sort-asc .sort-indicator:after,
+.ng-table th.sortable.sort-asc .sort-indicator:hover:after {
+  visibility: visible;
+  filter: alpha(opacity=60);
+  -khtml-opacity: 0.6;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+}
+.ng-table th.sortable.sort-desc .sort-indicator:after {
+  border-bottom: none;
+  border-left: 4px solid transparent;
+  border-right: 4px solid transparent;
+  border-top: 4px solid #000;
+  visibility: visible;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  filter: alpha(opacity=60);
+  -khtml-opacity: 0.6;
+  -moz-opacity: 0.6;
+  opacity: 0.6;
+}
+.ng-table th.filter .input-filter {
+  margin: 0;
+  display: block;
+  width: 100%;
+  min-height: 30px;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+.ng-table + .pagination {
+  margin-top: 0;
+}
+@media only screen and (max-width: 800px) {
+  .ng-table-responsive {
+    border-bottom: 1px solid #999999;
+  }
+  .ng-table-responsive tr {
+    border-top: 1px solid #999999;
+    border-left: 1px solid #999999;
+    border-right: 1px solid #999999;
+  }
+  .ng-table-responsive td:before {
+    position: absolute;
+    padding: 8px;
+    left: 0;
+    top: 0;
+    width: 50%;
+    white-space: nowrap;
+    text-align: left;
+    font-weight: bold;
+  }
+  .ng-table-responsive thead tr th {
+    text-align: left;
+  }
+  .ng-table-responsive thead tr.ng-table-filters th {
+    padding: 0;
+  }
+  .ng-table-responsive thead tr.ng-table-filters th form > div {
+    padding: 8px;
+  }
+  .ng-table-responsive td {
+    border: none;
+    border-bottom: 1px solid #eeeeee;
+    position: relative;
+    padding-left: 50%;
+    white-space: normal;
+    text-align: left;
+  }
+  .ng-table-responsive td:before {
+    content: attr(data-title-text);
+  }
+  .ng-table-responsive,
+  .ng-table-responsive thead,
+  .ng-table-responsive tbody,
+  .ng-table-responsive th,
+  .ng-table-responsive td,
+  .ng-table-responsive tr {
+    display: block;
+  }
+}

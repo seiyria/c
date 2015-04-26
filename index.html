@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="c" ng-controller="Game">
+  <head>
+    <meta charset="utf-8">
+    <title ng-if="!hasUpgrade('Page Title')">c</title>
+    <title ng-if="hasUpgrade('Page Title') &amp;&amp; !hasUpgrade('Better Page Title')">c(ode)</title>
+    <title ng-if="hasUpgrade('Better Page Title') &amp;&amp; !hasUpgrade('Number Formatting')">c(ode) | {{_units}}</title>
+    <title ng-if="hasUpgrade('Better Page Title') &amp;&amp; hasUpgrade('Number Formatting')">c(ode) | {{_units | number:0}}</title>
+    <link rel="shortcut icon" href="favicon.ico">
+    <link href="css/bootstrap.css" rel="stylesheet">
+    <link href="css/font-awesome.css" rel="stylesheet" ng-if="hasUpgrade('Iconography')">
+    <link href="css/main.min.css" rel="stylesheet">
+    <link href="css/lib.css" rel="stylesheet">
+  </head>
+  <body ng-class="{lowercase: !hasUpgrade('Capitalization', 0), 'no-border-radius': !hasUpgrade('Basic Style', 1)}">
+    <ng-include src="'main'"></ng-include>
+    <script src="js/lib.js"></script>
+    <script src="js/main.min.js"></script>
+  </body>
+</html>
+<script type="text/ng-template" id="main">
+  <div ng-if="!hasUpgrade('Basic Layout')">
+    <button ng-click="gainUnits()">Gain Units</button><span ng-if="hasUpgrade('Scoreboard')">Units: {{_units}}</span>
+    <div ng-if="hasUpgrade('Visual Countdown')">{{_timer}} milliseconds</div>
+    <div ng-repeat="item in _visibleUpgrades"><span>{{item.name}} (Level {{item.level}})</span>
+      <button ng-click="buyUpgrade(item.name, item.buyLevels)" ng-disabled="_units &lt; item.cost">Buy for {{item.cost}} Units</button>
+    </div>
+    <div ng-class="{formatted: hasUpgrade('Preformatting')}">{{_function}}</div>
+  </div>
+  <nav ng-if="hasUpgrade('Better Layout', 1)" class="navbar navbar-default">
+    <div class="container">
+      <div class="navbar-header"><a href ng-if="!hasUpgrade('Page Title')" class="navbar-brand"><img alt="c" src="favicon.ico" ng-if="hasUpgrade('Favicon')"><span ng-if="!hasUpgrade('Favicon')">c</span></a><a href ng-if="hasUpgrade('Page Title')" class="navbar-brand"><img alt="c" src="favicon.ico" ng-if="hasUpgrade('Favicon')"><span ng-if="!hasUpgrade('Favicon')">c(ode)</span><span ng-if="hasUpgrade('Favicon')">(ode)</span></a></div>
+      <div class="navbar-inner">
+        <ul ng-if="hasUpgrade('Scoreboard')" class="nav navbar-nav navbar-left">
+          <li>
+            <button type="button" ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}" class="navbar-btn"><span class="fa fa-plus">&nbsp;</span>Get More</button>
+          </li>
+          <li>
+            <p id="navbar-unit" class="navbar-text"><span ng-if="!hasUpgrade('Number Formatting')">{{_units}} units</span><span ng-if="hasUpgrade('Number Formatting')">{{_units | number:0}} units</span></p>
+          </li>
+        </ul><span ng-if="!hasUpgrade('Scoreboard')" class="navbar-left">
+          <button ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"><span class="fa fa-plus">&nbsp;</span>Gain Units</button></span>
+        <p ng-if="hasUpgrade('Visual Countdown') &amp;&amp; !hasUpgrade('Progress Bar')" class="navbar-text navbar-right"><span ng-if="!hasUpgrade('Number Formatting')">{{_timer}} milliseconds</span><span ng-if="hasUpgrade('Number Formatting')">{{_timer | number:0}} milliseconds</span></p>
+        <div ng-if="hasUpgrade('Progress Bar')" class="navbar-text navbar-right">
+          <progressbar value="100 - _timer/_timerMax*100" type="default" class="progress-striped active">{{100 - (_timer/_timerMax*100).toFixed(0)}}%</progressbar>
+        </div>
+        <button type="button" ng-click="save()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3)" class="navbar-btn navbar-right"><span class="fa fa-floppy-o">&nbsp;</span>Save</button>
+      </div>
+    </div>
+  </nav>
+  <div ng-if="hasUpgrade('Basic Layout')" class="container">
+    <div class="row">
+      <div ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}">
+        <div ng-if="!hasUpgrade('Better Layout', 1)">
+          <h2>Acquire</h2>
+          <div ng-if="hasUpgrade('Scoreboard')" class="pull-left"><span ng-if="!hasUpgrade('Number Formatting')">{{_units}} units</span><span ng-if="hasUpgrade('Number Formatting')">{{_units | number:0}} units</span>
+            <button ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"><span class="fa fa-plus">&nbsp;</span>Get More</button>
+          </div>
+          <div ng-if="!hasUpgrade('Scoreboard')" class="pull-left">
+            <button ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"><span class="fa fa-plus">&nbsp;</span>Gain Units</button>
+          </div>
+          <div ng-if="hasUpgrade('Visual Countdown')" class="pull-right"><span ng-if="!hasUpgrade('Number Formatting')">{{_timer}} milliseconds</span><span ng-if="hasUpgrade('Number Formatting')">{{_timer | number:0}} milliseconds</span></div>
+          <div class="clearfix"></div>
+        </div>
+        <h2 ng-if="hasUpgrade('Basic Layout', 1)">Upgrades</h2>
+        <h4 ng-if="_visibleUpgrades.length === 0">No Available Upgrades</h4>
+        <table ng-if="_visibleUpgrades.length &gt; 0 &amp;&amp; !hasUpgrade('Best Table')" ng-class="{'col-xs-12 margin-top-15': hasUpgrade('Basic Layout', 1), 'table table-bordered': hasUpgrade('Better Layout'), 'table-striped': hasUpgrade('Basic Style')}">
+          <tr>
+            <th ng-class="{'text-right': hasUpgrade('Better Layout')}">Name</th>
+            <th>Level</th>
+            <th>Buy</th>
+          </tr>
+          <tr ng-repeat="item in _visibleUpgrades" ng-class="{'danger': hasUpgrade('Basic Style', 1) &amp;&amp; _units &lt; item.cost, 'vertical-center': hasUpgrade('Basic Style', 1)}">
+            <td ng-class="{'text-right': hasUpgrade('Better Layout')}">{{item.name}}</td>
+            <td>{{item.level}}</td>
+            <td>
+              <button ng-click="buyUpgrade(item.name, item.buyLevels)" ng-disabled="_units &lt; item.cost" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}"><span class="fa fa-shopping-cart">&nbsp;</span><span ng-if="!hasUpgrade('Number Formatting')">Buy for {{item.cost}} Units</span><span ng-if="hasUpgrade('Number Formatting')">Buy for {{item.cost | number:0}} Units</span></button>
+            </td>
+          </tr>
+        </table>
+        <table ng-table="tableParams" show-filter="true" ng-show="hasUpgrade('Best Table')" class="table">
+          <tbody ng-repeat="group in $groups">
+            <tr class="ng-table-group">
+              <td colspan="{{$columns.length}}"><a href ng-click="group.$hideRows = !group.$hideRows"><span ng-if="hasUpgrade('Iconography')" ng-class="{'fa-toggle-right': group.$hideRows, 'fa-toggle-down': !group.$hideRows}" class="fa">&nbsp;</span><strong>{{group.value}}</strong></a></td>
+            </tr>
+            <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
+              <td sortable="name" data-title="'Name'" filter="{name: 'text'}">{{item.name}}</td>
+              <td sortable="level" data-title="'Level'" filter="{level: 'text'}">{{item.level}}</td>
+              <td sortable="cost" data-title="'Cost'" filter="{cost: 'text'}">
+                <button ng-click="buyUpgrade(item.name, item.buyLevels)" ng-disabled="_units &lt; item.cost" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}"><span class="fa fa-shopping-cart">&nbsp;</span><span ng-if="!hasUpgrade('Number Formatting')">Buy for {{item.cost}} Units</span><span ng-if="hasUpgrade('Number Formatting')">Buy for {{item.cost | number:0}} Units</span></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}">
+        <h2 ng-if="hasUpgrade('Basic Layout', 1)">Output</h2>
+        <div ng-if="!hasUpgrade('Syntax Highlighting')" ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}">{{_function}}</div>
+        <div ng-if="hasUpgrade('Syntax Highlighting')" hljs source="_function" language="javascript" class="better-aligned-code"></div>
+      </div>
+    </div>
+  </div>
+</script>
