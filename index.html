@@ -94,7 +94,7 @@
         </table>
       </div>
       <div ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}">
-        <h2 ng-if="hasUpgrade('Basic Layout', 1)">Output</h2>
+        <h2>Output</h2>
         <div ng-if="!hasUpgrade('Syntax Highlighting')" ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}">{{_function}}</div>
         <div ng-if="hasUpgrade('Syntax Highlighting')" hljs source="_function" language="javascript" class="better-aligned-code"></div>
       </div>
