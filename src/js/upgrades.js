@@ -48,6 +48,7 @@ module.exports = {
   },
   'Page Title': {
     category: 'Cosmetic',
+    requirements: {'Basic Layout': 0},
     costs: [500]
   },
   'Better Page Title': {
@@ -111,6 +112,7 @@ module.exports = {
   },
   'Save': {
     category: 'Tech',
+    requirements: {'Basic Layout': 0},
     costs: [300, 5000, 20000, 150000]
   },
   'Advanced Timer': {

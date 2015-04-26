@@ -29,8 +29,7 @@ script(type="text/ng-template", id="main")
                             | Get More
                     li
                         p.navbar-text#navbar-unit
-                            span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} units
-                            span(ng-if="hasUpgrade('Number Formatting')") {{_units | number:0}} units
+                            ng-include(src="'formatting-units'")
 
                 span.navbar-left(ng-if="!hasUpgrade('Scoreboard')")
                     button(ng-click="gainUnits()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}")
@@ -38,8 +37,7 @@ script(type="text/ng-template", id="main")
                         | Gain Units
 
                 p.navbar-text.navbar-right(ng-if="hasUpgrade('Visual Countdown') && !hasUpgrade('Progress Bar')")
-                    span(ng-if="!hasUpgrade('Number Formatting')") {{_timer}} milliseconds
-                    span(ng-if="hasUpgrade('Number Formatting')") {{_timer | number:0}} milliseconds
+                    ng-include(src="'formatting-timer'")
                 div.navbar-text.navbar-right(ng-if="hasUpgrade('Progress Bar')")
                     progressbar.progress-striped.active(value="100 - _timer/_timerMax*100", type="default") {{100 - (_timer/_timerMax*100).toFixed(0)}}%
 
@@ -54,20 +52,20 @@ script(type="text/ng-template", id="main")
                 div(ng-if="!hasUpgrade('Better Layout', 1)")
                     h2 Acquire
                     div.pull-left(ng-if="hasUpgrade('Scoreboard')")
-                        span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} units
-                        span(ng-if="hasUpgrade('Number Formatting')") {{_units | number:0}} units
+                        ng-include(src="'formatting-units'")
                         button(ng-click="gainUnits()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}")
                             span.fa.fa-plus &nbsp;
                             | Get More
+                        ng-include(src="'early-style-save-button'")
 
                     div.pull-left(ng-if="!hasUpgrade('Scoreboard')")
                         button(ng-click="gainUnits()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}")
                             span.fa.fa-plus &nbsp;
                             | Gain Units
+                        ng-include(src="'early-style-save-button'")
 
                     div.pull-right(ng-if="hasUpgrade('Visual Countdown')")
-                        span(ng-if="!hasUpgrade('Number Formatting')") {{_timer}} milliseconds
-                        span(ng-if="hasUpgrade('Number Formatting')") {{_timer | number:0}} milliseconds
+                        ng-include(src="'formatting-timer'")
 
                     div.clearfix
 
@@ -111,3 +109,16 @@ script(type="text/ng-template", id="main")
 
                 div(ng-if="!hasUpgrade('Syntax Highlighting')",ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}") {{_function}}
                 div.better-aligned-code(ng-if="hasUpgrade('Syntax Highlighting')",hljs,source="_function",language="javascript")
+
+script(type="text/ng-template", id="formatting-units")
+    span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} units
+    span(ng-if="hasUpgrade('Number Formatting')") {{_units | number:0}} units
+
+script(type="text/ng-template", id="formatting-timer")
+    span(ng-if="!hasUpgrade('Number Formatting')") {{_timer}} milliseconds
+    span(ng-if="hasUpgrade('Number Formatting')") {{_timer | number:0}} milliseconds
+
+script(type="text/ng-template", id="early-style-save-button")
+    button(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3) && !hasUpgrade('Better Layout', 1)")
+        span.fa.fa-floppy-o &nbsp;
+        | Save
