@@ -20,7 +20,7 @@ module.exports = {
   'Basic Iteration': {
     category: 'Tech',
     requirements: {Function: 0},
-    costs: [50, 300, 2000, 15000]
+    costs: [50, 300, 20000, 150000]
   },
   'Basic Timer': {
     category: 'Tech',
@@ -30,7 +30,7 @@ module.exports = {
   'Basic Boost': {
     category: 'Tech',
     requirements: {Function: 0},
-    costs: [10, 100, 2500, 10000]
+    costs: [10, 100, 25000, 200000]
   },
   Capitalization: {
     category: 'Visual',
@@ -117,5 +117,10 @@ module.exports = {
     category: 'Tech',
     requirements: {'Basic Timer': 3},
     costs: [200000, 750000, 1500000]
+  },
+  'Best Table': {
+    category: 'Tech',
+    requirements: {'Basic Style': 1},
+    costs: [250000]
   }
 };

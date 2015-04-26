@@ -75,7 +75,7 @@ script(type="text/ng-template", id="main")
 
                 h4(ng-if="_visibleUpgrades.length === 0") No Available Upgrades
 
-                table(ng-if="_visibleUpgrades.length > 0", ng-class="{'col-xs-12 margin-top-15': hasUpgrade('Basic Layout', 1), 'table table-bordered': hasUpgrade('Better Layout'), 'table-striped': hasUpgrade('Basic Style')}")
+                table(ng-if="_visibleUpgrades.length > 0 && !hasUpgrade('Best Table')", ng-class="{'col-xs-12 margin-top-15': hasUpgrade('Basic Layout', 1), 'table table-bordered': hasUpgrade('Better Layout'), 'table-striped': hasUpgrade('Basic Style')}")
                     tr
                         th(ng-class="{'text-right': hasUpgrade('Better Layout')}") Name
                         th Level
@@ -88,6 +88,22 @@ script(type="text/ng-template", id="main")
                                 span.fa.fa-shopping-cart &nbsp;
                                 span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} Units
                                 span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} Units
+
+                table.table.table-striped(ng-table="tableParams", show-filter="true", ng-show="hasUpgrade('Best Table')")
+                    tbody(ng-repeat="group in $groups")
+                        tr.ng-table-group
+                            td(colspan="{{$columns.length}}")
+                                a(href, ng-click="group.$hideRows = !group.$hideRows")
+                                    span.fa(ng-if="hasUpgrade('Iconography')", ng-class="{'fa-toggle-right': group.$hideRows, 'fa-toggle-down': !group.$hideRows}") &nbsp;
+                                    strong {{group.value}}
+                        tr(ng-hide="group.$hideRows", ng-repeat="item in group.data")
+                            td(sortable="'name'", data-title="'Name'", filter="{name: 'text'}") {{item.name}}
+                            td(sortable="'level'", data-title="'Level'", filter="{level: 'text'}") {{item.level}}
+                            td(sortable="'cost'", data-title="'Cost'", filter="{cost: 'text'}")
+                                button(ng-click="buyUpgrade(item.name, item.buyLevels)", ng-disabled="_units < item.cost", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}")
+                                    span.fa.fa-shopping-cart &nbsp;
+                                    span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} Units
+                                    span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} Units
 
             div(ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}")
 

@@ -33,7 +33,8 @@
     "watchify": "*",
     "gulp-open": "~0.3.2",
     "gulp-jscs": "~1.5.1",
-    "jscs": "*"
+    "jscs": "*",
+    "gulp-gh-pages": "~0.5.1"
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",

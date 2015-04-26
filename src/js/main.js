@@ -7,13 +7,11 @@ var functionBuilder = require('./functionbuilder');
 var animatedFlyTip = require('./animatedflytip');
 var favico = require('./favico');
 
-angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule'])
+angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable'])
 
   .constant('Upgrades', upgrades)
 
   .constant('Version', '0.0.1')
-
-  .constant('DumpState', {'Basic Layout': 2,'Scoreboard': 1,'Function': 1,'Basic Timer': 2,'Basic Iteration': 3,'Basic Boost': 3,'Preformatting': 1,'Visual Countdown': 1,'Page Title': 1,'Better Page Title': 1,'Better Layout': 2,'Basic Style': 1,'Number Formatting': 1})
 
   .service('favico', favico)
 
@@ -28,8 +26,34 @@ angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule'])
   .service('FunctionBuilder', functionBuilder)
 
   .controller('Game', [
-    '$scope', '$window', '$interval', 'GameState', 'GameTimer', 'FunctionBuilder', 'Upgrades', 'favico',
-    function($scope, $window, $interval, GameState, GameTimer, FunctionBuilder, UPGRADES, favico) {
+    '$scope', '$window', '$interval', '$filter', 'GameState', 'GameTimer', 'FunctionBuilder', 'Upgrades', 'favico', 'ngTableParams',
+    function($scope, $window, $interval, $filter, GameState, GameTimer, FunctionBuilder, UPGRADES, favico, NgTableParams) {
+
+      $scope._visibleUpgrades = [];
+
+      $scope.tableParams = new NgTableParams({
+        page: 1,
+        count: 1000
+      }, {
+        groupBy: 'category',
+        total: $scope._visibleUpgrades.length,
+        getData: function($defer, params) {
+
+          var data = $scope._visibleUpgrades;
+
+          var orderedData = params.sorting() ?
+            $filter('orderBy')(data, params.orderBy()) :
+            data;
+
+          var filteredData = params.filter() ?
+            $filter('filter')(orderedData, params.filter()) :
+            orderedData;
+
+          params.total($scope._visibleUpgrades.length);
+
+          $defer.resolve(filteredData.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+        }
+      });
 
       $scope.hasUpgrade = function(key, level = 0) {
         return GameState.upgrade.has(key, level);
@@ -113,6 +137,8 @@ angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule'])
         $scope._units = GameState.unit.get();
         $scope._visibleUpgrades = $scope.visibleUpgrades();
         $scope._function = FunctionBuilder.build();
+
+        $scope.tableParams.reload();
       };
 
       $scope.refresh();
@@ -140,5 +166,6 @@ angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule'])
       $window.dumpDebugInfo = function() {
         return JSON.stringify(GameState.buildSaveObject(), null, 4);
       };
+
     }
   ]);

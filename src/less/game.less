@@ -1,4 +1,6 @@
 
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
 .lowercase {
   text-transform: lowercase;
 }
@@ -36,4 +38,16 @@
   td, th {
     vertical-align: middle!important;
   }
+}
+
+.plus::before {
+  content: '+';
+}
+
+.minus::before {
+  content: '-';
+}
+
+.ng-table-pager {
+  display: none;
 }

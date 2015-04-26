@@ -21,6 +21,7 @@ var gulp = require('gulp')
   , gulpif = require('gulp-if')
   , vinylPaths = require('vinyl-paths')
   , open = require('gulp-open')
+  , ghPages = require('gulp-gh-pages')
   , paths;
 
 var watching = false;
@@ -40,12 +41,14 @@ paths = {
     './bower_components/angular-bootstrap/ui-bootstrap-tpls.js',
     './bower_components/angular-local-storage/dist/angular-local-storage.js',
     './bower_components/angular-pnotify/src/angular-pnotify.js',
-    './bower_components/angular-highlightjs/build/angular-highlightjs.js'
+    './bower_components/angular-highlightjs/build/angular-highlightjs.js',
+    './bower_components/ng-table/dist/ng-table.js'
   ],
   libcss: [
     './bower_components/angular/angular-csp.css',
     './bower_components/pnotify/*.css',
-    './bower_components/highlightjs/styles/github.css'
+    './bower_components/highlightjs/styles/github.css',
+    './bower_components/ng-table/dist/ng-table.css'
   ],
   copycss: [
     './bower_components/bootstrap/dist/css/bootstrap.css',
@@ -62,6 +65,11 @@ paths = {
   entry: './src/js/main.js',
   dist: './dist/'
 };
+
+gulp.task('deploy', function() {
+  return gulp.src(paths.dist + '**/*')
+    .pipe(ghPages());
+});
 
 gulp.task('clean', function () {
   return gulp.src(paths.dist)
