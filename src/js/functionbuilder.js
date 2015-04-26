@@ -24,7 +24,7 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
         animationHeader = [
           `var totalUnitsGained = 0;`,
           `units += totalUnitsGained;
-          animateUnitChange(totalUnitsGained);`];
+    animateUnitChange(totalUnitsGained);`];
         unitText = 'totalUnitsGained';
       }
 
