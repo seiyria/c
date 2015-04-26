@@ -1,6 +1,7 @@
-var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip, DumpState) {
-  var upgrades = DumpState || {};
+var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip) {
+  var upgrades = {};
   var units = 100000;
+  var start = Date.now();
 
   var upgradeDefer = $q.defer();
   var unitDefer = $q.defer();
@@ -8,7 +9,8 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip, DumpState) 
   var buildSaveObject = function() {
     return {
       units: units,
-      upgrades: upgrades
+      upgrades: upgrades,
+      start: start
     };
   };
 
@@ -27,6 +29,10 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip, DumpState) 
 
     if(state.upgrades) {
       upgrades = state.upgrades;
+    }
+
+    if(state.start) {
+      start = state.start;
     }
   };
 
@@ -82,6 +88,6 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip, DumpState) 
   };
 };
 
-gameState.$inject = ['$q', 'Upgrades', 'localStorageService', 'AnimatedFlyTip', 'DumpState'];
+gameState.$inject = ['$q', 'Upgrades', 'localStorageService', 'AnimatedFlyTip'];
 
 module.exports = gameState;
