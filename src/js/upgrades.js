@@ -68,7 +68,7 @@ module.exports = {
   },
   'Progress Bar': {
     category: 'Visual',
-    requirements: {'Better Layout': 1, 'Basic Color': 0},
+    requirements: {'Better Layout': 1, 'Basic Color': 0, 'Visual Countdown': 0},
     costs: [5000]
   },
   'Basic Style': {

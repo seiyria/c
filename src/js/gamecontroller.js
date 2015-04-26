@@ -1,4 +1,4 @@
-var gameController = function($scope, $window, $interval, $filter, GameState, GameTimer, FunctionBuilder, UPGRADES, favico, NgTableParams) {
+var gameController = function($scope, $window, $interval, $filter, $modal, GameState, GameTimer, FunctionBuilder, UPGRADES, favico, NgTableParams) {
   $scope._visibleUpgrades = [];
 
   $scope.tableParams = new NgTableParams({
@@ -107,6 +107,13 @@ var gameController = function($scope, $window, $interval, $filter, GameState, Ga
     $scope.tableParams.reload();
   };
 
+  $scope.openModal = function(modal) {
+    $modal.open({
+      templateUrl: `modal-${modal}`,
+      scope: $scope
+    });
+  };
+
   $scope.refresh();
   $scope._timer = 0;
   $scope._timermax = 0;
@@ -135,6 +142,6 @@ var gameController = function($scope, $window, $interval, $filter, GameState, Ga
 
 };
 
-gameController.$inject = ['$scope', '$window', '$interval', '$filter', 'GameState', 'GameTimer', 'FunctionBuilder', 'Upgrades', 'favico', 'ngTableParams'];
+gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$modal', 'GameState', 'GameTimer', 'FunctionBuilder', 'Upgrades', 'favico', 'ngTableParams'];
 
 module.exports = gameController;

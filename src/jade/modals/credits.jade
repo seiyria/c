@@ -1,0 +1,34 @@
+script(type="text/ng-template", id="modal-credits")
+    div.modal-header
+        span.close(ng-click="$close()")
+            span.fa.fa-close
+        h4
+            span.fa.fa-birthday-cake &nbsp;
+            | Credits
+    div.modal-body
+        ul
+            li
+                a(target="_blank", href="http://reddit.com/r/incremental_games")
+                    span.fa.fa-reddit &nbsp;
+                    | /r/incremental_games - introducing the genre
+
+            li
+                a(target="_blank", href="http://www.reddit.com/user/Wrydryn")
+                    span.fa.fa-reddit &nbsp;
+                    | /u/Wrydryn - the original idea
+
+        h4 Made With
+        ul
+            li
+                a(target="_blank", href="http://angularjs.org") AngularJS
+            li
+                a(target="_blank", href="http://getbootstrap.com/") Bootstrap
+            li
+                a(target="_blank", href="http://gulpjs.com/") Gulp
+            li
+                a(target="_blank", href="http://jade-lang.com/") Jade
+            li
+                a(target="_blank", href="http://lesscss.org/") LESS
+
+    div.modal-footer
+        button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close

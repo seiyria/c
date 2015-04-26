@@ -22,19 +22,14 @@ script(type="text/ng-template", id="main")
                     span(ng-if="hasUpgrade('Favicon')") (ode)
 
             div.navbar-inner
-                ul.nav.navbar-nav.navbar-left(ng-if="hasUpgrade('Scoreboard')")
+                ul.nav.navbar-nav.navbar-left
                     li
                         button.navbar-btn(type="button", ng-click="gainUnits()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}")
                             span.fa.fa-plus &nbsp;
-                            | Get More
-                    li
+                            ng-include(src="'gain-unit-text'")
+                    li(ng-if="hasUpgrade('Scoreboard')")
                         p.navbar-text#navbar-unit
                             ng-include(src="'formatting-units'")
-
-                span.navbar-left(ng-if="!hasUpgrade('Scoreboard')")
-                    button(ng-click="gainUnits()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}")
-                        span.fa.fa-plus &nbsp;
-                        | Gain Units
 
                 ul.nav.navbar-nav.navbar-right
                     li
@@ -43,7 +38,7 @@ script(type="text/ng-template", id="main")
                         div.navbar-text(ng-if="hasUpgrade('Progress Bar')")
                             progressbar.progress-striped.active(value="100 - _timer/_timerMax*100", type="default") {{100 - (_timer/_timerMax*100).toFixed(0)}}%
                     li
-                        button.navbar-btn(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3)")
+                        button.navbar-btn(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3) && !hasUpgrade('Menu')")
                             span.fa.fa-floppy-o &nbsp;
                             | Save
                     li(ng-include, src="'dropdown'")
@@ -60,8 +55,7 @@ script(type="text/ng-template", id="main")
                         ng-include(src="'formatting-units'", ng-if="hasUpgrade('Scoreboard')")
                         button(ng-click="gainUnits()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}")
                             span.fa.fa-plus &nbsp;
-                            span(ng-if="!hasUpgrade('Scoreboard')") Gain Units
-                            span(ng-if="hasUpgrade('Scoreboard')") Get More
+                            ng-include(src="'gain-unit-text'")
                         ng-include(src="'early-style-save-button'")
                         ng-include(src="'dropdown'")
 
@@ -119,14 +113,26 @@ script(type="text/ng-template", id="formatting-timer")
     span(ng-if="!hasUpgrade('Number Formatting')") {{_timer}} milliseconds
     span(ng-if="hasUpgrade('Number Formatting')") {{_timer | number:0}} milliseconds
 
+script(type="text/ng-template", id="gain-unit-text")
+    span(ng-if="!hasUpgrade('Scoreboard')") Gain Units
+    span(ng-if="hasUpgrade('Scoreboard')") Get More
+
 script(type="text/ng-template", id="early-style-save-button")
-    button(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3) && !hasUpgrade('Better Layout', 1)")
+    button(type="button", ng-click="save()", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3) && !hasUpgrade('Better Layout', 1) && !hasUpgrade('Menu')")
         span.fa.fa-floppy-o &nbsp;
         | Save
 
 script(type="text/ng-template", id="dropdown")
-    span.dropdown(dropdown, ng-if="hasUpgrade('Menu')")
-        button.dropdown-toggle(href, dropdown-toggle, ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color'), 'navbar-btn': hasUpgrade('Better Layout', 1)}") Menu
+    span.dropdown(dropdown, ng-if="hasUpgrade('Menu')", ng-class="{'navbar-text': hasUpgrade('Better Layout', 1) && hasUpgrade('Iconography')}")
+        button.dropdown-toggle(href, dropdown-toggle, ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color'), 'navbar-btn': hasUpgrade('Better Layout', 1)}", ng-if="!hasUpgrade('Iconography')") Menu
+        a.dropdown-toggle.text-default(href, dropdown-toggle, ng-if="hasUpgrade('Iconography')", ng-mouseenter="hover = true", ng-mouseleave="hover = false")
+            span.fa.fa-gear(ng-class="{'fa-spin': hover && hasUpgrade('Basic Animation')}")
         ul.dropdown-menu
+            li(ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3)")
+                a(href, ng-click="save()")
+                    span.fa.fa-floppy-o &nbsp;
+                    | Save
             li
-                a(href) Help
+                a(href, ng-click="openModal('credits')")
+                    span.fa.fa-birthday-cake &nbsp;
+                    | Credits
