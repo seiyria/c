@@ -128,10 +128,16 @@ script(type="text/ng-template", id="dropdown")
         a.dropdown-toggle.text-default(href, dropdown-toggle, ng-if="hasUpgrade('Iconography')", ng-mouseenter="hover = true", ng-mouseleave="hover = false")
             span.fa.fa-gear(ng-class="{'fa-spin': hover && hasUpgrade('Basic Animation')}")
         ul.dropdown-menu
+            li(ng-if="hasUpgrade('Help')")
+                a(href, ng-click="openModal('help')")
+                    span.fa.fa-question-circle &nbsp;
+                    | Help
+
             li(ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3)")
                 a(href, ng-click="save()")
                     span.fa.fa-floppy-o &nbsp;
                     | Save
+
             li(ng-if="hasUpgrade('Save', 2)")
                 a(href, ng-click="openModal('debug')")
                     span.fa.fa-bug &nbsp;

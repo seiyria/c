@@ -1,0 +1,22 @@
+script(type="text/ng-template", id="modal-help")
+    div.modal-header
+        span.close(ng-click="$close()")
+            span.fa.fa-close
+        h4
+            span.fa.fa-question-circle &nbsp;
+            | Help
+
+    div.modal-body
+        div
+            | This game is a game that, as you've probably noticed by now, builds itself.
+            | In general, the upgrades should be self explanatory.
+            | If not, there's another upgrade unlocked by buying this upgrade that you now have access to for further help!
+
+        h4 Tips
+
+        ul
+            li This game was inspired in part by <a target="_blank" href="https://gist.github.com/seiyria/1bfd939a1d0566223228">this post</a>.
+            li The most expensive upgrade costs over 1 million. If you haven't spent that much yet, you're not done.
+
+    div.modal-footer
+        button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close
