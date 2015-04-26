@@ -14,7 +14,7 @@ var gainCalculator = function(GameState) {
     var basicReduction = 0.05 * GameState.upgrade.getKey('Basic Timer');
     var advancedReduction = 0.15 * GameState.upgrade.getKey('Advanced Timer');
     advancedReduction = _.isNaN(advancedReduction) ? 0 : advancedReduction;
-    return 30000 - (30000 * (basicReduction + advancedReduction));
+    return 30000 - Math.round(30000 * (basicReduction + advancedReduction));
   };
 
   return {
