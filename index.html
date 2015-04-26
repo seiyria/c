@@ -78,15 +78,15 @@
             </td>
           </tr>
         </table>
-        <table ng-table="tableParams" show-filter="true" ng-show="hasUpgrade('Best Table')" class="table">
+        <table ng-table="tableParams" show-filter="true" ng-show="hasUpgrade('Best Table')" class="table table-striped">
           <tbody ng-repeat="group in $groups">
             <tr class="ng-table-group">
               <td colspan="{{$columns.length}}"><a href ng-click="group.$hideRows = !group.$hideRows"><span ng-if="hasUpgrade('Iconography')" ng-class="{'fa-toggle-right': group.$hideRows, 'fa-toggle-down': !group.$hideRows}" class="fa">&nbsp;</span><strong>{{group.value}}</strong></a></td>
             </tr>
             <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
-              <td sortable="name" data-title="'Name'" filter="{name: 'text'}">{{item.name}}</td>
-              <td sortable="level" data-title="'Level'" filter="{level: 'text'}">{{item.level}}</td>
-              <td sortable="cost" data-title="'Cost'" filter="{cost: 'text'}">
+              <td sortable="'name'" data-title="'Name'" filter="{name: 'text'}">{{item.name}}</td>
+              <td sortable="'level'" data-title="'Level'" filter="{level: 'text'}">{{item.level}}</td>
+              <td sortable="'cost'" data-title="'Cost'" filter="{cost: 'text'}">
                 <button ng-click="buyUpgrade(item.name, item.buyLevels)" ng-disabled="_units &lt; item.cost" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}"><span class="fa fa-shopping-cart">&nbsp;</span><span ng-if="!hasUpgrade('Number Formatting')">Buy for {{item.cost}} Units</span><span ng-if="hasUpgrade('Number Formatting')">Buy for {{item.cost | number:0}} Units</span></button>
               </td>
             </tr>
