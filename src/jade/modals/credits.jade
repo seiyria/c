@@ -30,5 +30,12 @@ script(type="text/ng-template", id="modal-credits")
             li
                 a(target="_blank", href="http://lesscss.org/") LESS
 
+        h4 Found On
+        ul
+            li
+                a(target="_blank", href="https://github.com/seiyria/c")
+                    span.fa.fa-github &nbsp;
+                    | GitHub
+
     div.modal-footer
         button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close
