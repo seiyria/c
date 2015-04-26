@@ -7,7 +7,7 @@ var gainCalculator = function(GameState) {
   var iteration = function() {
     var iterLevel = GameState.upgrade.getKey('Basic Iteration');
     if(!iterLevel) { return 1; }
-    return Math.pow(4, iterLevel+1);
+    return Math.pow(2, iterLevel+1);
   };
 
   var timer = function() {
