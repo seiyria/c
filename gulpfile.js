@@ -1,32 +1,31 @@
-var gulp = require('gulp')
-  , gutil = require('gulp-util')
-  , del = require('del')
-  , concat = require('gulp-concat')
-  , rename = require('gulp-rename')
-  , minifycss = require('gulp-minify-css')
-  , minifyhtml = require('gulp-minify-html')
-  , jshint = require('gulp-jshint')
-  , jscs = require('gulp-jscs')
-  , streamify = require('gulp-streamify')
-  , uglify = require('gulp-uglify')
-  , less = require('gulp-less')
-  , jade = require('gulp-jade')
-  , sourcemaps = require('gulp-sourcemaps')
-  , connect = require('gulp-connect')
-  , source = require('vinyl-source-stream')
-  , browserify = require('browserify')
-  , babelify = require('babelify')
-  , errorify = require('errorify')
-  , watchify = require('watchify')
-  , gulpif = require('gulp-if')
-  , vinylPaths = require('vinyl-paths')
-  , open = require('gulp-open')
-  , ghPages = require('gulp-gh-pages')
-  , paths;
+var gulp = require('gulp');
+var gutil = require('gulp-util');
+var del = require('del');
+var concat = require('gulp-concat');
+var rename = require('gulp-rename');
+var minifycss = require('gulp-minify-css');
+var minifyhtml = require('gulp-minify-html');
+var jshint = require('gulp-jshint');
+var jscs = require('gulp-jscs');
+var streamify = require('gulp-streamify');
+var uglify = require('gulp-uglify');
+var less = require('gulp-less');
+var jade = require('gulp-jade');
+var sourcemaps = require('gulp-sourcemaps');
+var connect = require('gulp-connect');
+var source = require('vinyl-source-stream');
+var browserify = require('browserify');
+var babelify = require('babelify');
+var errorify = require('errorify');
+var watchify = require('watchify');
+var gulpif = require('gulp-if');
+var vinylPaths = require('vinyl-paths');
+var gopen = require('gulp-open');
+var ghPages = require('gulp-gh-pages');
 
 var watching = false;
 
-paths = {
+var paths = {
   less: 'src/less/*.less',
   libjs: [
     './bower_components/lodash/lodash.js',
@@ -202,7 +201,7 @@ gulp.task('connect', function () {
 
 gulp.task('open', function() {
   gulp.src('./dist/index.html')
-    .pipe(open('', {
+    .pipe(gopen('', {
       url: 'http://localhost:8000'
     }));
 });
