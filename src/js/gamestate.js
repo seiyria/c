@@ -66,11 +66,15 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip) {
         AnimatedFlyTip.fly(amt, upgrade.has('Number Formatting'));
       }
 
-      if(upgrade.has('Save', 1)) {
+      if(upgrade.has('Save', 1) && !upgrade.has('Save', 3)) {
         if(tick++ % 10 === 0) {
           tick = 0;
           save();
         }
+      }
+
+      if(upgrade.has('Save', 3)) {
+        save();
       }
 
     },
