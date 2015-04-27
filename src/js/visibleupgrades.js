@@ -22,7 +22,14 @@ var visibleUpgrades = function(GameState, UPGRADES, favico) {
 
         if(!meetsAllReqs) { return; }
 
-        _.each(item.levels, (level, i) => {
+        var levels = item.levels;
+        if(_.isFunction(item.levels)) {
+          var nextLevel = GameState.upgrade.getKey(itemName) || 0;
+          levels = {};
+          levels[nextLevel] = item.levels(nextLevel);
+        }
+
+        _.each(levels, (level, i) => {
           var visLevel = GameState.upgrade.getKey('Upgrade Visibility');
           var visibilityBoost = 1 + (_.isUndefined(visLevel) ? 0 : 0.15*visLevel);
           var prevItem = ret[ret.length-1];
