@@ -121,7 +121,7 @@ module.exports = {
   },
   'Basic Animation': {
     category: 'Cosmetic',
-    requirements: {'Basic Style': 0, 'Basic Iteration': 0, 'Basic Color': 0},
+    requirements: {'Basic Style': 0, 'Basic Iteration': 0, 'Basic Color': 0, 'Better Layout': 1},
     levels: [{cost: 100000, description: 'Sprinkle some animations onto the page.'}]
   },
   'Favicon': {

@@ -47,6 +47,7 @@
     "libjs": [
       "./bower_components/lodash/lodash.js",
       "./bower_components/jquery/dist/jquery.js",
+      "./bower_components/bootstrap/dist/js/bootstrap.js",
       "./bower_components/favico.js/favico.js",
       "./bower_components/pnotify/pnotify.core.js",
       "./bower_components/pnotify/!(pnotify.core).js",

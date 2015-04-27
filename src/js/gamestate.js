@@ -23,9 +23,9 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
 
   var hardReset = function() {
     start = Date.now();
-    lastSave = Date.now();
     units = 0;
     upgrades = {};
+    save();
   };
 
   var load = function() {
