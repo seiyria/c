@@ -4,7 +4,7 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
 
       var upgrade = GameState.upgrade;
 
-      var unitText = 'units';
+      var unitText = `${GameState.currencySet.get()}s`;
 
       var functionHeader = ['',''];
       if(GameState.upgrade.has('Function')) {

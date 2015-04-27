@@ -1,12 +1,12 @@
 script(type="text/ng-template", id="main")
 
     div(ng-if="!hasUpgrade('Basic Layout')")
-        button(ng-click="gainUnits()") Gain Units
-        span(ng-if="hasUpgrade('Scoreboard')") Units: {{_units}}
+        button(ng-click="gainUnits()") Gain {{currencyName}}s
+        span(ng-if="hasUpgrade('Scoreboard')") {{currencyName}}s: {{_units}}
         div(ng-if="hasUpgrade('Visual Countdown')") {{_timer}} milliseconds
         div(ng-repeat="item in _visibleUpgrades")
             span {{item.name}} (Level {{item.level}})
-            button(ng-click="buyUpgrade(item.name, item.buyLevels)", ng-disabled="_units < item.cost") Buy for {{item.cost}} Units
+            button(ng-click="buyUpgrade(item.name, item.buyLevels)", ng-disabled="_units < item.cost") Buy for {{item.cost}} {{currencyName}}s
 
         div(ng-class="{formatted: hasUpgrade('Preformatting')}") {{_function}}
 
@@ -98,8 +98,8 @@ script(type="text/ng-template", id="main")
                                 ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}"
                                 )
                                 span.fa.fa-shopping-cart &nbsp;
-                                span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} Units
-                                span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} Units
+                                span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} {{currencyName}}s
+                                span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} {{currencyName}}s
 
                 table.table.table-striped(ng-table="tableParams", show-filter="true", ng-show="hasUpgrade('Best Table')")
                     tbody(ng-repeat="group in $groups")
@@ -120,8 +120,8 @@ script(type="text/ng-template", id="main")
                                     ng-disabled="_units < item.cost", ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}"
                                     )
                                     span.fa.fa-shopping-cart &nbsp;
-                                    span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} Units
-                                    span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} Units
+                                    span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} {{currencyName}}s
+                                    span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} {{currencyName}}s
 
             div(ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}")
 
@@ -131,15 +131,15 @@ script(type="text/ng-template", id="main")
                 div.better-aligned-code(ng-if="hasUpgrade('Syntax Highlighting')",hljs,source="_function",language="javascript")
 
 script(type="text/ng-template", id="formatting-units")
-    span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} Units
-    span(ng-if="hasUpgrade('Number Formatting')") {{_units | number:0}} Units
+    span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} {{currencyName}}s
+    span(ng-if="hasUpgrade('Number Formatting')") {{_units | number:0}} {{currencyName}}s
 
 script(type="text/ng-template", id="formatting-timer")
     span(ng-if="!hasUpgrade('Number Formatting')") {{_timer}} milliseconds
     span(ng-if="hasUpgrade('Number Formatting')") {{_timer | number:0}} milliseconds
 
 script(type="text/ng-template", id="gain-unit-text")
-    span(ng-if="!hasUpgrade('Scoreboard')") Gain Units
+    span(ng-if="!hasUpgrade('Scoreboard')") Gain {{currencyName}}s
     span(ng-if="hasUpgrade('Scoreboard')") Get More
 
 script(type="text/ng-template", id="table-item-name")

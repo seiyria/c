@@ -196,5 +196,10 @@ module.exports = {
     category: 'Tech',
     requirements: {'Help Menu': 0},
     levels: [{cost: 100000, description: 'You get notified of potentially dangerous actions. Beware!'}]
+  },
+  'Currency Name Change': {
+    category: 'Cosmetic',
+    requirements: {'Options Menu': 0},
+    levels: [{cost: 650000, description: 'If you dislike the name units, you can change it!'}]
   }
 };

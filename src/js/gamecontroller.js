@@ -1,6 +1,16 @@
 var gameController = function($scope, $window, $interval, $filter, $modal, GameState, GameTimer, UpgradeManager, FunctionBuilder, NgTableParams) {
   $scope._visibleUpgrades = [];
 
+  $scope.currencyName = GameState.currencySet.get();
+  $scope.changeCurrency = function() {
+    bootbox.prompt({title: 'What would you like to call the currency?', value: $scope.currencyName, callback: function(result) {
+      if(!result || !result.trim()) { return; }
+      GameState.currencySet.set(result);
+      $scope.currencyName = GameState.currencySet.get();
+      $scope.$digest();
+    }});
+  };
+
   $scope.tableParams = new NgTableParams({
     page: 1,
     count: 1000
