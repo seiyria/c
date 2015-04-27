@@ -87,7 +87,7 @@
             <th>Buy</th>
           </tr>
           <tr ng-repeat="item in _visibleUpgrades" ng-class="{'danger': hasUpgrade('Basic Style', 1) &amp;&amp; _units &lt; item.cost, 'vertical-center': hasUpgrade('Basic Style', 1)}">
-            <td ng-class="{'text-right': hasUpgrade('Better Layout')}">{{item.name}}</td>
+            <td ng-class="{'text-right': hasUpgrade('Better Layout')}" ng-include src="'table-item-name'"></td>
             <td>{{item.level}}</td>
             <td>
               <button ng-click="buyUpgrade(item.name, item.buyLevels)" ng-disabled="_units &lt; item.cost" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}"><span class="fa fa-shopping-cart">&nbsp;</span><span ng-if="!hasUpgrade('Number Formatting')">Buy for {{item.cost}} Units</span><span ng-if="hasUpgrade('Number Formatting')">Buy for {{item.cost | number:0}} Units</span></button>
@@ -100,7 +100,7 @@
               <td colspan="{{$columns.length}}"><a href ng-click="group.$hideRows = !group.$hideRows"><span ng-if="hasUpgrade('Iconography')" ng-class="{'fa-toggle-right': group.$hideRows, 'fa-toggle-down': !group.$hideRows}" class="fa">&nbsp;</span><strong>{{group.value}}</strong></a></td>
             </tr>
             <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
-              <td sortable="'name'" data-title="'Name'" filter="{name: 'text'}">{{item.name}}</td>
+              <td sortable="'name'" data-title="'Name'" filter="{name: 'text'}" ng-include src="'table-item-name'"></td>
               <td sortable="'level'" data-title="'Level'" filter="{level: 'text'}">{{item.level}}</td>
               <td sortable="'cost'" data-title="'Cost'" filter="{cost: 'text'}">
                 <button ng-click="buyUpgrade(item.name, item.buyLevels)" ng-disabled="_units &lt; item.cost" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}"><span class="fa fa-shopping-cart">&nbsp;</span><span ng-if="!hasUpgrade('Number Formatting')">Buy for {{item.cost}} Units</span><span ng-if="hasUpgrade('Number Formatting')">Buy for {{item.cost | number:0}} Units</span></button>
@@ -120,6 +120,7 @@
 <script type="text/ng-template" id="formatting-units"><span ng-if="!hasUpgrade('Number Formatting')">{{_units}} Units</span><span ng-if="hasUpgrade('Number Formatting')">{{_units | number:0}} Units</span></script>
 <script type="text/ng-template" id="formatting-timer"><span ng-if="!hasUpgrade('Number Formatting')">{{_timer}} milliseconds</span><span ng-if="hasUpgrade('Number Formatting')">{{_timer | number:0}} milliseconds</span></script>
 <script type="text/ng-template" id="gain-unit-text"><span ng-if="!hasUpgrade('Scoreboard')">Gain Units</span><span ng-if="hasUpgrade('Scoreboard')">Get More</span></script>
+<script type="text/ng-template" id="table-item-name"><span tooltip="{{hasUpgrade('Tooltips') ? item.description : ''}}" tooltip-append-to-body="true">{{item.name}}</span></script>
 <script type="text/ng-template" id="early-style-save-button">
   <button type="button" ng-click="save()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3) &amp;&amp; !hasUpgrade('Better Layout', 1) &amp;&amp; !hasUpgrade('Menu')"><span class="fa fa-floppy-o">&nbsp;</span>Save</button>
 </script>
@@ -197,6 +198,9 @@
   </div>
   <div class="modal-body">
     <div>Here are some options for the game. Over time more may show up here.</div>
+    <div>
+      <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-danger': hasUpgrade('Basic Color')}" ng-click="resetGame($close)"><span class="fa fa-history">&nbsp;</span>Reset</button>
+    </div>
   </div>
   <div class="modal-footer"><span class="pull-left">You started <span am-time-ago="saveObject().start"></span>.</span>
     <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}" ng-click="$close()">Close</button>
