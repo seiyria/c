@@ -1,4 +1,4 @@
-var gameController = function($scope, $window, $interval, $filter, $modal, GameState, GameTimer, VisibleUpgrades, FunctionBuilder, NgTableParams) {
+var gameController = function($scope, $window, $interval, $filter, $modal, GameState, GameTimer, UpgradeManager, FunctionBuilder, NgTableParams) {
   $scope._visibleUpgrades = [];
 
   $scope.tableParams = new NgTableParams({
@@ -48,7 +48,7 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
 
   $scope.refresh = function() {
     $scope._units = GameState.unit.get();
-    $scope._visibleUpgrades = VisibleUpgrades.calc();
+    $scope._visibleUpgrades = UpgradeManager.visible();
     $scope._function = FunctionBuilder.build();
     $scope.tableParams.reload();
   };
@@ -106,6 +106,6 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
 
 };
 
-gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$modal', 'GameState', 'GameTimer', 'VisibleUpgrades', 'FunctionBuilder', 'ngTableParams'];
+gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$modal', 'GameState', 'GameTimer', 'UpgradeManager', 'FunctionBuilder', 'ngTableParams'];
 
 module.exports = gameController;

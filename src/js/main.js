@@ -7,7 +7,7 @@ var functionBuilder = require('./functionbuilder');
 var animatedFlyTip = require('./animatedflytip');
 var favico = require('./favico');
 var gameController = require('./gamecontroller');
-var visibleUpgrades = require('./visibleupgrades');
+var upgradeManager = require('./upgrademanager');
 
 angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'angularMoment'])
 
@@ -23,7 +23,7 @@ angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'a
 
   .service('GameTimer', gameTimer)
 
-  .service('VisibleUpgrades', visibleUpgrades)
+  .service('UpgradeManager', upgradeManager)
 
   .service('GainCalculator', gainCalculator)
 

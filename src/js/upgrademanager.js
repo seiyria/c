@@ -1,11 +1,11 @@
-var visibleUpgrades = function(GameState, UPGRADES, favico) {
+var upgradeManager = function(GameState, UPGRADES, favico) {
 
   var hasUpgrade = function(key, level = 0) {
     return GameState.upgrade.has(key, level);
   };
 
   return {
-    calc: function() {
+    visible: function() {
 
       var current = GameState.unit.get();
       var allRet = [];
@@ -69,6 +69,6 @@ var visibleUpgrades = function(GameState, UPGRADES, favico) {
   };
 };
 
-visibleUpgrades.$inject = ['GameState', 'Upgrades', 'favico'];
+upgradeManager.$inject = ['GameState', 'Upgrades', 'favico'];
 
-module.exports = visibleUpgrades;
+module.exports = upgradeManager;
