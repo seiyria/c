@@ -66,7 +66,10 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
     inc: function(key) {
 
       var nextLevel = upgrades[key] || 0;
-      var cost = UPGRADES[key].levels[nextLevel].cost;
+
+      var cost = _.isFunction(UPGRADES[key].levels) ?
+        UPGRADES[key].levels(nextLevel).cost :
+        UPGRADES[key].levels[nextLevel].cost;
       if(units < cost) { return; }
 
       if(!upgrades[key]) { upgrades[key] = 0; }
