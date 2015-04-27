@@ -86,6 +86,17 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
     return JSON.stringify($scope.saveObject(), null, 4);
   };
 
+  $scope.resetGame = function() {
+    if($scope.hasUpgrade('Confirmation Dialogs')) {
+      bootbox.confirm('Are you sure you want to hard reset? Nothing will be saved.', function(result) {
+        if(!result) { return; }
+        GameState.hardReset();
+      });
+    } else {
+      GameState.hardReset();
+    }
+  };
+
 };
 
 gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$modal', 'GameState', 'GameTimer', 'VisibleUpgrades', 'FunctionBuilder', 'ngTableParams'];

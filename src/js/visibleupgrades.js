@@ -1,7 +1,7 @@
 var visibleUpgrades = function(GameState, UPGRADES, favico) {
 
   var hasUpgrade = function(key, level = 0) {
-    GameState.upgrade.has(key, level);
+    return GameState.upgrade.has(key, level);
   };
 
   return {
