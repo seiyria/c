@@ -24,6 +24,7 @@
   "globals": {
     "angular": false,
     "require": false,
+    "bootbox": false,
     "module": false,
     "Favico": false,
     "_": false,

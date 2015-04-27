@@ -191,5 +191,10 @@ module.exports = {
       {cost: 100000, description: 'You will gain progress slightly faster, even while the game is not open.'},
       {cost: 1000000, description: 'You will gain progress normally, even while the game is not open.'}
     ]
+  },
+  'Confirmation Dialogs': {
+    category: 'Tech',
+    requirements: {'Help Menu': 0},
+    levels: [{cost: 100000, description: 'You get notified of potentially dangerous actions. Beware!'}]
   }
 };

@@ -21,6 +21,13 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
     localStorage.set('game', buildSaveObject());
   };
 
+  var hardReset = function() {
+    start = Date.now();
+    lastSave = Date.now();
+    units = 0;
+    upgrades = {};
+  };
+
   var load = function() {
     var state = localStorage.get('game');
 
@@ -104,7 +111,8 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
     upgrade: upgrade,
     unit: unit,
     save: save,
-    buildSaveObject: buildSaveObject
+    buildSaveObject: buildSaveObject,
+    hardReset: hardReset
   };
 };
 

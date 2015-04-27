@@ -9,6 +9,9 @@ script(type="text/ng-template", id="modal-options")
     div.modal-body
         div Here are some options for the game. Over time more may show up here.
 
+        div
+
+
     div.modal-footer
         span.pull-left You started <span am-time-ago="saveObject().start"></span>.
         button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close
