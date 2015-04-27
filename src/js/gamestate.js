@@ -1,7 +1,8 @@
-var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip) {
+var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFlyTip) {
   var upgrades = {};
   var units = 0;
   var start = Date.now();
+  var lastSave = Date.now();
 
   var upgradeDefer = $q.defer();
   var unitDefer = $q.defer();
@@ -10,11 +11,13 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip) {
     return {
       units: units,
       upgrades: upgrades,
-      start: start
+      start: start,
+      lastSave: lastSave
     };
   };
 
   var save = function() {
+    lastSave = Date.now();
     localStorage.set('game', buildSaveObject());
   };
 
@@ -33,6 +36,19 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip) {
 
     if(state.start) {
       start = state.start;
+    }
+
+    if(state.lastSave) {
+      lastSave = state.lastSave;
+
+      if(upgrade.has('Offline Progress')) {
+        var diff = Date.now() - state.lastSave;
+        var multiplier = 0.25 + (0.25 * upgrade.getKey('Offline Progress'));
+        var timersElapsed = Math.floor(diff / GainCalculator.timer(upgrade));
+        var gain = timersElapsed * multiplier * GainCalculator.all(upgrade);
+        unit.inc(gain);
+        save();
+      }
     }
   };
 
@@ -92,6 +108,6 @@ var gameState = function($q, UPGRADES, localStorage, AnimatedFlyTip) {
   };
 };
 
-gameState.$inject = ['$q', 'Upgrades', 'localStorageService', 'AnimatedFlyTip'];
+gameState.$inject = ['$q', 'Upgrades', 'GainCalculator', 'localStorageService', 'AnimatedFlyTip'];
 
 module.exports = gameState;

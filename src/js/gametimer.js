@@ -14,10 +14,10 @@ var gameTimer = function($q, $interval, $timeout, $window, GameState, GainCalcul
 
     interval = $interval(function() {
       $window.increaseUnits();
-      timerDefer.notify(GainCalculator.timer());
-    }, GainCalculator.timer());
+      timerDefer.notify(GainCalculator.timer(GameState.upgrade));
+    }, GainCalculator.timer(GameState.upgrade));
 
-    timerDefer.notify(GainCalculator.timer());
+    timerDefer.notify(GainCalculator.timer(GameState.upgrade));
   };
 
   if(GameState.upgrade.has('Basic Timer')) {

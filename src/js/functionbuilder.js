@@ -2,6 +2,8 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
   return {
     build: function() {
 
+      var upgrade = GameState.upgrade;
+
       var unitText = 'units';
 
       var functionHeader = ['',''];
@@ -11,12 +13,12 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
 
       var iterationHeader = ['',''];
       if(GameState.upgrade.has('Basic Iteration')) {
-        iterationHeader = [`for(var i = 0; i < ${GainCalculator.iteration()}; i++) {`, `}`];
+        iterationHeader = [`for(var i = 0; i < ${GainCalculator.iteration(upgrade)}; i++) {`, `}`];
       }
 
       var timeout = ``;
       if(GameState.upgrade.has('Basic Timer')) {
-        timeout = `$interval(increaseUnits, ${GainCalculator.timer()});\n`;
+        timeout = `$interval(increaseUnits, ${GainCalculator.timer(upgrade)});\n`;
       }
 
       var animationHeader = ['',''];
@@ -43,13 +45,13 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
       }
 
       // dump it on the page. it's an "exploit"
-      $window.increaseUnits = function() { GameState.unit.inc(GainCalculator.all()); };
+      $window.increaseUnits = function() { GameState.unit.inc(GainCalculator.all(upgrade)); };
 
       return `${timeout}${saveHeader[0]}
 ${functionHeader[0]}
   ${animationHeader[0]}
   ${iterationHeader[0]}
-    ${unitText} += ${GainCalculator.boost()};
+    ${unitText} += ${GainCalculator.boost(upgrade)};
   ${iterationHeader[1]}
   ${saveHeader[1]}
   ${animationHeader[1]}

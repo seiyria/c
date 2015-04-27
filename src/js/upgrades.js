@@ -182,5 +182,14 @@ module.exports = {
     category: 'Tech',
     requirements: {'Menu': 0},
     levels: [{cost: 5000, description: 'All of the stange options go here. Also, you can reset your game.'}]
+  },
+  'Offline Progress': {
+    category: 'Tech',
+    requirements: {'Basic Timer': 0},
+    levels: [
+      {cost: 10000, description: 'You will gain progress slowly, even while the game is not open.'},
+      {cost: 100000, description: 'You will gain progress slightly faster, even while the game is not open.'},
+      {cost: 1000000, description: 'You will gain progress normally, even while the game is not open.'}
+    ]
   }
 };
