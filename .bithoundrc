@@ -1,2 +1,6 @@
-gulpfile.js
-src/js/upgrades.js
+{
+  "ignore": [
+    "gulpfile.js",
+    "src/js/upgrades.js"
+  ]
+}
