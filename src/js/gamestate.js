@@ -1,4 +1,4 @@
-var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFlyTip) {
+var gameState = function($q, notificationService, $filter, UPGRADES, GainCalculator, localStorage, AnimatedFlyTip) {
   var upgrades = {};
   var units = 0;
   var start = Date.now();
@@ -67,8 +67,23 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
         var multiplier = 0.25 + (0.25 * upgrade.getKey('Offline Progress'));
         var timersElapsed = Math.floor(diff / GainCalculator.timer(upgrade));
         var gain = timersElapsed * multiplier * GainCalculator.all(upgrade) * GainCalculator.timerBoost(upgrade);
-        unit.inc(gain);
-        save();
+        if(gain > 0) {
+          unit.inc(gain, false);
+          save();
+
+          if(upgrade.has('Notifications')) {
+            var numString = gain;
+            if (upgrade.has('Number Formatting')) {
+              numString = $filter('number')(numString, 0);
+            }
+
+            notificationService.notifyWithDefaults({
+              type: 'success',
+              title: 'Offline Progression',
+              text: `You gained ${numString} ${currencyName}s while offline. Welcome back!`
+            });
+          }
+        }
       }
     }
   };
@@ -108,11 +123,11 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
 
   var unit = {
     has: function(amt) { return units > amt; },
-    inc: function(amt) {
+    inc: function(amt, display = true) {
       units += amt;
       unitDefer.notify(units);
 
-      if(upgrade.has('Basic Animation')) {
+      if(upgrade.has('Basic Animation') && display) {
         AnimatedFlyTip.fly(amt, upgrade.has('Number Formatting'));
       }
 
@@ -145,6 +160,6 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
   };
 };
 
-gameState.$inject = ['$q', 'Upgrades', 'GainCalculator', 'localStorageService', 'AnimatedFlyTip'];
+gameState.$inject = ['$q', 'notificationService', '$filter', 'Upgrades', 'GainCalculator', 'localStorageService', 'AnimatedFlyTip'];
 
 module.exports = gameState;

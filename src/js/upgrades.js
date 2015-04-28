@@ -211,9 +211,14 @@ module.exports = {
       {cost: 2500000, description: 'The timer is now quite lucrative.'}
     ]
   },
+  Notifications: {
+    category: 'Tech',
+    requirements: {'Basic Animation': 0, Iconography: 0, 'Basic Color': 0, 'Basic Style': 0},
+    levels: [{cost: 50000, description: 'Get notified about various happenings!'}]
+  },
   Advertisements: {
     category: 'Tech',
-    requirements: {Iconography: 0, 'Basic Color': 0, 'Basic Style': 0},
+    requirements: {Notifications: 0},
     levels: [{cost: 20000, description: 'Advertisements for other, related games!'}]
   },
   Adblocker: {
