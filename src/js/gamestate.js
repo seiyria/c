@@ -4,6 +4,7 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
   var start = Date.now();
   var lastSave = Date.now();
   var currencyName = 'Unit';
+  var ads = true;
 
   var upgradeDefer = $q.defer();
   var unitDefer = $q.defer();
@@ -14,7 +15,8 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
       upgrades: upgrades,
       start: start,
       lastSave: lastSave,
-      currencyName: currencyName
+      currencyName: currencyName,
+      ads: ads
     };
   };
 
@@ -27,6 +29,8 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
     start = Date.now();
     units = 0;
     upgrades = {};
+    currencyName = 'Unit';
+    ads = true;
     save();
   };
 
@@ -51,6 +55,10 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
       currencyName = state.currencyName;
     }
 
+    if(!_.isUndefined(state.ads)) {
+      ads = state.ads;
+    }
+
     if(state.lastSave) {
       lastSave = state.lastSave;
 
@@ -68,6 +76,11 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
   var currencySet = {
     set: function(newName) { currencyName = newName; save(); },
     get: function() { return currencyName; }
+  };
+
+  var adSet = {
+    set: function(isSet) { ads = isSet; },
+    get: function() { return ads; }
   };
 
   var upgrade = {
@@ -125,6 +138,7 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
     upgrade: upgrade,
     unit: unit,
     currencySet: currencySet,
+    adSet: adSet,
     save: save,
     buildSaveObject: buildSaveObject,
     hardReset: hardReset

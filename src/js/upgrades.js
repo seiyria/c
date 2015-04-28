@@ -210,5 +210,15 @@ module.exports = {
       {cost: 500000, description: 'You get even more production via the timer.'},
       {cost: 2500000, description: 'The timer is now quite lucrative.'}
     ]
+  },
+  Advertisements: {
+    category: 'Tech',
+    requirements: {Iconography: 0, 'Basic Color': 0, 'Basic Style': 0},
+    levels: [{cost: 20000, description: 'Advertisements for other, related games!'}]
+  },
+  Adblocker: {
+    category: 'Tech',
+    requirements: {Advertisements: 0},
+    levels: [{cost: 200000, description: 'Ads got you down? Turn them off with this fancy upgrade!'}]
   }
 };

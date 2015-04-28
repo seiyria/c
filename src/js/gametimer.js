@@ -1,4 +1,4 @@
-var gameTimer = function($q, $interval, $timeout, $window, GameState, GainCalculator) {
+var gameTimer = function($q, $interval, $timeout, $window, GameState, AdManager, GainCalculator) {
 
   var interval = null;
   var timerDefer = $q.defer();
@@ -34,6 +34,6 @@ var gameTimer = function($q, $interval, $timeout, $window, GameState, GainCalcul
 
 };
 
-gameTimer.$inject = ['$q', '$interval', '$timeout', '$window', 'GameState', 'GainCalculator'];
+gameTimer.$inject = ['$q', '$interval', '$timeout', '$window', 'GameState', 'AdManager', 'GainCalculator'];
 
 module.exports = gameTimer;
