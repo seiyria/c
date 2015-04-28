@@ -216,6 +216,17 @@
           <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-click="changeCurrency()"><span class="fa fa-tag">&nbsp;</span>Change</button>
         </div>
       </div>
+      <div ng-if="hasUpgrade('Adblocker')" class="row margin-top-15">
+        <div class="col-md-3">
+          <div>Ads</div>
+        </div>
+        <div class="col-md-9">
+          <div class="btn-group">
+            <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-click="setAds(true)" ng-model="ads" btn-radio="true">On</button>
+            <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-click="setAds(false)" ng-model="ads" btn-radio="false">Off</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
   <div class="modal-footer"><span class="pull-left">You started <span am-time-ago="saveObject().start"></span>.</span>
