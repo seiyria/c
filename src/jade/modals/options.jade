@@ -10,18 +10,19 @@ script(type="text/ng-template", id="modal-options")
         div Here are some options for the game. Over time more may show up here.
 
         div.display-table
-            div.row
+            div.row.margin-top-15
                 div.col-md-3
-                    span Game Reset
+                    div Game Reset
                 div.col-md-9
                     button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-danger': hasUpgrade('Basic Color')}", ng-click="resetGame($close)")
                         span.fa.fa-history &nbsp;
                         | Reset
-            div.row(ng-if="hasUpgrade('Currency Name Change')")
+
+            div.row.margin-top-15(ng-if="hasUpgrade('Currency Name Change')")
                 div.col-md-3
-                    span Currency Name
+                    div Currency Name
+                    div.text-center.no-bold "{{currencyName}}"
                 div.col-md-9
-                    span {{currencyName}}
                     button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}", ng-click="changeCurrency()")
                         span.fa.fa-tag &nbsp;
                         | Change

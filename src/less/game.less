@@ -70,9 +70,12 @@ button:disabled {
 }
 
 .display-table {
-  .col-md-3 {
+  .col-md-3 div {
     text-align: right;
-    font-weight: bold;
+
+    &:not(.no-bold) {
+      font-weight: bold;
+    }
   }
 }
 
