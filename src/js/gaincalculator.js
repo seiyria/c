@@ -10,6 +10,10 @@ var gainCalculator = function() {
     return Math.pow(2, iterLevel+1);
   };
 
+  var timerBoost = function(upgrade) {
+    return Math.pow((upgrade.getKey('Basic Timer Boost') || 0)+1, 4);
+  };
+
   var timer = function(upgrade) {
     var basicReduction = 0.05 * upgrade.getKey('Basic Timer');
     var advancedReduction = 0.15 * upgrade.getKey('Advanced Timer');
@@ -21,6 +25,7 @@ var gainCalculator = function() {
     boost: boost,
     iteration: iteration,
     timer: timer,
+    timerBoost: timerBoost,
     all: function(upgrade) { return boost(upgrade) * iteration(upgrade); }
   };
 };

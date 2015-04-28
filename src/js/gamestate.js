@@ -58,7 +58,7 @@ var gameState = function($q, UPGRADES, GainCalculator, localStorage, AnimatedFly
         var diff = Date.now() - state.lastSave;
         var multiplier = 0.25 + (0.25 * upgrade.getKey('Offline Progress'));
         var timersElapsed = Math.floor(diff / GainCalculator.timer(upgrade));
-        var gain = timersElapsed * multiplier * GainCalculator.all(upgrade);
+        var gain = timersElapsed * multiplier * GainCalculator.all(upgrade) * GainCalculator.timerBoost(upgrade);
         unit.inc(gain);
         save();
       }

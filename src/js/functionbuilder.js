@@ -18,7 +18,17 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
 
       var timeout = ``;
       if(GameState.upgrade.has('Basic Timer')) {
-        timeout = `$interval(increaseUnits, ${GainCalculator.timer(upgrade)});\n`;
+        var timeoutText = 'increaseUnits';
+
+        if(GameState.upgrade.has('Basic Timer Boost')) {
+          timeoutText = `function() {
+  for(var i = 0; i < ${GainCalculator.timerBoost(upgrade)}; i++) {
+    ${timeoutText}();
+  }
+}`;
+        }
+
+        timeout = `$interval(${timeoutText}, ${GainCalculator.timer(upgrade)});\n`;
       }
 
       var animationHeader = ['',''];
@@ -45,7 +55,7 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
       }
 
       // dump it on the page. it's an "exploit"
-      $window.increaseUnits = function() { GameState.unit.inc(GainCalculator.all(upgrade)); };
+      $window.increaseUnits = function(mult = 1) { GameState.unit.inc(mult * GainCalculator.all(upgrade)); };
 
       return `${timeout}${saveHeader[0]}
 ${functionHeader[0]}

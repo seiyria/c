@@ -201,5 +201,14 @@ module.exports = {
     category: 'Cosmetic',
     requirements: {'Options Menu': 0},
     levels: [{cost: 650000, description: 'If you dislike the name units, you can change it!'}]
+  },
+  'Basic Timer Boost': {
+    category: 'Tech',
+    requirements: {'Basic Timer': 0},
+    levels: [
+      {cost: 10000, description: 'You get more production via timer methods.'},
+      {cost: 500000, description: 'You get even more production via the timer.'},
+      {cost: 2500000, description: 'The timer is now quite lucrative.'}
+    ]
   }
 };

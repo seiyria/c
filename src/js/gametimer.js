@@ -13,7 +13,7 @@ var gameTimer = function($q, $interval, $timeout, $window, GameState, GainCalcul
     }
 
     interval = $interval(function() {
-      $window.increaseUnits();
+      $window.increaseUnits(1 + GainCalculator.timerBoost(GameState.upgrade));
       timerDefer.notify(GainCalculator.timer(GameState.upgrade));
     }, GainCalculator.timer(GameState.upgrade));
 
