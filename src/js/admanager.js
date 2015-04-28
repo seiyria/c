@@ -12,7 +12,7 @@ var adManager = function($interval, notificationService, GameState) {
       title: `${ad.name} <a target="_blank" href="${ad.url}"><span class='fa fa-external-link'></span></a>`,
       text: ad.text
     });
-  }, 360000); //6 minutes
+  }, 180000); //6 minutes
 
   return {};
 };
