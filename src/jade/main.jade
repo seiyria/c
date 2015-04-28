@@ -105,13 +105,13 @@ script(type="text/ng-template", id="main")
                     tbody(ng-repeat="group in $groups")
                         tr.ng-table-group
                             td(colspan="{{$columns.length}}")
-                                a(href, ng-click="group.$hideRows = !group.$hideRows")
+                                a(href, ng-click="groupVisibleHash[group.value]= !groupVisibleHash[group.value]")
                                     span.fa(
                                         ng-if="hasUpgrade('Iconography')",
-                                        ng-class="{'fa-toggle-right': group.$hideRows, 'fa-toggle-down': !group.$hideRows}"
+                                        ng-class="{'fa-toggle-right': groupVisibleHash[group.value], 'fa-toggle-down': !groupVisibleHash[group.value]}"
                                         ) &nbsp;
                                     strong {{group.value}}
-                        tr(ng-hide="group.$hideRows", ng-repeat="item in group.data")
+                        tr(ng-hide="groupVisibleHash[group.value]", ng-repeat="item in group.data")
                             td(sortable="'name'", data-title="'Name'", filter="{name: 'text'}",ng-include,src="'table-item-name'")
                             td(sortable="'level'", data-title="'Level'", filter="{level: 'text'}") {{item.level}}
                             td(sortable="'cost'", data-title="'Cost'", filter="{cost: 'text'}")

@@ -1,5 +1,6 @@
 var gameController = function($scope, $window, $interval, $filter, $modal, GameState, GameTimer, UpgradeManager, FunctionBuilder, NgTableParams) {
   $scope._visibleUpgrades = [];
+  $scope.groupVisibleHash = {};
 
   $scope.currencyName = GameState.currencySet.get();
   $scope.changeCurrency = function() {
@@ -62,7 +63,7 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
     var newUpgrades = UpgradeManager.visible();
     var visible = _.pluck($scope._visibleUpgrades, 'name');
     var newPlucked = _.pluck(newUpgrades, 'name');
-    if(_.difference(newPlucked, visible).length > 0) {
+    if(newPlucked.length !== visible.length || _.difference(newPlucked, visible).length > 0) {
       $scope._visibleUpgrades = newUpgrades;
     }
     $scope._function = FunctionBuilder.build();
