@@ -58,7 +58,13 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
 
   $scope.refresh = function() {
     $scope._units = GameState.unit.get();
-    $scope._visibleUpgrades = UpgradeManager.visible();
+
+    var newUpgrades = UpgradeManager.visible();
+    var visible = _.pluck($scope._visibleUpgrades, 'name');
+    var newPlucked = _.pluck(newUpgrades, 'name');
+    if(_.difference(newPlucked, visible).length > 0) {
+      $scope._visibleUpgrades = newUpgrades;
+    }
     $scope._function = FunctionBuilder.build();
     $scope.tableParams.reload();
   };

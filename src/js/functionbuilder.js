@@ -21,8 +21,8 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
         var timeoutText = 'increaseUnits';
 
         if(GameState.upgrade.has('Basic Timer Boost')) {
-          timeoutText = 
-`function() {
+          timeoutText =
+`function massiveGains() {
   for(var i = 0; i < ${GainCalculator.timerBoost(upgrade)}; i++) {
     ${timeoutText}();
   }
