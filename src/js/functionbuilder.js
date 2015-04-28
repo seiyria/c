@@ -21,7 +21,8 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
         var timeoutText = 'increaseUnits';
 
         if(GameState.upgrade.has('Basic Timer Boost')) {
-          timeoutText = `function() {
+          timeoutText = 
+`function() {
   for(var i = 0; i < ${GainCalculator.timerBoost(upgrade)}; i++) {
     ${timeoutText}();
   }
@@ -34,15 +35,16 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
       var animationHeader = ['',''];
       if(GameState.upgrade.has('Basic Animation')) {
         animationHeader = [
-          `var totalUnitsGained = 0;`,
-          `units += totalUnitsGained;
+  `var totalUnitsGained = 0;`,
+  `units += totalUnitsGained;
   animateUnitChange(totalUnitsGained);`];
         unitText = 'totalUnitsGained';
       }
 
       var saveHeader = ['', ''];
       if(GameState.upgrade.has('Save', 1)) {
-        saveHeader = [`\nvar currentTick = 0;`, `
+        saveHeader = [
+  `\nvar currentTick = 0;`, `
   if(++currentTick % 10 === 0) {
     currentTick = 0;
     save();
