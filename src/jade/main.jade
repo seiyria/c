@@ -101,7 +101,7 @@ script(type="text/ng-template", id="main")
                                 span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} {{currencyName}}s
                                 span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} {{currencyName}}s
 
-                table.table.table-striped(ng-table="tableParams", show-filter="true", ng-show="hasUpgrade('Best Table')")
+                table.table.table-striped(ng-table="tableParams", show-filter="true", ng-show="_visibleUpgrades.length > 0 && hasUpgrade('Best Table')")
                     tbody(ng-repeat="group in $groups")
                         tr.ng-table-group
                             td(colspan="{{$columns.length}}")
