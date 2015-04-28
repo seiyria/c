@@ -143,7 +143,7 @@ script(type="text/ng-template", id="gain-unit-text")
     span(ng-if="hasUpgrade('Scoreboard')") Get More
 
 script(type="text/ng-template", id="table-item-name")
-    span(tooltip="{{hasUpgrade('Tooltips') ? item.description : ''}}", tooltip-append-to-body="true") {{item.name}}
+    span(tooltip="{{hasUpgrade('Tooltips') ? item.description : ''}}", tooltip-append-to-body="true", ng-class="{'has-tooltip': hasUpgrade('Tooltips')}") {{item.name}}
 
 script(type="text/ng-template", id="early-style-save-button")
     button(
