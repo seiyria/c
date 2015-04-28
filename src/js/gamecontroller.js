@@ -113,6 +113,7 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
     var finalCallback = function() {
       GameState.hardReset();
       $scope.refresh();
+      $scope.currencyName = GameState.currencySet.get();
       callback();
     };
 
