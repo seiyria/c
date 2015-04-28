@@ -94,12 +94,12 @@
             </td>
           </tr>
         </table>
-        <table ng-table="tableParams" show-filter="true" ng-show="hasUpgrade('Best Table')" class="table table-striped">
+        <table ng-table="tableParams" show-filter="true" ng-show="_visibleUpgrades.length &gt; 0 &amp;&amp; hasUpgrade('Best Table')" class="table table-striped">
           <tbody ng-repeat="group in $groups">
             <tr class="ng-table-group">
-              <td colspan="{{$columns.length}}"><a href ng-click="group.$hideRows = !group.$hideRows"><span ng-if="hasUpgrade('Iconography')" ng-class="{'fa-toggle-right': group.$hideRows, 'fa-toggle-down': !group.$hideRows}" class="fa">&nbsp;</span><strong>{{group.value}}</strong></a></td>
+              <td colspan="{{$columns.length}}"><a href ng-click="groupVisibleHash[group.value]= !groupVisibleHash[group.value]"><span ng-if="hasUpgrade('Iconography')" ng-class="{'fa-toggle-right': groupVisibleHash[group.value], 'fa-toggle-down': !groupVisibleHash[group.value]}" class="fa">&nbsp;</span><strong>{{group.value}}</strong></a></td>
             </tr>
-            <tr ng-hide="group.$hideRows" ng-repeat="item in group.data">
+            <tr ng-hide="groupVisibleHash[group.value]" ng-repeat="item in group.data">
               <td sortable="'name'" data-title="'Name'" filter="{name: 'text'}" ng-include src="'table-item-name'"></td>
               <td sortable="'level'" data-title="'Level'" filter="{level: 'text'}">{{item.level}}</td>
               <td sortable="'cost'" data-title="'Cost'" filter="{cost: 'text'}">
@@ -120,7 +120,7 @@
 <script type="text/ng-template" id="formatting-units"><span ng-if="!hasUpgrade('Number Formatting')">{{_units}} {{currencyName}}s</span><span ng-if="hasUpgrade('Number Formatting')">{{_units | number:0}} {{currencyName}}s</span></script>
 <script type="text/ng-template" id="formatting-timer"><span ng-if="!hasUpgrade('Number Formatting')">{{_timer}} milliseconds</span><span ng-if="hasUpgrade('Number Formatting')">{{_timer | number:0}} milliseconds</span></script>
 <script type="text/ng-template" id="gain-unit-text"><span ng-if="!hasUpgrade('Scoreboard')">Gain {{currencyName}}s</span><span ng-if="hasUpgrade('Scoreboard')">Get More</span></script>
-<script type="text/ng-template" id="table-item-name"><span tooltip="{{hasUpgrade('Tooltips') ? item.description : ''}}" tooltip-append-to-body="true">{{item.name}}</span></script>
+<script type="text/ng-template" id="table-item-name"><span tooltip="{{hasUpgrade('Tooltips') ? item.description : ''}}" tooltip-append-to-body="true" ng-class="{'has-tooltip': hasUpgrade('Tooltips')}">{{item.name}}</span></script>
 <script type="text/ng-template" id="early-style-save-button">
   <button type="button" ng-click="save()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3) &amp;&amp; !hasUpgrade('Better Layout', 1) &amp;&amp; !hasUpgrade('Menu')"><span class="fa fa-floppy-o">&nbsp;</span>Save</button>
 </script>
@@ -199,15 +199,20 @@
   <div class="modal-body">
     <div>Here are some options for the game. Over time more may show up here.</div>
     <div class="display-table">
-      <div class="row">
-        <div class="col-md-3"><span>Game Reset</span></div>
+      <div class="row margin-top-15">
+        <div class="col-md-3">
+          <div>Game Reset</div>
+        </div>
         <div class="col-md-9">
           <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-danger': hasUpgrade('Basic Color')}" ng-click="resetGame($close)"><span class="fa fa-history">&nbsp;</span>Reset</button>
         </div>
       </div>
-      <div ng-if="hasUpgrade('Currency Name Change')" class="row">
-        <div class="col-md-3"><span>Currency Name</span></div>
-        <div class="col-md-9"><span>{{currencyName}}</span>
+      <div ng-if="hasUpgrade('Currency Name Change')" class="row margin-top-15">
+        <div class="col-md-3">
+          <div>Currency Name</div>
+          <div class="text-center no-bold">"{{currencyName}}"</div>
+        </div>
+        <div class="col-md-9">
           <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-click="changeCurrency()"><span class="fa fa-tag">&nbsp;</span>Change</button>
         </div>
       </div>
