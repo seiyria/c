@@ -127,8 +127,10 @@ script(type="text/ng-template", id="main")
 
                 h2 Output
 
-                div(ng-if="!hasUpgrade('Syntax Highlighting')",ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}") {{_function}}
-                div.better-aligned-code(ng-if="hasUpgrade('Syntax Highlighting')",hljs,source="_function",language="javascript")
+                ng-include(src="'output-code'", ng-if="!hasUpgrade('Tabbed Output')")
+                tabset(ng-if="hasUpgrade('Tabbed Output')")
+                    tab(heading="Code")
+                        ng-include(src="'output-code'")
 
 script(type="text/ng-template", id="formatting-units")
     span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} {{currencyName}}s
@@ -141,6 +143,10 @@ script(type="text/ng-template", id="formatting-timer")
 script(type="text/ng-template", id="gain-unit-text")
     span(ng-if="!hasUpgrade('Scoreboard')") Gain {{currencyName}}s
     span(ng-if="hasUpgrade('Scoreboard')") Get More
+
+script(type="text/ng-template", id="output-code")
+    div(ng-if="!hasUpgrade('Syntax Highlighting')",ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}") {{_function}}
+    div.better-aligned-code(ng-if="hasUpgrade('Syntax Highlighting')",hljs,source="_function",language="javascript")
 
 script(type="text/ng-template", id="table-item-name")
     span(tooltip="{{hasUpgrade('Tooltips') ? item.description : ''}}", tooltip-append-to-body="true", ng-class="{'has-tooltip': hasUpgrade('Tooltips')}") {{item.name}}

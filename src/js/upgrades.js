@@ -225,5 +225,10 @@ module.exports = {
     category: 'Tech',
     requirements: {Advertisements: 0},
     levels: [{cost: 200000, description: 'Ads got you down? Turn them off with this fancy upgrade!'}]
+  },
+  'Tabbed Output': {
+    category: 'Tech',
+    requirements: {'Better Layout': 0, 'Basic Style': 0},
+    levels: [{cost: 200000, description: 'Produce some tabs for your output section! Note, this only comes with one tab -- the one you have!'}]
   }
 };
