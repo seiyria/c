@@ -1,36 +1,32 @@
 var gameState = function($q, notificationService, $filter, UPGRADES, GainCalculator, localStorage, AnimatedFlyTip) {
-  var upgrades = {};
-  var units = 0;
-  var start = Date.now();
-  var lastSave = Date.now();
-  var currencyName = 'Unit';
-  var ads = true;
+
+  var getNewState = function() {
+    return {
+      upgrades: {},
+      units: 0,
+      start: Date.now(),
+      lastSave: Date.now(),
+      currencyName: 'Unit',
+      ads: true
+    };
+  };
+
+  var currentState = getNewState();
 
   var upgradeDefer = $q.defer();
   var unitDefer = $q.defer();
 
   var buildSaveObject = function() {
-    return {
-      units: units,
-      upgrades: upgrades,
-      start: start,
-      lastSave: lastSave,
-      currencyName: currencyName,
-      ads: ads
-    };
+    return currentState;
   };
 
   var save = function() {
-    lastSave = Date.now();
+    currentState.lastSave = Date.now();
     localStorage.set('game', buildSaveObject());
   };
 
   var hardReset = function() {
-    start = Date.now();
-    units = 0;
-    upgrades = {};
-    currencyName = 'Unit';
-    ads = true;
+    currentState = getNewState();
     save();
   };
 
@@ -39,82 +35,65 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
 
     if(!state) { return; }
 
-    if(state.units) {
-      units = state.units;
+    _.assign(currentState, state);
+
+    if(!upgrade.has('Offline Progress')) {
+      return;
     }
 
-    if(state.upgrades) {
-      upgrades = state.upgrades;
+    var diff = Date.now() - state.lastSave;
+    var multiplier = 0.25 + (0.25 * upgrade.getKey('Offline Progress'));
+    var timersElapsed = Math.floor(diff / GainCalculator.timer(upgrade));
+    var gain = timersElapsed * multiplier * GainCalculator.all(upgrade) * GainCalculator.timerBoost(upgrade);
+
+    if(gain <= 0) {
+      return;
     }
 
-    if(state.start) {
-      start = state.start;
-    }
+    unit.inc(gain, false);
+    save();
 
-    if(state.currencyName) {
-      currencyName = state.currencyName;
-    }
-
-    if(!_.isUndefined(state.ads)) {
-      ads = state.ads;
-    }
-
-    if(state.lastSave) {
-      lastSave = state.lastSave;
-
-      if(upgrade.has('Offline Progress')) {
-        var diff = Date.now() - state.lastSave;
-        var multiplier = 0.25 + (0.25 * upgrade.getKey('Offline Progress'));
-        var timersElapsed = Math.floor(diff / GainCalculator.timer(upgrade));
-        var gain = timersElapsed * multiplier * GainCalculator.all(upgrade) * GainCalculator.timerBoost(upgrade);
-        if(gain > 0) {
-          unit.inc(gain, false);
-          save();
-
-          if(upgrade.has('Notifications')) {
-            var numString = gain;
-            if (upgrade.has('Number Formatting')) {
-              numString = $filter('number')(numString, 0);
-            }
-
-            notificationService.notifyWithDefaults({
-              type: 'success',
-              title: 'Offline Progression',
-              text: `You gained ${numString} ${currencyName}s while offline. Welcome back!`
-            });
-          }
-        }
+    if(upgrade.has('Notifications')) {
+      var numString = gain;
+      if (upgrade.has('Number Formatting')) {
+        numString = $filter('number')(numString, 0);
       }
+
+      notificationService.notifyWithDefaults({
+        type: 'success',
+        title: 'Offline Progression',
+        text: `You gained ${numString} ${currentState.currencyName}s while offline. Welcome back!`
+      });
     }
   };
 
   var currencySet = {
-    set: function(newName) { currencyName = newName; save(); },
-    get: function() { return currencyName; }
+    set: function(newName) { currentState.currencyName = newName; save(); },
+    get: function() { return currentState.currencyName; }
   };
 
   var adSet = {
-    set: function(isSet) { ads = isSet; },
-    get: function() { return ads; }
+    set: function(isSet) { currentState.ads = isSet; },
+    get: function() { return currentState.ads; }
   };
 
   var upgrade = {
-    has: function(key, level = 0) { return upgrades[key] > level; },
-    get: function() { return upgrades; },
-    getKey: function(key) { return upgrades[key]; },
+    has: function(key, level = 0) { return currentState.upgrades[key] > level; },
+    get: function() { return currentState.upgrades; },
+    getKey: function(key) { return currentState.upgrades[key]; },
     inc: function(key) {
 
-      var nextLevel = upgrades[key] || 0;
+      var nextLevel = currentState.upgrades[key] || 0;
 
       var cost = _.isFunction(UPGRADES[key].levels) ?
         UPGRADES[key].levels(nextLevel).cost :
         UPGRADES[key].levels[nextLevel].cost;
-      if(units < cost) { return; }
+      if(currentState.units < cost) { return; }
 
-      if(!upgrades[key]) { upgrades[key] = 0; }
-      upgrades[key]++;
+      if(!currentState.upgrades[key]) { currentState.upgrades[key] = 0; }
+      currentState.upgrades[key]++;
       unit.inc(-cost);
-      upgradeDefer.notify({key: key, level: upgrades[key], all: upgrades});
+      upgradeDefer.notify({key: key, level: currentState.upgrades[key], all: currentState.upgrades});
     },
     watch: function() { return upgradeDefer.promise; }
   };
@@ -122,10 +101,10 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
   var tick = 0;
 
   var unit = {
-    has: function(amt) { return units > amt; },
+    has: function(amt) { return currentState.units > amt; },
     inc: function(amt, display = true) {
-      units += amt;
-      unitDefer.notify(units);
+      currentState.units += amt;
+      unitDefer.notify(currentState.units);
 
       if(upgrade.has('Basic Animation') && display) {
         AnimatedFlyTip.fly(amt, upgrade.has('Number Formatting'));
@@ -143,7 +122,7 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
       }
 
     },
-    get: function() { return units; },
+    get: function() { return currentState.units; },
     watch: function() { return unitDefer.promise; }
   };
 
