@@ -111,8 +111,18 @@
       </div>
       <div ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}">
         <h2>Output</h2>
-        <div ng-if="!hasUpgrade('Syntax Highlighting')" ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}">{{_function}}</div>
-        <div ng-if="hasUpgrade('Syntax Highlighting')" hljs source="_function" language="javascript" class="better-aligned-code"></div>
+        <ng-include src="'output-code'" ng-if="!hasUpgrade('Tabbed Output')"></ng-include>
+        <tabset ng-if="hasUpgrade('Tabbed Output')">
+          <tab heading="Code">
+            <ng-include src="'output-code'"></ng-include>
+          </tab>
+          <tab heading="Over-time Production" ng-if="hasUpgrade('Over-time Production')">
+            <highchart config="chartData.production"></highchart>
+          </tab>
+          <tab heading="Production Breakdown" ng-if="hasUpgrade('Production Breakdown')">
+            <highchart config="chartData.overTime"></highchart>
+          </tab>
+        </tabset>
       </div>
     </div>
   </div>
@@ -120,6 +130,10 @@
 <script type="text/ng-template" id="formatting-units"><span ng-if="!hasUpgrade('Number Formatting')">{{_units}} {{currencyName}}s</span><span ng-if="hasUpgrade('Number Formatting')">{{_units | number:0}} {{currencyName}}s</span></script>
 <script type="text/ng-template" id="formatting-timer"><span ng-if="!hasUpgrade('Number Formatting')">{{_timer}} milliseconds</span><span ng-if="hasUpgrade('Number Formatting')">{{_timer | number:0}} milliseconds</span></script>
 <script type="text/ng-template" id="gain-unit-text"><span ng-if="!hasUpgrade('Scoreboard')">Gain {{currencyName}}s</span><span ng-if="hasUpgrade('Scoreboard')">Get More</span></script>
+<script type="text/ng-template" id="output-code">
+  <div ng-if="!hasUpgrade('Syntax Highlighting')" ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}">{{_function}}</div>
+  <div ng-if="hasUpgrade('Syntax Highlighting')" hljs source="_function" language="javascript" class="better-aligned-code"></div>
+</script>
 <script type="text/ng-template" id="table-item-name"><span tooltip="{{hasUpgrade('Tooltips') ? item.description : ''}}" tooltip-append-to-body="true" ng-class="{'has-tooltip': hasUpgrade('Tooltips')}">{{item.name}}</span></script>
 <script type="text/ng-template" id="early-style-save-button">
   <button type="button" ng-click="save()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3) &amp;&amp; !hasUpgrade('Better Layout', 1) &amp;&amp; !hasUpgrade('Menu')"><span class="fa fa-floppy-o">&nbsp;</span>Save</button>
