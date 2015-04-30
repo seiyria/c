@@ -8,7 +8,8 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
       lastSave: Date.now(),
       currencyName: 'Unit',
       ads: true,
-      sources: {}
+      sources: {},
+      history: []
     };
   };
 
@@ -68,6 +69,10 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
     }
   };
 
+  var historyGet = {
+    get: function() { return currentState.history; }
+  };
+
   var sourcesGet = {
     get: function() { return currentState.sources; }
   };
@@ -103,12 +108,23 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
     watch: function() { return upgradeDefer.promise; }
   };
 
+  var manageHistory = function() {
+    var max = GainCalculator.maxHistory(upgrade);
+
+    currentState.history.push({x: Date.now(), y: currentState.units});
+    if(currentState.history.length > max) {
+      currentState.history.shift();
+    }
+  };
+
   var tick = 0;
 
   var unit = {
     has: function(amt) { return currentState.units > amt; },
     inc: function(amt, display = true, source = 'Click') {
       currentState.units += amt;
+
+      manageHistory();
 
       if(!currentState.sources[source]) {
         currentState.sources[source] = 0;
@@ -148,6 +164,7 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
     currencySet: currencySet,
     adSet: adSet,
     sourcesGet: sourcesGet,
+    historyGet: historyGet,
     save: save,
     buildSaveObject: buildSaveObject,
     hardReset: hardReset

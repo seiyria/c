@@ -233,12 +233,20 @@ module.exports = {
   },
   'Over-time Production': {
     category: 'Tech',
-    requirements: {'Tabbed Output': 0},
+    requirements: {'Tabbed Output': 0, 'Number Formatting': 0},
     levels: [{cost: 2000000, description: 'Produce a new tab that shows your production over time!'}]
   },
   'Production Breakdown': {
     category: 'Tech',
-    requirements: {'Tabbed Output': 0},
+    requirements: {'Tabbed Output': 0, 'Number Formatting': 0},
     levels: [{cost: 2000000, description: 'Produce a new tab that shows your production breakdown!'}]
+  },
+  'Production History ': {
+    category: 'Tech',
+    requirements: {'Production Breakdown': 0},
+    levels: [
+      {cost: 50000, description: 'Slightly improve your historical data!'},
+      {cost: 125000, description: 'Slightly improve your historical data!'}
+    ]
   }
 };

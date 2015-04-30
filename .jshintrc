@@ -27,6 +27,7 @@
     "bootbox": false,
     "module": false,
     "Favico": false,
+    "Highcharts": false,
     "_": false,
     "$": false
   }

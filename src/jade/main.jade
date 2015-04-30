@@ -132,6 +132,7 @@ script(type="text/ng-template", id="main")
                     tab(heading="Code")
                         ng-include(src="'output-code'")
                     tab(heading="Over-time Production", ng-if="hasUpgrade('Over-time Production')")
+                        highchart(config="chartData.production")
                     tab(heading="Production Breakdown", ng-if="hasUpgrade('Production Breakdown')")
                         highchart(config="chartData.overTime")
 
