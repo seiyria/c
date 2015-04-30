@@ -7,7 +7,8 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
       start: Date.now(),
       lastSave: Date.now(),
       currencyName: 'Unit',
-      ads: true
+      ads: true,
+      sources: {}
     };
   };
 
@@ -50,7 +51,7 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
       return;
     }
 
-    unit.inc(gain, false);
+    unit.inc(gain, false, 'Offline Progress');
     save();
 
     if(upgrade.has('Notifications')) {
@@ -65,6 +66,10 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
         text: `You gained ${numString} ${currentState.currencyName}s while offline. Welcome back!`
       });
     }
+  };
+
+  var sourcesGet = {
+    get: function() { return currentState.sources; }
   };
 
   var currencySet = {
@@ -102,8 +107,17 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
 
   var unit = {
     has: function(amt) { return currentState.units > amt; },
-    inc: function(amt, display = true) {
+    inc: function(amt, display = true, source = 'Click') {
       currentState.units += amt;
+
+      if(!currentState.sources[source]) {
+        currentState.sources[source] = 0;
+      }
+
+      if(amt > 0) {
+        currentState.sources[source] += amt;
+      }
+
       unitDefer.notify(currentState.units);
 
       if(upgrade.has('Basic Animation') && display) {
@@ -133,6 +147,7 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
     unit: unit,
     currencySet: currencySet,
     adSet: adSet,
+    sourcesGet: sourcesGet,
     save: save,
     buildSaveObject: buildSaveObject,
     hardReset: hardReset

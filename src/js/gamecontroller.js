@@ -1,4 +1,4 @@
-var gameController = function($scope, $window, $interval, $filter, $modal, GameState, GameTimer, UpgradeManager, FunctionBuilder, NgTableParams) {
+var gameController = function($scope, $window, $interval, $filter, $modal, GameState, ChartConfigs, GameTimer, UpgradeManager, FunctionBuilder, NgTableParams) {
   $scope._visibleUpgrades = [];
   $scope.groupVisibleHash = {};
 
@@ -100,6 +100,14 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
     }, 100);
   });
 
+  $scope.chartData = ChartConfigs.get();
+
+  ChartConfigs.watch().then(null, null, function(chartData) {
+    _.each(_.keys(chartData), key => {
+      $scope.chartData[key].series[0].data = chartData[key];
+    });
+  });
+
   $scope.saveObject = function() {
     return GameState.buildSaveObject();
   };
@@ -129,6 +137,6 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
 
 };
 
-gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$modal', 'GameState', 'GameTimer', 'UpgradeManager', 'FunctionBuilder', 'ngTableParams'];
+gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$modal', 'GameState', 'ChartConfigs', 'GameTimer', 'UpgradeManager', 'FunctionBuilder', 'ngTableParams'];
 
 module.exports = gameController;

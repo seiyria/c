@@ -131,6 +131,9 @@ script(type="text/ng-template", id="main")
                 tabset(ng-if="hasUpgrade('Tabbed Output')")
                     tab(heading="Code")
                         ng-include(src="'output-code'")
+                    tab(heading="Over-time Production", ng-if="hasUpgrade('Over-time Production')")
+                    tab(heading="Production Breakdown", ng-if="hasUpgrade('Production Breakdown')")
+                        highchart(config="chartData.overTime")
 
 script(type="text/ng-template", id="formatting-units")
     span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} {{currencyName}}s

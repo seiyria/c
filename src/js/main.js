@@ -9,8 +9,9 @@ var favico = require('./favico');
 var gameController = require('./gamecontroller');
 var upgradeManager = require('./upgrademanager');
 var adManager = require('./admanager');
+var chartConfigs = require('./chartconfigs');
 
-angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'angularMoment', 'jlareau.pnotify'])
+angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'angularMoment', 'jlareau.pnotify', 'highcharts-ng'])
 
   .constant('Upgrades', upgrades)
 
@@ -31,6 +32,8 @@ angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'a
   .service('GameState', gameState)
 
   .service('AdManager', adManager)
+
+  .service('ChartConfigs', chartConfigs)
 
   .service('GameTimer', gameTimer)
 

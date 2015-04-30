@@ -54,6 +54,7 @@
       "./bower_components/highlightjs/highlight.pack.js",
       "./bower_components/moment/moment.js",
       "./bower_components/bootbox/bootbox.js",
+      "./bower_components/highcharts/highcharts.js",
 
       "./bower_components/angular/angular.js",
       "./bower_components/angular-ui-router/release/angular-ui-router.js",
@@ -62,7 +63,8 @@
       "./bower_components/angular-pnotify/src/angular-pnotify.js",
       "./bower_components/angular-highlightjs/build/angular-highlightjs.js",
       "./bower_components/angular-moment/angular-moment.js",
-      "./bower_components/ng-table/dist/ng-table.js"
+      "./bower_components/ng-table/dist/ng-table.js",
+      "./bower_components/highcharts-ng/dist/highcharts-ng.js"
     ],
     "libcss": [
       "./bower_components/angular/angular-csp.css",
