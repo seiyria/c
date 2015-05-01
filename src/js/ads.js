@@ -28,7 +28,7 @@ module.exports = [
   {
     name: 'Progress Quest',
     url: 'http://progressquest.com/play/',
-    text: 'Progress Quest is an antic and fantastical computer role-playing game. It's well worth the time you\'ll spend playing it.'
+    text: 'Progress Quest is an antic and fantastical computer role-playing game. It\'s well worth the time you\'ll spend playing it.'
   },
   {
     name: 'Clickpocalypse 2',
