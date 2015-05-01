@@ -10,6 +10,8 @@ var gameController = require('./gamecontroller');
 var upgradeManager = require('./upgrademanager');
 var adManager = require('./admanager');
 var chartConfigs = require('./chartconfigs');
+var upgradePath = require('./upgradepath');
+var sankey = require('./sankey');
 
 angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'angularMoment', 'jlareau.pnotify', 'highcharts-ng'])
 
@@ -25,6 +27,8 @@ angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'a
     });
   }])
 
+  .directive('sankey', sankey)
+
   .service('favico', favico)
 
   .service('AnimatedFlyTip', animatedFlyTip)
@@ -36,6 +40,8 @@ angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'a
   .service('ChartConfigs', chartConfigs)
 
   .service('GameTimer', gameTimer)
+
+  .service('UpgradePath', upgradePath)
 
   .service('UpgradeManager', upgradeManager)
 

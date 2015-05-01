@@ -126,6 +126,7 @@ script(type="text/ng-template", id="main")
             div(ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}")
 
                 h2 Output
+                sankey()
 
                 ng-include(src="'output-code'", ng-if="!hasUpgrade('Tabbed Output')")
                 tabset(ng-if="hasUpgrade('Tabbed Output')")
