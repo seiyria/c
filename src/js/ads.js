@@ -13,7 +13,7 @@ module.exports = [
   {
     name: 'Candy Empirical',
     url: 'http://candy-emperical.appspot.com/',
-    text: 'A new incremental game with candy that makes candy. Start out with taffy progress through all the candy types.'
+    text: 'A new incremental game with candy that makes candy. Start out with taffy, then progress through all the candy types.'
   },
   {
     name: 'Legend of the Fallen Warrior',
@@ -23,16 +23,16 @@ module.exports = [
   {
     name: 'Critter Mound',
     url: 'http://yoyz.com/critter/',
-    text: 'Breed new critters, breed stronger critters, destroy your enemies.'
+    text: 'Breed new critters. Breed stronger critters. Destroy your enemies.'
   },
   {
     name: 'Progress Quest',
     url: 'http://progressquest.com/play/',
-    text: 'Progress Quest is an antic and fantastical computer role-playing game, well worth the time you\'ll spend playing it.'
+    text: 'Progress Quest is an antic and fantastical computer role-playing game. It\'s well worth the time you\'ll spend playing it.'
   },
   {
     name: 'Clickpocalypse 2',
     url: 'http://minmaxia.com/c2/',
-    text: 'A fighter, ranger, wizard and a priest all set out to purge the land of evil... one dungeon at a time.'
+    text: 'A fighter, ranger, wizard and a priest set out to purge the land of evil... one dungeon at a time.'
   }
 ];
