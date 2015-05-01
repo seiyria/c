@@ -46,7 +46,7 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
   };
 
   $scope.gainUnits = function() {
-    $window.increaseUnits();
+    $window.increaseUnits(1, 'Click');
   };
 
   $scope.save = function() {
