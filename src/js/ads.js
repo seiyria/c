@@ -22,7 +22,7 @@ module.exports = [
   },
   {
     name: 'Critter Mound',
-    url: 'yoyz.com/critter/',
+    url: 'http://yoyz.com/critter/',
     text: 'Breed new critters, breed stronger critters, destroy your enemies.'
   },
   {
