@@ -11,75 +11,95 @@ var chartConfigs = function($q, GameState) {
     }
   });
 
-  var overTime = {
-
-    values: function() {
-      return _.pairs(GameState.sourcesGet.get());
-    },
-
-    chart: function() {
-      return {
-        options: {
-          chart: {
-            type: 'pie'
-          },
-          plotOptions: {
-            pie: {
-              dataLabels: {
-                enabled: true
-              },
-              showInLegend: true
-            }
-          }
-        },
-        title: {
-          text: ''
-        },
-        series: [{
-          data: this.values()
-        }]
-      };
-    }
-  };
+  var productionValues = () => _.pairs(GameState.sourcesGet.get());
 
   var production = {
-    values: function() {
-      return GameState.historyGet.get();
-    },
-    chart: function() {
-      return {
-        options: {
-          chart: {
-            type: 'line'
-          },
-          legend: {
-            enabled: false
-          },
-          yAxis: {
-            title: {
-              text: 'Production'
-            }
-          },
-          xAxis: {
-            type: 'datetime',
-            tickPixelInterval: 150,
-            title: {
-              text: 'Timestamp'
-            }
+    defaultObj: {
+      options: {
+        chart: {
+          type: 'pie'
+        },
+        credits: {
+          enabled: false
+        },
+        plotOptions: {
+          pie: {
+            dataLabels: {
+              enabled: false
+            },
+            showInLegend: false
           }
-        },
-        title: {
-          text: ''
-        },
-        series: [{
-          data: this.values()
-        }]
-      };
+        }
+      },
+      title: {
+        text: ''
+      },
+      series: [{
+        name: 'Data',
+        data: productionValues()
+      }]
+    },
+
+    chart: function() {
+      return this.defaultObj;
     }
   };
 
+  var overTimeValues = () => GameState.historyGet.get();
+
+  var overTime = {
+    defaultObj: {
+      options: {
+        chart: {
+          type: 'line'
+        },
+        legend: {
+          enabled: false
+        }
+      },
+      yAxis: {
+        title: {
+          text: ''
+        }
+      },
+      xAxis: {
+        type: 'datetime',
+        tickPixelInterval: 150,
+        title: {
+          text: ''
+        }
+      },
+      title: {
+        text: ''
+      },
+      series: [{
+        name: 'Data',
+        data: overTimeValues()
+      }]
+    },
+    chart: function() {
+      return this.defaultObj;
+    }
+  };
+
+  var checkDefaults = () => {
+    if(GameState.upgrade.has('Over-time Labels')) {
+      overTime.defaultObj.yAxis.title.text = 'Production';
+      overTime.defaultObj.xAxis.title.text = 'Timestamp';
+    }
+
+    if(GameState.upgrade.has('Breakdown Labels')) {
+      production.defaultObj.options.plotOptions.pie.dataLabels.enabled = true;
+      production.defaultObj.options.plotOptions.pie.showInLegend = true;
+    }
+  };
+
+  checkDefaults();
+
+  GameState.upgrade.watch().then(null, null, checkDefaults);
+
   GameState.unit.watch().then(null, null, function() {
-    defer.notify({overTime: overTime.values(), production: production.values()});
+    defer.notify({overTime: overTimeValues(), production: productionValues()});
   });
 
   return {
