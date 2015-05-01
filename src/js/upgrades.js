@@ -2,7 +2,7 @@
 module.exports = {
   Scoreboard: {
     category: 'Visual',
-    levels: [{cost: 10, description: 'Visualize your score!'}]
+    levels: [{cost: 5, description: 'Visualize your score!'}]
   },
   'Basic Layout': {
     category: 'Visual',
