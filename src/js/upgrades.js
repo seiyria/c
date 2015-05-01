@@ -249,9 +249,9 @@ module.exports = {
       {cost: 125000, description: 'Slightly improve your historical data!'}
     ]
   },
-  'Over-time Labels': {
+  'Over Time Labels': {
     category: 'Tech',
-    requirements: {'Over-time Production': 0},
+    requirements: {'Production Over Time': 0},
     levels: [{cost: 50000, description: 'Get some labels on that chart!'}]
   },
   'Breakdown Labels': {
