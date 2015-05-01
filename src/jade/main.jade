@@ -129,12 +129,12 @@ script(type="text/ng-template", id="main")
 
                 ng-include(src="'output-code'", ng-if="!hasUpgrade('Tabbed Output')")
                 tabset(ng-if="hasUpgrade('Tabbed Output')")
-                    tab(heading="Code")
+                    tab(heading="Code", active="tabActive[0]")
                         ng-include(src="'output-code'")
-                    tab(heading="Over-time Production", ng-if="hasUpgrade('Over-time Production')")
-                        highchart(config="chartData.overTime")
-                    tab(heading="Production Breakdown", ng-if="hasUpgrade('Production Breakdown')")
-                        highchart(config="chartData.production")
+                    tab(heading="Over-time Production", active="tabActive[1]", ng-if="hasUpgrade('Over-time Production')")
+                        highchart(config="chartData.overTime", ng-if="tabActive[1]")
+                    tab(heading="Production Breakdown", active="tabActive[2]", ng-if="hasUpgrade('Production Breakdown')")
+                        highchart(config="chartData.production", ng-if="tabActive[2]")
 
 script(type="text/ng-template", id="formatting-units")
     span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} {{currencyName}}s

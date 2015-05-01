@@ -1,6 +1,7 @@
 var gameController = function($scope, $window, $interval, $filter, $modal, GameState, ChartConfigs, GameTimer, UpgradeManager, FunctionBuilder, NgTableParams) {
   $scope._visibleUpgrades = [];
   $scope.groupVisibleHash = {};
+  $scope.tabActive = [true, false, false];
 
   $scope.ads = GameState.adSet.get();
   $scope.setAds = function(val) {
