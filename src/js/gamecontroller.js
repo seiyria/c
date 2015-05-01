@@ -2,16 +2,6 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
   $scope._visibleUpgrades = [];
   $scope.groupVisibleHash = {};
 
-  $scope.currencyName = GameState.currencySet.get();
-  $scope.changeCurrency = function() {
-    bootbox.prompt({title: 'What would you like to call the currency?', value: $scope.currencyName, callback: function(result) {
-      if(!result || !result.trim()) { return; }
-      GameState.currencySet.set(result);
-      $scope.currencyName = GameState.currencySet.get();
-      $scope.$digest();
-    }});
-  };
-
   $scope.ads = GameState.adSet.get();
   $scope.setAds = function(val) {
     GameState.adSet.set(val);
@@ -133,6 +123,17 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
     } else {
       finalCallback();
     }
+  };
+
+  $scope.currencyName = GameState.currencySet.get();
+  $scope.changeCurrency = function() {
+    bootbox.prompt({title: 'What would you like to call the currency?', value: $scope.currencyName, callback: function(result) {
+      if(!result || !result.trim()) { return; }
+      GameState.currencySet.set(result);
+      $scope.currencyName = GameState.currencySet.get();
+      $scope.$digest();
+      $scope.refresh();
+    }});
   };
 
 };
