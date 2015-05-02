@@ -13,6 +13,9 @@
     <link href="css/lib.css" rel="stylesheet">
   </head>
   <body ng-class="{lowercase: !hasUpgrade('Capitalization', 0), 'no-border-radius': !hasUpgrade('Basic Style', 1), 'no-color': !hasUpgrade('Basic color')}">
+    <noscript>
+      <div>This game requires JavaScript. Sorry!</div>
+    </noscript>
     <ng-include src="'main'"></ng-include>
     <script src="js/lib.js"></script>
     <script src="js/main.min.js"></script>
@@ -116,11 +119,14 @@
           <tab heading="Code" active="tabActive[0]">
             <ng-include src="'output-code'"></ng-include>
           </tab>
-          <tab heading="Over-time Production" active="tabActive[1]" ng-if="hasUpgrade('Over-time Production')">
+          <tab heading="Production Over Time" active="tabActive[1]" ng-if="hasUpgrade('Production Over Time')">
             <highchart config="chartData.overTime" ng-if="tabActive[1]"></highchart>
           </tab>
           <tab heading="Production Breakdown" active="tabActive[2]" ng-if="hasUpgrade('Production Breakdown')">
             <highchart config="chartData.production" ng-if="tabActive[2]"></highchart>
+          </tab>
+          <tab heading="Upgrade Tree" active="tabActive[3]" ng-if="hasUpgrade('Upgrade Tree')">
+            <sankey ng-if="tabActive[3]"></sankey>
           </tab>
         </tabset>
       </div>
