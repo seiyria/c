@@ -19,7 +19,7 @@ var sankey = function(UpgradePath) {
 
       var svg = d3.select(element[0])
         .append('svg')
-        .style('width', width)
+        .style('width', '100%')
         .style('height', height);
 
       var sankeyD = d3.sankey()
@@ -29,8 +29,6 @@ var sankey = function(UpgradePath) {
 
       var color = d3.scale.category20();
       var path = sankeyD.link();
-      var formatNumber = d3.format(',.0f');
-      var format = (d) => formatNumber(d);
 
       var reinit = function() {
         svg.selectAll('g').remove();
@@ -45,71 +43,57 @@ var sankey = function(UpgradePath) {
           .append('path')
             .attr('class', 'link')
             .attr('d', path)
-            .style('stroke-width', function(d) { return Math.max(1, d.dy); })
-            .attr('stroke', function(i) {
-              return d3.rgb(color(i.source.name.replace(/ .*/, ''))).darker();
-            })
+            .attr('stroke-width', d => Math.max(1, d.dy))
+            .attr('stroke', d => d3.rgb(color(d.source.name.split(' ').join(''))).darker())
             .attr('opacity', constants.OPACITY_LOW)
-            .on('mouseover', function() {
-              d3.select(this).style('opacity', constants.OPACITY_HIGH);
-            })
-            .on('mouseout', function() {
-              d3.select(this).style('opacity', constants.OPACITY_LOW);
-            })
-            .sort(function(a, b) { return b.dy - a.dy; });
+            .on('mouseover', function() { d3.select(this).transition().style('opacity', constants.OPACITY_HIGH); })
+            .on('mouseout', function() { d3.select(this).transition().style('opacity', constants.OPACITY_LOW); })
+            .sort((a, b) => b.dy - a.dy );
 
-        link.append('title')
-          .text(function(d) {
-            return d.source.name + ' → ' +
-              d.target.name; });
+        link
+          .append('title')
+          .text(d => `${d.source.name} → ${d.target.name}`);
 
         var node = svg.append('g').selectAll('.node')
           .data(scope.data.nodes)
           .enter()
           .append('g')
             .attr('class', 'node')
-            .attr('transform', function(d) {
-              d.y = _.isNaN(d.y) ? 0 : d.y;
-              return 'translate(' + d.x + ',' + d.y + ')'; });
+            .attr('transform', d => `translate(${d.x},${_.isNaN(d.y) ? 0 : d.y})`);
+
+        var mouseFilter = (d, opacity) => {
+          svg.selectAll('.link')
+            .filter(l => l.source === d || l.target === d)
+            .transition()
+            .style('opacity', opacity);
+        };
 
         node.append('rect')
-          .attr('height', function(d) { return d.dy; })
+          .attr('height', d => d.dy)
           .attr('width', sankeyD.nodeWidth())
-          .style('fill', function(d) {
-            return color(d.name.replace(/ .*/, '')); })
-          .style('stroke', function(d) {
-            return d3.rgb(d.color).darker(2); })
-          .on('mouseover', function(d) {
-            svg.selectAll('.link').filter(function(l) {
-              return l.source === d || l.target === d;
-            }).transition().style('opacity', constants.OPACITY_HIGH);
-          }).on('mouseout', function(d) {
-            svg.selectAll('.link').filter(function(l) {
-              return l.source === d || l.target === d;
-            }).transition().style('opacity', constants.OPACITY_LOW);
-          }).on('dblclick', function(d) {
-            svg.selectAll('.link').filter(function(l) {
-              return l.target === d;
-            }).attr('display', function() {
-              if (d3.select(this).attr('display') === 'none') {return 'inline';
-              } else {return 'none';}
-            });
+          .style('fill', d => color(d.name.split(' ').join('')))
+          .style('stroke', d => d3.rgb(d.color).darker(2))
+          .on('mouseover', (d) => mouseFilter(d, constants.OPACITY_HIGH))
+          .on('mouseout', (d) => mouseFilter(d, constants.OPACITY_LOW))
+          .on('dblclick', d => {
+            svg.selectAll('.link')
+              .filter(l => l.target === d)
+              .attr('display', function() { return d3.select(this).attr('display') === 'none' ? 'inline' : 'none'; });
           })
           .append('title')
-            .text(function(d) {
-              return d.name + '\n' + format(d.value); });
+            .text(d => d.name);
 
         node.append('text').append('tspan')
           .attr('x', -6)
-          .attr('y', function(d) { return d.dy / 2; })
+          .attr('y', d => d.dy / 2)
           .attr('dy', '.35em')
           .attr('text-anchor', 'end')
           .attr('transform', null)
-          .text(function(d) { return d.name; })
-          .filter(function(d) { return d.x < width * 0.75; })
+          .text(d => d.name)
+          .filter(d => d.x < width * 0.75)
           .attr('x', 2 + sankeyD.nodeWidth())
           .attr('text-anchor', 'start')
-          .filter(function(d) { return d.x > width * 0.25; })
+          .filter(d => d.x > width * 0.25)
           .attr('text-anchor', 'middle');
       };
 
