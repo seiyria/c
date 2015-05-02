@@ -16,6 +16,8 @@ html(lang="en", ng-app="c", ng-controller="Game")
         link(href="css/lib.css", rel="stylesheet")
 
     body(ng-class="{lowercase: !hasUpgrade('Capitalization', 0), 'no-border-radius': !hasUpgrade('Basic Style', 1), 'no-color': !hasUpgrade('Basic color')}")
+        noscript
+            div This game requires JavaScript. Sorry!
         ng-include(src="'main'")
         script(src="js/lib.js")
         script(src="js/main.min.js")

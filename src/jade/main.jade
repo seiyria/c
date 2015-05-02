@@ -135,6 +135,8 @@ script(type="text/ng-template", id="main")
                         highchart(config="chartData.overTime", ng-if="tabActive[1]")
                     tab(heading="Production Breakdown", active="tabActive[2]", ng-if="hasUpgrade('Production Breakdown')")
                         highchart(config="chartData.production", ng-if="tabActive[2]")
+                    tab(heading="Upgrade Tree", active="tabActive[3]", ng-if="hasUpgrade('Upgrade Tree')")
+                        sankey(ng-if="tabActive[3]")
 
 script(type="text/ng-template", id="formatting-units")
     span(ng-if="!hasUpgrade('Number Formatting')") {{_units}} {{currencyName}}s

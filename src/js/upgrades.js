@@ -2,7 +2,7 @@
 module.exports = {
   Scoreboard: {
     category: 'Visual',
-    levels: [{cost: 10, description: 'Visualize your score!'}]
+    levels: [{cost: 5, description: 'Visualize your score!'}]
   },
   'Basic Layout': {
     category: 'Visual',
@@ -55,6 +55,7 @@ module.exports = {
   },
   Capitalization: {
     category: 'Visual',
+    requirements: {'Scoreboard': 0},
     levels: [{cost: 100, description: 'Sometimes good punctuation just looks nice.'}]
   },
   Preformatting: {
@@ -249,7 +250,7 @@ module.exports = {
       {cost: 125000, description: 'Slightly improve your historical data!'}
     ]
   },
-  'Over Time Labels': {
+  'Production Labels': {
     category: 'Tech',
     requirements: {'Production Over Time': 0},
     levels: [{cost: 50000, description: 'Get some labels on that chart!'}]
@@ -258,5 +259,10 @@ module.exports = {
     category: 'Tech',
     requirements: {'Production Breakdown': 0},
     levels: [{cost: 50000, description: 'Get some labels on that chart!'}]
+  },
+  'Upgrade Tree': {
+    category: 'Tech',
+    requirements: {'Tabbed Output': 0, 'Basic Color': 0, 'Tooltips': 0, 'Basic Animation': 0},
+    levels: [{cost: 100000, description: 'Visualize the upgrade tree! Oooh, pretty!'}]
   }
 };

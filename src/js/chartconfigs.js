@@ -83,7 +83,7 @@ var chartConfigs = function($q, GameState) {
   };
 
   var checkDefaults = () => {
-    if(GameState.upgrade.has('Over Time Labels')) {
+    if(GameState.upgrade.has('Production Labels')) {
       overTime.defaultObj.yAxis.title.text = 'Production';
       overTime.defaultObj.xAxis.title.text = 'Timestamp';
     }

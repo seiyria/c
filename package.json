@@ -55,6 +55,7 @@
       "./bower_components/moment/moment.js",
       "./bower_components/bootbox/bootbox.js",
       "./bower_components/highcharts/highcharts.js",
+      "./bower_components/d3/d3.js",
 
       "./bower_components/angular/angular.js",
       "./bower_components/angular-ui-router/release/angular-ui-router.js",

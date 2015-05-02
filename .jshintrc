@@ -28,6 +28,7 @@
     "module": false,
     "Favico": false,
     "Highcharts": false,
+    "d3": false,
     "_": false,
     "$": false
   }
