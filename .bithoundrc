@@ -1,5 +1,6 @@
 {
   "ignore": [
+    "**/extjs/*.js",
     "gulpfile.js",
     "src/js/upgrades.js",
     "src/js/ads.js"
