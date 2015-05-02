@@ -55,6 +55,7 @@ module.exports = {
   },
   Capitalization: {
     category: 'Visual',
+    requirements: {'Scoreboard': 0},
     levels: [{cost: 100, description: 'Sometimes good punctuation just looks nice.'}]
   },
   Preformatting: {
@@ -231,7 +232,7 @@ module.exports = {
     requirements: {'Better Layout': 0, 'Basic Style': 0},
     levels: [{cost: 200000, description: 'Produce some tabs for your output section! Note, this only comes with one tab -- the one you have!'}]
   },
-  'Over-time Production': {
+  'Production Over Time': {
     category: 'Tech',
     requirements: {'Tabbed Output': 0, 'Number Formatting': 0},
     levels: [{cost: 2000000, description: 'Produce a new tab that shows your production over time!'}]
@@ -249,14 +250,19 @@ module.exports = {
       {cost: 125000, description: 'Slightly improve your historical data!'}
     ]
   },
-  'Over-time Labels': {
+  'Production Labels': {
     category: 'Tech',
-    requirements: {'Over-time Production': 0},
+    requirements: {'Production Over Time': 0},
     levels: [{cost: 50000, description: 'Get some labels on that chart!'}]
   },
   'Breakdown Labels': {
     category: 'Tech',
     requirements: {'Production Breakdown': 0},
     levels: [{cost: 50000, description: 'Get some labels on that chart!'}]
+  },
+  'Upgrade Tree': {
+    category: 'Tech',
+    requirements: {'Tabbed Output': 0, 'Basic Color': 0, 'Tooltips': 0},
+    levels: [{cost: 100000, description: 'Visualize the upgrade tree! Oooh, pretty!'}]
   }
 };

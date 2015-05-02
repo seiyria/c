@@ -8,15 +8,15 @@ var upgradePath = function($q, GameState, UPGRADES) {
   };
 
   var recalculate = function() {
-    structure.nodes = _(GameState.upgrade.get()).keys().map(key => { return {name: key}; }).value();
+    structure.nodes = _(GameState.upgrade.get()).keys().filter(key => _.has(UPGRADES, key)).map(key => { return {name: key}; }).value();
     structure.links = _(structure.nodes).map(node => {
       var nodeLinks = [];
 
       _.each(UPGRADES[node.name].requirements, (val, key) => {
         nodeLinks.push({
-          source: key,
-          value: val,
-          target: node.name
+          source: _.findWhere(structure.nodes, {name: key}),
+          value: 1,
+          target: _.findWhere(structure.nodes, {name: node.name})
         });
       });
 
