@@ -19,4 +19,7 @@ script(type="text/ng-template", id="modal-help")
             li The most expensive upgrade costs over 1 million. If you haven't spent that much yet, you're not done.
 
     div.modal-footer
+        small.pull-left.text-left
+            div Version {{versionInfo.tag}}
+            div {{versionInfo.hash}}
         button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close

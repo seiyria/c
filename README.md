@@ -6,6 +6,7 @@ A small game.
 # Building and Running
 
 Prerequisites:
+* iojs or nodejs >=0.12 (for `execSync`)
 * npm
 * gulp (`npm install -g gulp`)
 

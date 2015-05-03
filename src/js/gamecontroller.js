@@ -1,7 +1,9 @@
-var gameController = function($scope, $window, $interval, $filter, $modal, GameState, ChartConfigs, GameTimer, UpgradeManager, FunctionBuilder, UpgradePath, NgTableParams) {
+var gameController = function($scope, $window, $interval, $filter, $http, $modal, GameState, ChartConfigs, GameTimer, UpgradeManager, FunctionBuilder, UpgradePath, NgTableParams) {
   $scope._visibleUpgrades = [];
   $scope.groupVisibleHash = {};
   $scope.tabActive = [true, false, false, false];
+
+  $http.get('version.json').then(res => $scope.versionInfo = res.data);
 
   $scope.ads = GameState.adSet.get();
   $scope.setAds = function(val) {
@@ -139,6 +141,6 @@ var gameController = function($scope, $window, $interval, $filter, $modal, GameS
 
 };
 
-gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$modal', 'GameState', 'ChartConfigs', 'GameTimer', 'UpgradeManager', 'FunctionBuilder', 'UpgradePath', 'ngTableParams'];
+gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$http', '$modal', 'GameState', 'ChartConfigs', 'GameTimer', 'UpgradeManager', 'FunctionBuilder', 'UpgradePath', 'ngTableParams'];
 
 module.exports = gameController;

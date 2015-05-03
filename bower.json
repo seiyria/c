@@ -1,8 +1,8 @@
 {
   "name": "c",
-  "version": "0.0.0",
+  "version": "0.0.1",
   "authors": [
-    ""
+    "Kyle Kemp <kyle@seiyria.com>"
   ],
   "dependencies": {
     "lodash": "~3.8.0",

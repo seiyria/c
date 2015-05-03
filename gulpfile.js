@@ -22,6 +22,7 @@ var gulpif = require('gulp-if');
 var vinylPaths = require('vinyl-paths');
 var gopen = require('gulp-open');
 var ghPages = require('gulp-gh-pages');
+var execSync = require('child_process').execSync;
 
 var fs = require('fs');
 
@@ -30,6 +31,13 @@ var watching = false;
 var getPaths = function() {
   return JSON.parse(fs.readFileSync('./package.json')).gulp;
 };
+
+gulp.task('version', ['compile'], function() {
+  fs.writeFileSync('dist/version.json', JSON.stringify({
+    tag: execSync('git tag').toString().trim(),
+    hash: execSync('git rev-parse HEAD').toString().trim()
+  }));
+});
 
 gulp.task('deploy', function() {
   var paths = getPaths();
@@ -97,7 +105,7 @@ gulp.task('copylibjs', ['clean'], function () {
     .on('error', gutil.log);
 });
 
-gulp.task('compilejs', ['jscs', 'jshint' ,'clean'], function () {
+gulp.task('compilejs', ['jscs', 'jshint', 'clean'], function () {
   var paths = getPaths();
 
   var bundler = browserify({
@@ -207,5 +215,5 @@ gulp.task('watch', function () {
 });
 
 gulp.task('default', ['build', 'connect', 'open', 'watch']);
-gulp.task('build', ['clean', 'copyfavicon', 'copylibjs', 'copylibcss', 'buildlibcss', 'compile']);
+gulp.task('build', ['clean', 'copyfavicon', 'copylibjs', 'copylibcss', 'buildlibcss', 'compile', 'version']);
 gulp.task('compile', ['copyfonts', 'compilejs', 'compileless', 'compilejade']);

@@ -4,6 +4,9 @@
   "readme": "README.md",
   "repository": "https://github.com/seiyria/c",
   "version": "0.0.1",
+  "authors": [
+    "Kyle Kemp <kyle@seiyria.com>"
+  ],
   "devDependencies": {
     "babelify": "^6.0.1",
     "bower": "*",
