@@ -208,7 +208,9 @@
       <li>The most expensive upgrade costs over 1 million. If you haven't spent that much yet, you're not done.</li>
     </ul>
   </div>
-  <div class="modal-footer">
+  <div class="modal-footer"><small class="pull-left text-left">
+      <div>Version {{versionInfo.tag}} published <span am-time-ago="versionInfo.longDate"></span></div>
+      <div>{{versionInfo.hash}}</div></small>
     <button ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}" ng-click="$close()">Close</button>
   </div>
 </script>
