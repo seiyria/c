@@ -37,10 +37,10 @@ var getPaths = function() {
 
 gulp.task('version', ['compile'], function() {
   fs.writeFileSync('dist/version.json', JSON.stringify({
-    tag: execSync('git describe --always --tag').toString().trim(),
-    hash: execSync(`git log --pretty=format:'%H' -1`).toString().trim(),
-    date: execSync(`git log --pretty=format:'%ad' --date=short -1`).toString().trim(),
-    longDate: execSync(`git log --pretty=format:'%ad' -1`).toString().trim()
+    tag: execSync('git describe --abbrev=0').toString().trim(),
+    hash: execSync('git log --pretty=format:\'%H\' -1').toString().trim(),
+    date: execSync('git log --pretty=format:\'%ad\' --date=short -1').toString().trim(),
+    longDate: execSync('git log --pretty=format:\'%ad\' -1').toString().trim()
   }));
 });
 
