@@ -141,7 +141,9 @@ gulp.task('jscs', function() {
   var paths = getPaths();
 
   return gulp.src(paths.js)
-    .pipe(jscs())
+    .pipe(jscs({
+      fix: true
+    }))
     .on('error', gutil.log);
 });
 
