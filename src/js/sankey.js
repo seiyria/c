@@ -19,6 +19,7 @@ var sankey = function(UpgradePath) {
 
       var svg = d3.select(element[0])
         .append('svg')
+        .attr('height', height)
         .style('width', '100%')
         .style('height', height);
 
