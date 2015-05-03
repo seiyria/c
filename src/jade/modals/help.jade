@@ -20,6 +20,6 @@ script(type="text/ng-template", id="modal-help")
 
     div.modal-footer
         small.pull-left.text-left
-            div Version {{versionInfo.tag}}
+            div Version {{versionInfo.tag}} published <span am-time-ago="versionInfo.longDate"></span>
             div {{versionInfo.hash}}
         button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close

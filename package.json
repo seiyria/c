@@ -3,7 +3,7 @@
   "description": "A small game",
   "readme": "README.md",
   "repository": "https://github.com/seiyria/c",
-  "version": "0.0.1",
+  "version": "0.1.4",
   "authors": [
     "Kyle Kemp <kyle@seiyria.com>"
   ],
@@ -37,7 +37,10 @@
     "gulp-open": "~0.3.2",
     "gulp-jscs": "~1.6.0",
     "jscs": "*",
-    "gulp-gh-pages": "~0.5.1"
+    "gulp-gh-pages": "~0.5.1",
+    "gulp-bump": "~0.3.0",
+    "gulp-tag-version": "~1.2.1",
+    "gulp-filter": "~2.0.2"
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",
@@ -59,7 +62,6 @@
       "./bower_components/bootbox/bootbox.js",
       "./bower_components/highcharts/highcharts.js",
       "./bower_components/d3/d3.js",
-
       "./bower_components/angular/angular.js",
       "./bower_components/angular-ui-router/release/angular-ui-router.js",
       "./bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
@@ -86,8 +88,12 @@
     "favicon": [
       "favicon.ico"
     ],
-    "jade": ["src/jade/**/*.jade"],
-    "js": ["src/js/**/*.js"],
+    "jade": [
+      "src/jade/**/*.jade"
+    ],
+    "js": [
+      "src/js/**/*.js"
+    ],
     "entry": "./src/js/main.js",
     "dist": "./dist/"
   }

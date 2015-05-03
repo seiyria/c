@@ -22,6 +22,9 @@ var gulpif = require('gulp-if');
 var vinylPaths = require('vinyl-paths');
 var gopen = require('gulp-open');
 var ghPages = require('gulp-gh-pages');
+var bump = require('gulp-bump');
+var tagVersion = require('gulp-tag-version');
+var filter = require('gulp-filter');
 var execSync = require('child_process').execSync;
 
 var fs = require('fs');
@@ -34,8 +37,10 @@ var getPaths = function() {
 
 gulp.task('version', ['compile'], function() {
   fs.writeFileSync('dist/version.json', JSON.stringify({
-    tag: execSync('git tag').toString().trim(),
-    hash: execSync('git rev-parse HEAD').toString().trim()
+    tag: execSync('git describe --always --tag').toString().trim(),
+    hash: execSync(`git log --pretty=format:'%H' -1`).toString().trim(),
+    date: execSync(`git log --pretty=format:'%ad' --date=short -1`).toString().trim(),
+    longDate: execSync(`git log --pretty=format:'%ad' -1`).toString().trim()
   }));
 });
 
@@ -212,6 +217,30 @@ gulp.task('watch', function () {
 
   watching = true;
   return gulp.watch([paths.less, paths.jade, paths.js, 'package.json'], ['html']);
+});
+
+gulp.task('bump:patch', function() {
+  gulp.src(['./bower.json', './package.json'])
+    .pipe(bump({type: 'patch'}))
+    .pipe(gulp.dest('./'))
+    .pipe(filter('package.json'))
+    .pipe(tagVersion({prefix: ''}));
+});
+
+gulp.task('bump:minor', function() {
+  gulp.src(['./bower.json', './package.json'])
+    .pipe(bump({type: 'minor'}))
+    .pipe(gulp.dest('./'))
+    .pipe(filter('package.json'))
+    .pipe(tagVersion({prefix: ''}));
+});
+
+gulp.task('bump:major', function() {
+  gulp.src(['./bower.json', './package.json'])
+    .pipe(bump({type: 'major'}))
+    .pipe(gulp.dest('./'))
+    .pipe(filter('package.json'))
+    .pipe(tagVersion({prefix: ''}));
 });
 
 gulp.task('default', ['build', 'connect', 'open', 'watch']);
