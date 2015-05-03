@@ -142,7 +142,8 @@ gulp.task('jscs', function() {
 
   return gulp.src(paths.js)
     .pipe(jscs({
-      fix: true
+      fix: true,
+      esnext: true
     }))
     .on('error', gutil.log);
 });
