@@ -31,17 +31,11 @@ var sankey = function(UpgradePath) {
       var color = d3.scale.category20();
       var path = sankeyD.link();
 
-      var reinit = function() {
-        svg.selectAll('g').remove();
-        sankeyD
-          .nodes(scope.data.nodes)
-          .links(scope.data.links)
-          .layout(256);
-
+      var _initLinks = function() {
         var link = svg.append('g').selectAll('.link')
-          .data(scope.data.links)
-          .enter()
-          .append('path')
+            .data(scope.data.links)
+            .enter()
+            .append('path')
             .attr('class', 'link')
             .attr('d', path)
             .attr('stroke-width', d => Math.max(1, d.dy))
@@ -52,50 +46,63 @@ var sankey = function(UpgradePath) {
             .sort((a, b) => b.dy - a.dy );
 
         link
-          .append('title')
-          .text(d => `${d.source.name} → ${d.target.name}`);
+            .append('title')
+            .text(d => `${d.source.name} -> ${d.target.name}`);
+      };
 
+      var _initNodes = function() {
         var node = svg.append('g').selectAll('.node')
-          .data(scope.data.nodes)
-          .enter()
-          .append('g')
+            .data(scope.data.nodes)
+            .enter()
+            .append('g')
             .attr('class', 'node')
             .attr('transform', d => `translate(${d.x},${_.isNaN(d.y) ? 0 : d.y})`);
 
         var mouseFilter = (d, opacity) => {
           svg.selectAll('.link')
-            .filter(l => l.source === d || l.target === d)
-            .transition()
-            .style('opacity', opacity);
+              .filter(l => l.source === d || l.target === d)
+              .transition()
+              .style('opacity', opacity);
         };
 
         node.append('rect')
-          .attr('height', d => d.dy)
-          .attr('width', sankeyD.nodeWidth())
-          .style('fill', d => color(d.name.split(' ').join('')))
-          .style('stroke', d => d3.rgb(d.color).darker(2))
-          .on('mouseover', (d) => mouseFilter(d, constants.OPACITY_HIGH))
-          .on('mouseout', (d) => mouseFilter(d, constants.OPACITY_LOW))
-          .on('dblclick', d => {
-            svg.selectAll('.link')
-              .filter(l => l.target === d)
-              .attr('display', function() { return d3.select(this).attr('display') === 'none' ? 'inline' : 'none'; });
-          })
-          .append('title')
+            .attr('height', d => d.dy)
+            .attr('width', sankeyD.nodeWidth())
+            .style('fill', d => color(d.name.split(' ').join('')))
+            .style('stroke', d => d3.rgb(d.color).darker(2))
+            .on('mouseover', (d) => mouseFilter(d, constants.OPACITY_HIGH))
+            .on('mouseout', (d) => mouseFilter(d, constants.OPACITY_LOW))
+            .on('dblclick', d => {
+              svg.selectAll('.link')
+                  .filter(l => l.target === d)
+                  .attr('display', function() { return d3.select(this).attr('display') === 'none' ? 'inline' : 'none'; });
+            })
+            .append('title')
             .text(d => d.name);
 
         node.append('text').append('tspan')
-          .attr('x', -6)
-          .attr('y', d => d.dy / 2)
-          .attr('dy', '.35em')
-          .attr('text-anchor', 'end')
-          .attr('transform', null)
-          .text(d => d.name)
-          .filter(d => d.x < width * 0.75)
-          .attr('x', 2 + sankeyD.nodeWidth())
-          .attr('text-anchor', 'start')
-          .filter(d => d.x > width * 0.25)
-          .attr('text-anchor', 'middle');
+            .attr('x', -6)
+            .attr('y', d => d.dy / 2)
+            .attr('dy', '.35em')
+            .attr('text-anchor', 'end')
+            .attr('transform', null)
+            .text(d => d.name)
+            .filter(d => d.x < width * 0.75)
+            .attr('x', 2 + sankeyD.nodeWidth())
+            .attr('text-anchor', 'start')
+            .filter(d => d.x > width * 0.25)
+            .attr('text-anchor', 'middle');
+      };
+
+      var reinit = function() {
+        svg.selectAll('g').remove();
+        sankeyD
+          .nodes(scope.data.nodes)
+          .links(scope.data.links)
+          .layout(256);
+
+        _initLinks();
+        _initNodes();
       };
 
       reinit();
