@@ -157,7 +157,7 @@ module.exports = {
       {cost: 200000, description: 'The timer is back and faster than ever.'},
       {cost: 750000, description: 'Just when you thought the timer was out of tricks, it gets faster!'},
       {cost: 1500000, description: 'The fastest timer yet!'},
-      {cost: 1000000000, description: 'This costs 1,000,000,000 snot bubbles, or what have you.}
+      {cost: 1000000000, description: 'This costs 1,000,000,000 snot bubbles, or what have you.'}
     ]
   },
   'Best Table': {
