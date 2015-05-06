@@ -4,7 +4,8 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
 
       var upgrade = GameState.upgrade;
 
-      var unitText = `${GameState.currencySet.get()}s`;
+      var unitText = `${_.camelCase(GameState.currencySet.get())}s`;
+      var _unitName = unitText;
 
       var functionHeader = ['',''];
       if(GameState.upgrade.has('Function')) {
@@ -36,7 +37,7 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
       if(GameState.upgrade.has('Basic Animation')) {
         animationHeader = [
   `var totalUnitsGained = 0;`,
-  `units += totalUnitsGained;
+  `${_unitName} += totalUnitsGained;
   animateUnitChange(totalUnitsGained);`];
         unitText = 'totalUnitsGained';
       }
