@@ -20,26 +20,17 @@ script(type="text/ng-template", id="main")
                     img(alt="c",src="favicon.ico", ng-if="hasUpgrade('Favicon')")
                     span(ng-if="!hasUpgrade('Favicon')") c(ode)
                     span(ng-if="hasUpgrade('Favicon')") (ode)
+                span.visible-xs(ng-include="'styled-score'")
 
             div.navbar-inner
                 ul.nav.navbar-nav.navbar-left
-                    li
-                        button.navbar-btn(
-                            type="button",
-                            ng-click="gainUnits()",
-                            ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"
-                            )
-                            span.fa.fa-plus &nbsp;
-                            ng-include(src="'gain-unit-text'")
-                    li(ng-if="hasUpgrade('Scoreboard')")
-                        p.navbar-text#navbar-unit
-                            ng-include(src="'formatting-units'")
+                    li.hidden-xs(ng-include="'styled-score'")
 
                 ul.nav.navbar-nav.navbar-right
                     li
                         p.navbar-text(ng-if="hasUpgrade('Visual Countdown') && !hasUpgrade('Progress Bar')")
                             ng-include(src="'formatting-timer'")
-                        div.navbar-text(ng-if="hasUpgrade('Progress Bar')")
+                        div.col-xs-12.navbar-text(ng-if="hasUpgrade('Progress Bar')")
                             progressbar.progress-striped.active(value="100 - _timer/_timerMax*100", type="default") {{100 - (_timer/_timerMax*100).toFixed(0)}}%
                     li
                         button.navbar-btn(
@@ -50,7 +41,7 @@ script(type="text/ng-template", id="main")
                             )
                             span.fa.fa-floppy-o &nbsp;
                             | Save
-                    li(ng-include, src="'dropdown'")
+                    li.text-center(ng-include, src="'dropdown'")
 
 
     div.container(ng-if="hasUpgrade('Basic Layout')")
@@ -150,6 +141,17 @@ script(type="text/ng-template", id="gain-unit-text")
     span(ng-if="!hasUpgrade('Scoreboard')") Gain {{currencyName}}s
     span(ng-if="hasUpgrade('Scoreboard')") Get More
 
+script(type="text/ng-template", id="styled-score")
+    button.navbar-btn(
+        type="button",
+        ng-click="gainUnits()",
+        ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}"
+        )
+        span.fa.fa-plus &nbsp;
+        ng-include(src="'gain-unit-text'")
+    span.navbar-text#navbar-unit(ng-if="hasUpgrade('Scoreboard')")
+        ng-include(src="'formatting-units'")
+
 script(type="text/ng-template", id="output-code")
     div(ng-if="!hasUpgrade('Syntax Highlighting')",ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}") {{_function}}
     div.better-aligned-code(ng-if="hasUpgrade('Syntax Highlighting')",hljs,source="_function",language="javascript")
@@ -183,6 +185,8 @@ script(type="text/ng-template", id="dropdown")
             ng-mouseleave="hover = false"
             )
             span.fa.fa-gear(ng-class="{'fa-spin': hover && hasUpgrade('Basic Animation')}")
+            span &nbsp;
+            span.visible-xs-inline Menu
         ul.dropdown-menu
             li(ng-if="hasUpgrade('Help Menu')")
                 a(href, ng-click="openModal('help')")
