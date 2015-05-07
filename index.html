@@ -32,33 +32,24 @@
   </div>
   <nav ng-if="hasUpgrade('Better Layout', 1)" class="navbar navbar-default">
     <div class="container">
-      <div class="navbar-header"><a href ng-if="!hasUpgrade('Page Title')" class="navbar-brand"><img alt="c" src="favicon.ico" ng-if="hasUpgrade('Favicon')"><span ng-if="!hasUpgrade('Favicon')">c</span></a><a href ng-if="hasUpgrade('Page Title')" class="navbar-brand"><img alt="c" src="favicon.ico" ng-if="hasUpgrade('Favicon')"><span ng-if="!hasUpgrade('Favicon')">c(ode)</span><span ng-if="hasUpgrade('Favicon')">(ode)</span></a></div>
+      <div class="navbar-header"><a href ng-if="!hasUpgrade('Page Title')" class="navbar-brand"><img alt="c" src="favicon.ico" ng-if="hasUpgrade('Favicon')"><span ng-if="!hasUpgrade('Favicon')">c</span></a><a href ng-if="hasUpgrade('Page Title')" class="navbar-brand"><img alt="c" src="favicon.ico" ng-if="hasUpgrade('Favicon')"><span ng-if="!hasUpgrade('Favicon')">c(ode)</span><span ng-if="hasUpgrade('Favicon')">(ode)</span></a><span ng-include="'styled-score'" class="visible-xs"></span></div>
       <div class="navbar-inner">
         <ul class="nav navbar-nav navbar-left">
-          <li>
-            <button type="button" ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}" class="navbar-btn"><span class="fa fa-plus">&nbsp;</span>
-              <ng-include src="'gain-unit-text'"></ng-include>
-            </button>
-          </li>
-          <li ng-if="hasUpgrade('Scoreboard')">
-            <p id="navbar-unit" class="navbar-text">
-              <ng-include src="'formatting-units'"></ng-include>
-            </p>
-          </li>
+          <li ng-include="'styled-score'" class="hidden-xs"></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
           <li>
             <p ng-if="hasUpgrade('Visual Countdown') &amp;&amp; !hasUpgrade('Progress Bar')" class="navbar-text">
               <ng-include src="'formatting-timer'"></ng-include>
             </p>
-            <div ng-if="hasUpgrade('Progress Bar')" class="navbar-text">
+            <div ng-if="hasUpgrade('Progress Bar')" class="col-xs-12 navbar-text">
               <progressbar value="100 - _timer/_timerMax*100" type="default" class="progress-striped active">{{100 - (_timer/_timerMax*100).toFixed(0)}}%</progressbar>
             </div>
           </li>
           <li>
             <button type="button" ng-click="save()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3) &amp;&amp; !hasUpgrade('Menu')" class="navbar-btn"><span class="fa fa-floppy-o">&nbsp;</span>Save</button>
           </li>
-          <li ng-include src="'dropdown'"></li>
+          <li ng-include src="'dropdown'" class="text-center"></li>
         </ul>
       </div>
     </div>
@@ -136,6 +127,12 @@
 <script type="text/ng-template" id="formatting-units"><span ng-if="!hasUpgrade('Number Formatting')">{{_units}} {{currencyName}}s</span><span ng-if="hasUpgrade('Number Formatting')">{{_units | number:0}} {{currencyName}}s</span></script>
 <script type="text/ng-template" id="formatting-timer"><span ng-if="!hasUpgrade('Number Formatting')">{{_timer}} milliseconds</span><span ng-if="hasUpgrade('Number Formatting')">{{_timer | number:0}} milliseconds</span></script>
 <script type="text/ng-template" id="gain-unit-text"><span ng-if="!hasUpgrade('Scoreboard')">Gain {{currencyName}}s</span><span ng-if="hasUpgrade('Scoreboard')">Get More</span></script>
+<script type="text/ng-template" id="styled-score">
+  <button type="button" ng-click="gainUnits()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-primary': hasUpgrade('Basic Color')}" class="navbar-btn"><span class="fa fa-plus">&nbsp;</span>
+    <ng-include src="'gain-unit-text'"></ng-include>
+  </button><span id="navbar-unit" ng-if="hasUpgrade('Scoreboard')" class="navbar-text">
+    <ng-include src="'formatting-units'"></ng-include></span>
+</script>
 <script type="text/ng-template" id="output-code">
   <div ng-if="!hasUpgrade('Syntax Highlighting')" ng-class="{'better-aligned-code formatted': hasUpgrade('Preformatting')}">{{_function}}</div>
   <div ng-if="hasUpgrade('Syntax Highlighting')" hljs source="_function" language="javascript" class="better-aligned-code"></div>
@@ -145,7 +142,7 @@
   <button type="button" ng-click="save()" ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color')}" ng-if="hasUpgrade('Save') &amp;&amp; !hasUpgrade('Save', 3) &amp;&amp; !hasUpgrade('Better Layout', 1) &amp;&amp; !hasUpgrade('Menu')"><span class="fa fa-floppy-o">&nbsp;</span>Save</button>
 </script>
 <script type="text/ng-template" id="dropdown"><span dropdown ng-if="hasUpgrade('Menu')" ng-class="{'navbar-text': hasUpgrade('Better Layout', 1) &amp;&amp; hasUpgrade('Iconography')}" class="dropdown">
-    <button href dropdown-toggle ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color'), 'navbar-btn': hasUpgrade('Better Layout', 1)}" ng-if="!hasUpgrade('Iconography')" class="dropdown-toggle">Menu</button><a href dropdown-toggle ng-if="hasUpgrade('Iconography')" ng-mouseenter="hover = true" ng-mouseleave="hover = false" class="dropdown-toggle text-default"><span ng-class="{'fa-spin': hover &amp;&amp; hasUpgrade('Basic Animation')}" class="fa fa-gear"></span></a>
+    <button href dropdown-toggle ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-info': hasUpgrade('Basic Color'), 'navbar-btn': hasUpgrade('Better Layout', 1)}" ng-if="!hasUpgrade('Iconography')" class="dropdown-toggle">Menu</button><a href dropdown-toggle ng-if="hasUpgrade('Iconography')" ng-mouseenter="hover = true" ng-mouseleave="hover = false" class="dropdown-toggle text-default"><span ng-class="{'fa-spin': hover &amp;&amp; hasUpgrade('Basic Animation')}" class="fa fa-gear"></span><span>&nbsp;</span><span class="visible-xs-inline">Menu</span></a>
     <ul class="dropdown-menu">
       <li ng-if="hasUpgrade('Help Menu')"><a href ng-click="openModal('help')"><span class="fa fa-question-circle">&nbsp;</span>Help</a></li>
       <li ng-if="hasUpgrade('Options Menu')"><a href ng-click="openModal('options')"><span class="fa fa-book">&nbsp;</span>Options</a></li>
