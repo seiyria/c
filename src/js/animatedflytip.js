@@ -19,7 +19,7 @@ var animatedFlyTip = function($filter) {
       $element.css('position', 'absolute');
       $('body').append($element);
 
-      var $base = $('#navbar-unit');
+      var $base = $('.navbar-unit:visible');
       if(!$base.length) { return; }
 
       $element.offset({left: $base.offset().left, top: $base.offset().top});
