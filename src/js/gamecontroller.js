@@ -7,7 +7,9 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
 
   $scope.ads = GameState.adSet.get();
   $scope.setAds = function(val) {
+    $scope.ads = val;
     GameState.adSet.set(val);
+    $scope.save();
   };
 
   $scope.tableParams = new NgTableParams({
