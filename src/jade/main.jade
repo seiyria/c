@@ -200,6 +200,11 @@ script(type="text/ng-template", id="dropdown")
                     span.fa.fa-book &nbsp;
                     | Options
 
+            li(ng-if="hasUpgrade('Achievements Menu')")
+                a(href, ng-click="openModal('achievements')")
+                    span.fa.fa-trophy &nbsp;
+                    | Achievements
+
             li(ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3)")
                 a(href, ng-click="save()")
                     span.fa.fa-floppy-o &nbsp;

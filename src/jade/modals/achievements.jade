@@ -1,0 +1,21 @@
+script(type="text/ng-template", id="modal-achievements")
+    div.modal-header
+        span.close(ng-click="$close()")
+            span.fa.fa-close
+        h4
+            span.fa.fa-trophy &nbsp;
+            | Achievements
+
+    div.modal-body.no-padding
+        table.table.table-striped
+            thead
+                tr
+                    th Name
+                    th Prerequisite
+            tbody
+                tr(ng-repeat="achievement in achievements")
+                    td {{achievement}}
+                    td {{ACHIEVEMENTS[achievement].attained}}
+
+    div.modal-footer
+        button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close

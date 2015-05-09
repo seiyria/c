@@ -12,10 +12,13 @@ var adManager = require('./admanager');
 var chartConfigs = require('./chartconfigs');
 var upgradePath = require('./upgradepath');
 var sankey = require('./sankey');
+var achievements = require('./achievements');
 
 angular.module('c', ['ui.bootstrap', 'hljs', 'LocalStorageModule', 'ngTable', 'angularMoment', 'jlareau.pnotify', 'highcharts-ng'])
 
   .constant('Upgrades', upgrades)
+
+  .constant('Achievements', achievements)
 
   .constant('Version', '0.0.1')
 

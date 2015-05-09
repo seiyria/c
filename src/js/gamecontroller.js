@@ -1,4 +1,5 @@
-var gameController = function($scope, $window, $interval, $filter, $http, $modal, GameState, ChartConfigs, GameTimer, UpgradeManager, FunctionBuilder, UpgradePath, NgTableParams) {
+var gameController = function($scope, $window, $interval, $filter, $http, $modal, GameState, ChartConfigs, GameTimer, UpgradeManager, FunctionBuilder, UpgradePath, NgTableParams, ACHIEVEMENTS) {
+  $scope.ACHIEVEMENTS = ACHIEVEMENTS;
   $scope._visibleUpgrades = [];
   $scope.groupVisibleHash = {};
   $scope.tabActive = [true, false, false, false];
@@ -8,6 +9,9 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
   $scope.ads = GameState.adSet.get();
   $scope.setAds = function(val) {
     GameState.adSet.set(val);
+    if(!val) {
+      GameState.achieve('Think Of The Children');
+    }
   };
 
   $scope.tableParams = new NgTableParams({
@@ -45,6 +49,9 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
     do {
       GameState.upgrade.inc(upgName);
     } while(--levels > 0);
+    if(upgName === 'Achievements') {
+      GameState.achieve('Upgrade Complete');
+    }
   };
 
   $scope.gainUnits = function() {
@@ -69,6 +76,10 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
 
     $scope.upgrades = UpgradeManager.upgrades();
     $scope.maxUpgrades = UpgradeManager.maxUpgrades();
+    if($scope.upgrades.length >= $scope.maxUpgrades) {
+      GameState.achieve('Upgradus Maximus');
+    }
+    $scope.achievements = GameState.achievementGet.get();
   };
 
   $scope.openModal = function(modal) {
@@ -137,6 +148,7 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
       if(!result || !result.trim()) { return; }
       GameState.currencySet.set(result);
       $scope.currencyName = GameState.currencySet.get();
+      GameState.achieve('Personalized Touch');
       $scope.$digest();
       $scope.refresh();
     }});
@@ -144,6 +156,6 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
 
 };
 
-gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$http', '$modal', 'GameState', 'ChartConfigs', 'GameTimer', 'UpgradeManager', 'FunctionBuilder', 'UpgradePath', 'ngTableParams'];
+gameController.$inject = ['$scope', '$window', '$interval', '$filter', '$http', '$modal', 'GameState', 'ChartConfigs', 'GameTimer', 'UpgradeManager', 'FunctionBuilder', 'UpgradePath', 'ngTableParams', 'Achievements'];
 
 module.exports = gameController;

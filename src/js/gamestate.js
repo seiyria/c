@@ -1,4 +1,4 @@
-var gameState = function($q, notificationService, $filter, UPGRADES, GainCalculator, localStorage, AnimatedFlyTip) {
+var gameState = function($q, notificationService, $filter, UPGRADES, ACHIEVEMENTS, GainCalculator, localStorage, AnimatedFlyTip) {
 
   var getNewState = function() {
     return {
@@ -9,7 +9,8 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
       currencyName: 'Unit',
       ads: true,
       sources: {},
-      history: []
+      history: [],
+      achievements: []
     };
   };
 
@@ -27,6 +28,18 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
     localStorage.set('game', buildSaveObject());
   };
 
+  var achieve = function(name) {
+    if(!upgrade.has('Achievements')) { return; }
+    if(_.contains(currentState.achievements, name)) { return; }
+    currentState.achievements.push(name);
+    notificationService.info(`Congratulations! You achieved "${name}."`);
+    save();
+
+    if(currentState.achievements.length === _.keys(ACHIEVEMENTS).length - 1) {
+      achieve('Over Achiever');
+    }
+  };
+
   var hardReset = function() {
     currentState = getNewState();
     save();
@@ -38,6 +51,11 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
     if(!state) { return; }
 
     _.assign(currentState, state);
+
+    var days = (Date.now() - currentState.start) / (24 * 60 * 60 * 1000);
+    if(days > 3) {
+      achieve('Ancient History');
+    }
 
     if(!upgrade.has('Offline Progress')) {
       return;
@@ -67,6 +85,10 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
         text: `You gained ${numString} ${currentState.currencyName}s while offline. Welcome back!`
       });
     }
+  };
+
+  var achievementGet = {
+    get: function() { return currentState.achievements; }
   };
 
   var historyGet = {
@@ -124,6 +146,10 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
     inc: function(amt, display = true, source = 'Click') {
       currentState.units += amt;
 
+      if(currentState.units > 100000000) {
+        achieve('Nest Egg');
+      }
+
       manageHistory();
 
       if(!currentState.sources[source]) {
@@ -165,12 +191,14 @@ var gameState = function($q, notificationService, $filter, UPGRADES, GainCalcula
     adSet: adSet,
     sourcesGet: sourcesGet,
     historyGet: historyGet,
+    achievementGet: achievementGet,
+    achieve: achieve,
     save: save,
     buildSaveObject: buildSaveObject,
     hardReset: hardReset
   };
 };
 
-gameState.$inject = ['$q', 'notificationService', '$filter', 'Upgrades', 'GainCalculator', 'localStorageService', 'AnimatedFlyTip'];
+gameState.$inject = ['$q', 'notificationService', '$filter', 'Upgrades', 'Achievements', 'GainCalculator', 'localStorageService', 'AnimatedFlyTip'];
 
 module.exports = gameState;
