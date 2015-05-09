@@ -66,6 +66,9 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
     }
     $scope._function = FunctionBuilder.build();
     $scope.tableParams.reload();
+
+    $scope.upgrades = UpgradeManager.upgrades();
+    $scope.maxUpgrades = UpgradeManager.maxUpgrades();
   };
 
   $scope.openModal = function(modal) {

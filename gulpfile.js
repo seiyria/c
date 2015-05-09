@@ -80,10 +80,10 @@ gulp.task('buildlibcss', ['clean'], function() {
 
   return gulp.src(paths.libcss)
     .pipe(concat('lib.css'))
-    .pipe(gulpif(!watching, minifycss({
+    .pipe(minifycss({
       keepSpecialComments: false,
       removeEmpty: true
-    })))
+    }))
     .pipe(gulp.dest(paths.dist + 'css'))
     .on('error', gutil.log);
 });
@@ -92,10 +92,10 @@ gulp.task('copylibcss', ['clean'], function() {
   var paths = getPaths();
 
   return gulp.src(paths.copycss)
-    .pipe(gulpif(!watching, minifycss({
+    .pipe(minifycss({
       keepSpecialComments: false,
       removeEmpty: true
-    })))
+    }))
     .pipe(gulp.dest(paths.dist + 'css'))
     .on('error', gutil.log);
 });

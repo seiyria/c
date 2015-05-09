@@ -66,8 +66,22 @@ var upgradeManager = function(GameState, UPGRADES, favico) {
     return allRet;
   };
 
+  var upgrades = () => {
+    var ret = [];
+    _.each(GameState.upgrade.get(), (val, key) => {
+      for(var i = 0; i < val; i++) {
+        ret.push({name: key, level: i});
+      }
+    });
+    return ret;
+  };
+
+  var maxUpgrades = () => _.reduce(UPGRADES, (prev, obj) => prev + obj.levels.length, 0);
+
   return {
-    visible: _.throttle(visible, 50)
+    visible: _.throttle(visible, 50),
+    upgrades: _.throttle(upgrades, 50),
+    maxUpgrades: _.throttle(maxUpgrades, 50)
   };
 };
 
