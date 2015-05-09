@@ -71,6 +71,7 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
 
     $scope.upgrades = UpgradeManager.upgrades();
     $scope.maxUpgrades = UpgradeManager.maxUpgrades();
+    $scope.spentOnUpgrades = _.reduce($scope.upgrades, (prev, cur) => prev + cur.cost, 0);
   };
 
   $scope.openModal = function(modal) {
