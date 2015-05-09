@@ -70,9 +70,14 @@ var upgradeManager = function(GameState, UPGRADES, favico) {
     var ret = [];
     _.each(GameState.upgrade.get(), (val, key) => {
       for(var i = 0; i < val; i++) {
-        ret.push({name: key, level: i});
+        ret.push({name: key, level: i, cost: UPGRADES[key] ? UPGRADES[key].levels[i].cost : 0});
       }
     });
+
+    if(hasUpgrade('Alphabetized Upgrades')) {
+      ret = _.sortByOrder(ret, ['name', 'level'], [true, true]);
+    }
+
     return ret;
   };
 
