@@ -8,10 +8,12 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
 
   $scope.ads = GameState.adSet.get();
   $scope.setAds = function(val) {
+    $scope.ads = val;
     GameState.adSet.set(val);
     if(!val) {
       GameState.achieve('Think Of The Children');
     }
+    $scope.save();
   };
 
   $scope.tableParams = new NgTableParams({
