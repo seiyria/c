@@ -1,0 +1,29 @@
+script(type="text/ng-template", id="modal-upgrades")
+    div.modal-header
+        span.close(ng-click="$close()")
+            span.fa.fa-close
+        h4
+            span.fa.fa-key &nbsp;
+            | Upgrades
+
+    div.modal-body.no-padding.overflow-contents
+        table.table.table-striped
+            thead
+                tr
+                    th Name
+                    th Level
+                    th Cost
+            tbody
+                tr(ng-repeat="upgrade in upgrades")
+                    td {{upgrade.name}}
+                    td {{upgrade.level}}
+                    td
+                        span(ng-if="hasUpgrade('Number Formatting')") {{upgrade.cost | number:0}}
+                        span(ng-if="!hasUpgrade('Number Formatting')") {{upgrade.cost}}
+
+    div.modal-footer
+        span.pull-left
+            span Total {{currencyName}}s spent:&nbsp;
+            span(ng-if="hasUpgrade('Number Formatting')") {{spentOnUpgrades | number:0}}
+            span(ng-if="!hasUpgrade('Number Formatting')") {{spentOnUpgrades}}
+        button(ng-class="{'btn': hasUpgrade('Basic Style'), 'btn-default': hasUpgrade('Basic Color')}", ng-click="$close()") Close

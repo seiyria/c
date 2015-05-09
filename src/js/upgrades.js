@@ -275,5 +275,10 @@ module.exports = {
     category: 'Tech',
     requirements: {'Tabbed Output': 0, 'Basic Color': 0, 'Tooltips': 0, 'Basic Animation': 0},
     levels: [{cost: 100000, description: 'Visualize the upgrade tree! Oooh, pretty!'}]
+  },
+  'Upgrades Menu': {
+    category: 'Tech',
+    requirements: {'Menu': 0},
+    levels: [{cost: 150000, description: 'See what this game has cost you!'}]
   }
 };

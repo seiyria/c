@@ -82,6 +82,7 @@ var gameController = function($scope, $window, $interval, $filter, $http, $modal
       GameState.achieve('Upgradus Maximus');
     }
     $scope.achievements = GameState.achievementGet.get();
+    $scope.spentOnUpgrades = _.reduce($scope.upgrades, (prev, cur) => prev + cur.cost, 0);
   };
 
   $scope.openModal = function(modal) {

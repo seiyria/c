@@ -204,6 +204,11 @@ script(type="text/ng-template", id="dropdown")
                 a(href, ng-click="openModal('achievements')")
                     span.fa.fa-trophy &nbsp;
                     | Achievements
+                
+            li(ng-if="hasUpgrade('Upgrades Menu')")
+                a(href, ng-click="openModal('upgrades')")
+                    span.fa.fa-key &nbsp;
+                    | Upgrades
 
             li(ng-if="hasUpgrade('Save') && !hasUpgrade('Save', 3)")
                 a(href, ng-click="save()")
