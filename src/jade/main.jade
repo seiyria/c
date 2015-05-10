@@ -46,7 +46,7 @@ script(type="text/ng-template", id="main")
 
     div.container(ng-if="hasUpgrade('Basic Layout')")
         div.row
-            div(ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}")
+            div.col-xs-12.col-md-6
 
                 div(ng-if="!hasUpgrade('Better Layout', 1)")
                     h2 Acquire
@@ -116,7 +116,7 @@ script(type="text/ng-template", id="main")
                                     span(ng-if="!hasUpgrade('Number Formatting')") Buy for {{item.cost}} {{currencyName}}s
                                     span(ng-if="hasUpgrade('Number Formatting')") Buy for {{item.cost | number:0}} {{currencyName}}s
 
-            div(ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}")
+            div.col-xs-12.col-md-6
 
                 h2 Output
 
