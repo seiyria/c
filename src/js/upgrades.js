@@ -261,6 +261,16 @@ module.exports = {
     requirements: {'Production Breakdown': 0},
     levels: [{cost: 50000, description: 'Get some labels on that chart!'}]
   },
+  'Achievements': {
+    category: 'Tech',
+    requirements: {'Scoreboard': 0, 'Notifications': 0},
+    levels: [{cost: 75000, description: 'If you have goals in life, this is recommended.'}]
+  },
+  'Achievements Menu': {
+    category: 'Tech',
+    requirements: {'Achievements': 0, 'Menu': 0},
+    levels: [{cost: 777777, description: 'If you want to view your goals in life, this is recommended.'}]
+  },
   'Upgrade Tree': {
     category: 'Tech',
     requirements: {'Tabbed Output': 0, 'Basic Color': 0, 'Tooltips': 0, 'Basic Animation': 0},

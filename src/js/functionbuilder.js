@@ -58,7 +58,12 @@ var functionBuilder = function(GameState, GainCalculator, $window) {
       }
 
       // dump it on the page. it's an "exploit"
-      $window.increaseUnits = function(mult = 1, source = 'Cheating') { GameState.unit.inc(mult * GainCalculator.all(upgrade), true, source); };
+      $window.increaseUnits = function(mult = 1, source = 'Cheating') {
+        GameState.unit.inc(mult * GainCalculator.all(upgrade), true, source);
+        if(source === 'Cheating') {
+          GameState.achieve('Pumpkin Eater');
+        }
+      };
 
       return `${timeout}${saveHeader[0]}
 ${functionHeader[0]}
