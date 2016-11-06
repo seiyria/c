@@ -56,7 +56,7 @@
   </nav>
   <div ng-if="hasUpgrade('Basic Layout')" class="container">
     <div class="row">
-      <div class="col-xs-12 col-md-6">
+      <div ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}">
         <div ng-if="!hasUpgrade('Better Layout', 1)">
           <h2>Acquire</h2>
           <div class="pull-left">
@@ -103,7 +103,7 @@
           </tbody>
         </table>
       </div>
-      <div class="col-xs-12 col-md-6">
+      <div ng-class="{'col-xs-6': !hasUpgrade('Better Layout'), 'col-md-6': hasUpgrade('Better Layout')}">
         <h2>Output</h2>
         <ng-include src="'output-code'" ng-if="!hasUpgrade('Tabbed Output')"></ng-include>
         <tabset ng-if="hasUpgrade('Tabbed Output')">
@@ -184,6 +184,7 @@
     <ul>
       <li><a target="_blank" href="http://reddit.com/r/incremental_games"><span class="fa fa-reddit">&nbsp;</span>/r/incremental_games - introducing the genre</a></li>
       <li><a target="_blank" href="http://www.reddit.com/user/Wrydryn"><span class="fa fa-reddit">&nbsp;</span>/u/Wrydryn - the original idea</a></li>
+      <li><a><span class="fa fa-user">&nbsp;</span>FlameForged - spiritual successor maintainer and creator of <a target="_blank" href="https://play.google.com/store/apps/details?id=coding.idle">a mobile app</a></a></li>
     </ul>
     <h4>Made With</h4>
     <ul>
