@@ -14,33 +14,34 @@
     "del": "*",
     "errorify": "^0.2.0",
     "gulp": "*",
+    "gulp-bump": "~0.3.0",
     "gulp-concat": "*",
     "gulp-connect": "*",
     "gulp-download": "*",
+    "gulp-filter": "~2.0.2",
+    "gulp-gh-pages": "~0.5.1",
     "gulp-if": "*",
     "gulp-jade": "^1.0.0",
-    "gulp-jshint": "*",
+    "gulp-jscs": "~1.6.0",
+    "gulp-jshint": "^2.0.2",
     "gulp-less": "^3.0.2",
     "gulp-minify-css": "*",
     "gulp-minify-html": "*",
+    "gulp-open": "~0.3.2",
     "gulp-processhtml": "*",
     "gulp-rename": "*",
     "gulp-sourcemaps": "^1.5.1",
     "gulp-streamify": "*",
+    "gulp-tag-version": "~1.2.1",
     "gulp-uglify": "*",
     "gulp-util": "*",
     "gulp-watch": "*",
+    "jscs": "*",
+    "jshint": "^2.9.4",
     "tiny-lr": "*",
     "vinyl-paths": "*",
     "vinyl-source-stream": "*",
-    "watchify": "*",
-    "gulp-open": "~0.3.2",
-    "gulp-jscs": "~1.6.0",
-    "jscs": "*",
-    "gulp-gh-pages": "~0.5.1",
-    "gulp-bump": "~0.3.0",
-    "gulp-tag-version": "~1.2.1",
-    "gulp-filter": "~2.0.2"
+    "watchify": "*"
   },
   "scripts": {
     "post-install": "node ./node_modules/bower/bin/bower install",
@@ -96,5 +97,8 @@
     ],
     "entry": "./src/js/main.js",
     "dist": "./dist/"
+  },
+  "dependencies": {
+    "d3": "^4.3.0"
   }
 }
