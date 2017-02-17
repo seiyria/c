@@ -117,6 +117,8 @@ var gameState = function($q, notificationService, $filter, UPGRADES, ACHIEVEMENT
 
       var nextLevel = currentState.upgrades[key] || 0;
 
+      if(!UPGRADES[key].levels[nextLevel]) return;
+
       var cost = _.isFunction(UPGRADES[key].levels) ?
         UPGRADES[key].levels(nextLevel).cost :
         UPGRADES[key].levels[nextLevel].cost;
