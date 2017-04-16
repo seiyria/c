@@ -211,6 +211,7 @@ module.exports = {
       {cost: 10000, description: 'You get more production via timer methods.'},
       {cost: 500000, description: 'You get even more production via the timer.'},
       {cost: 2500000, description: 'The timer is now quite lucrative.'}
+      {cost: 1000000000, description: 'This costs a billion snot bubbles, or what have you.'}
     ]
   },
   Notifications: {
